@@ -22,24 +22,31 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.GameSelector = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ImportButton = New System.Windows.Forms.Button()
         Me.TrackList = New System.Windows.Forms.ListView()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.LoadedCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.TrackCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.HotKeyCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.TagsCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StartButton = New System.Windows.Forms.Button()
         Me.ImportDialog = New System.Windows.Forms.OpenFileDialog()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.WavWorker = New System.ComponentModel.BackgroundWorker()
         Me.PollRelayWorker = New System.ComponentModel.BackgroundWorker()
         Me.ChangeDirButton = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.PlayKeyTextBox = New System.Windows.Forms.TextBox()
-        Me.ChangeDirDialog = New System.Windows.Forms.FolderBrowserDialog()
-        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.TrackContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ContextDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GoToToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LoadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ContextRefresh = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemoveHotkeyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ContextHotKey = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PlayKeyButton = New System.Windows.Forms.Button()
+        Me.TrackContextMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'GameSelector
@@ -66,7 +73,7 @@ Partial Class Form1
         'ImportButton
         '
         Me.ImportButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ImportButton.Location = New System.Drawing.Point(15, 288)
+        Me.ImportButton.Location = New System.Drawing.Point(15, 297)
         Me.ImportButton.Name = "ImportButton"
         Me.ImportButton.Size = New System.Drawing.Size(75, 23)
         Me.ImportButton.TabIndex = 3
@@ -79,36 +86,40 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TrackList.AutoArrange = False
-        Me.TrackList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
+        Me.TrackList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.LoadedCol, Me.TrackCol, Me.HotKeyCol, Me.TagsCol})
         Me.TrackList.FullRowSelect = True
         Me.TrackList.HideSelection = False
         Me.TrackList.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.TrackList.Location = New System.Drawing.Point(15, 39)
         Me.TrackList.MultiSelect = False
         Me.TrackList.Name = "TrackList"
-        Me.TrackList.Size = New System.Drawing.Size(457, 243)
+        Me.TrackList.Size = New System.Drawing.Size(457, 252)
         Me.TrackList.TabIndex = 4
         Me.TrackList.UseCompatibleStateImageBehavior = False
         Me.TrackList.View = System.Windows.Forms.View.Details
         '
-        'ColumnHeader1
+        'LoadedCol
         '
-        Me.ColumnHeader1.Text = "Loaded"
+        Me.LoadedCol.Text = "Loaded"
         '
-        'ColumnHeader2
+        'TrackCol
         '
-        Me.ColumnHeader2.Text = "Track"
-        Me.ColumnHeader2.Width = 137
+        Me.TrackCol.Text = "Track"
+        Me.TrackCol.Width = 137
         '
-        'ColumnHeader3
+        'HotKeyCol
         '
-        Me.ColumnHeader3.Text = "Tags"
-        Me.ColumnHeader3.Width = 43
+        Me.HotKeyCol.Text = "Bind"
+        '
+        'TagsCol
+        '
+        Me.TagsCol.Text = "Tags"
+        Me.TagsCol.Width = 43
         '
         'StartButton
         '
         Me.StartButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.StartButton.Location = New System.Drawing.Point(96, 288)
+        Me.StartButton.Location = New System.Drawing.Point(96, 297)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(75, 23)
         Me.StartButton.TabIndex = 5
@@ -125,7 +136,7 @@ Partial Class Form1
         '
         Me.ProgressBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar1.Location = New System.Drawing.Point(15, 317)
+        Me.ProgressBar1.Location = New System.Drawing.Point(15, 326)
         Me.ProgressBar1.Name = "ProgressBar1"
         Me.ProgressBar1.Size = New System.Drawing.Size(457, 23)
         Me.ProgressBar1.Step = 1
@@ -150,43 +161,64 @@ Partial Class Form1
         Me.ChangeDirButton.Text = "Change Dir"
         Me.ChangeDirButton.UseVisualStyleBackColor = True
         '
-        'Label2
+        'TrackContextMenu
         '
-        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(390, 293)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(51, 13)
-        Me.Label2.TabIndex = 8
-        Me.Label2.Text = "Play Key:"
+        Me.TrackContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextDelete, Me.GoToToolStripMenuItem, Me.LoadToolStripMenuItem, Me.ContextRefresh, Me.RemoveHotkeyToolStripMenuItem, Me.ContextHotKey})
+        Me.TrackContextMenu.Name = "TrackContextMenu"
+        Me.TrackContextMenu.Size = New System.Drawing.Size(153, 158)
         '
-        'PlayKeyTextBox
+        'ContextDelete
         '
-        Me.PlayKeyTextBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PlayKeyTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.PlayKeyTextBox.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.PlayKeyTextBox.Location = New System.Drawing.Point(447, 290)
-        Me.PlayKeyTextBox.MaxLength = 2
-        Me.PlayKeyTextBox.Name = "PlayKeyTextBox"
-        Me.PlayKeyTextBox.Size = New System.Drawing.Size(25, 20)
-        Me.PlayKeyTextBox.TabIndex = 9
-        Me.PlayKeyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ContextDelete.Name = "ContextDelete"
+        Me.ContextDelete.Size = New System.Drawing.Size(158, 22)
+        Me.ContextDelete.Text = "Delete"
         '
-        'ChangeDirDialog
+        'GoToToolStripMenuItem
         '
-        Me.ChangeDirDialog.Description = "Select your steamapps folder:"
-        Me.ChangeDirDialog.ShowNewFolderButton = False
+        Me.GoToToolStripMenuItem.Name = "GoToToolStripMenuItem"
+        Me.GoToToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.GoToToolStripMenuItem.Text = "Go To"
         '
-        'BackgroundWorker1
+        'LoadToolStripMenuItem
         '
+        Me.LoadToolStripMenuItem.Name = "LoadToolStripMenuItem"
+        Me.LoadToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.LoadToolStripMenuItem.Text = "Load"
+        '
+        'ContextRefresh
+        '
+        Me.ContextRefresh.Name = "ContextRefresh"
+        Me.ContextRefresh.Size = New System.Drawing.Size(158, 22)
+        Me.ContextRefresh.Text = "Refresh"
+        '
+        'RemoveHotkeyToolStripMenuItem
+        '
+        Me.RemoveHotkeyToolStripMenuItem.Name = "RemoveHotkeyToolStripMenuItem"
+        Me.RemoveHotkeyToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RemoveHotkeyToolStripMenuItem.Text = "Remove Bind"
+        '
+        'ContextHotKey
+        '
+        Me.ContextHotKey.Name = "ContextHotKey"
+        Me.ContextHotKey.Size = New System.Drawing.Size(152, 22)
+        Me.ContextHotKey.Text = "Set Bind"
+        '
+        'PlayKeyButton
+        '
+        Me.PlayKeyButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PlayKeyButton.Location = New System.Drawing.Point(247, 297)
+        Me.PlayKeyButton.Name = "PlayKeyButton"
+        Me.PlayKeyButton.Size = New System.Drawing.Size(225, 23)
+        Me.PlayKeyButton.TabIndex = 8
+        Me.PlayKeyButton.Text = "Play key: {0} (change)"
+        Me.PlayKeyButton.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(484, 352)
-        Me.Controls.Add(Me.PlayKeyTextBox)
-        Me.Controls.Add(Me.Label2)
+        Me.ClientSize = New System.Drawing.Size(484, 361)
+        Me.Controls.Add(Me.PlayKeyButton)
         Me.Controls.Add(Me.ChangeDirButton)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.StartButton)
@@ -195,9 +227,11 @@ Partial Class Form1
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.GameSelector)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MinimumSize = New System.Drawing.Size(500, 400)
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Source Live Audio Mixer"
+        Me.TrackContextMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -206,18 +240,23 @@ Partial Class Form1
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents ImportButton As System.Windows.Forms.Button
     Friend WithEvents TrackList As System.Windows.Forms.ListView
-    Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents LoadedCol As System.Windows.Forms.ColumnHeader
+    Friend WithEvents TrackCol As System.Windows.Forms.ColumnHeader
+    Friend WithEvents TagsCol As System.Windows.Forms.ColumnHeader
     Friend WithEvents StartButton As System.Windows.Forms.Button
     Friend WithEvents ImportDialog As System.Windows.Forms.OpenFileDialog
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
     Friend WithEvents WavWorker As System.ComponentModel.BackgroundWorker
     Friend WithEvents PollRelayWorker As System.ComponentModel.BackgroundWorker
     Friend WithEvents ChangeDirButton As System.Windows.Forms.Button
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents PlayKeyTextBox As System.Windows.Forms.TextBox
-    Friend WithEvents ChangeDirDialog As System.Windows.Forms.FolderBrowserDialog
-    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents TrackContextMenu As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents ContextDelete As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ContextRefresh As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ContextHotKey As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents HotKeyCol As System.Windows.Forms.ColumnHeader
+    Friend WithEvents LoadToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RemoveHotkeyToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents GoToToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents PlayKeyButton As System.Windows.Forms.Button
 
 End Class

@@ -56,7 +56,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Program Files (x86)\Steam\steamapps\")>  _
         Public Property SteamAppsFolder() As String
             Get
                 Return CType(Me("SteamAppsFolder"),String)
@@ -78,15 +78,27 @@ Namespace My
             End Set
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("")> _
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property LastGame() As String
             Get
-                Return CType(Me("LastGame"), String)
+                Return CType(Me("LastGame"),String)
             End Get
-            Set(value As String)
+            Set
                 Me("LastGame") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property NoHint() As Boolean
+            Get
+                Return CType(Me("NoHint"),Boolean)
+            End Get
+            Set
+                Me("NoHint") = value
             End Set
         End Property
     End Class
