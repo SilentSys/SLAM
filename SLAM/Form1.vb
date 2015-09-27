@@ -545,7 +545,6 @@ Public Class Form1
     End Sub
 
     Private Async Function CheckForUpdate() As Task
-        Try
             Dim UpdateText As String
 
             Using client As New HttpClient
@@ -562,9 +561,6 @@ Public Class Form1
                     End If
                 End If
             End If
-        Catch ex As Exception
-
-        End Try
     End Function
 
     Private Sub PlayKeyButton_Click(sender As Object, e As EventArgs) Handles PlayKeyButton.Click
