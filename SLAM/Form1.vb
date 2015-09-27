@@ -545,22 +545,26 @@ Public Class Form1
     End Sub
 
     Private Async Function CheckForUpdate() As Task
-        Dim UpdateText As String
+        Try
+            Dim UpdateText As String
 
-        Using client As New HttpClient
-            Dim UpdateTextTask As Task(Of String) = client.GetStringAsync("http://slam.flankers.net/updates.php")
-            UpdateText = Await UpdateTextTask
-        End Using
+            Using client As New HttpClient
+                Dim UpdateTextTask As Task(Of String) = client.GetStringAsync("http://slam.flankers.net/updates.php")
+                UpdateText = Await UpdateTextTask
+            End Using
 
-        Dim NewVersion As New Version("0.0.0.0") 'generic
-        Dim UpdateURL As String = UpdateText.Split()(1)
-        If Version.TryParse(UpdateText.Split()(0), NewVersion) Then
-            If My.Application.Info.Version.CompareTo(NewVersion) < 0 Then
-                If MessageBox.Show(String.Format("An update ({0}) is available! Click ""OK"" to be taken to the download page.", NewVersion.ToString), "SLAM Update", MessageBoxButtons.OKCancel) = Windows.Forms.DialogResult.OK Then
-                    Process.Start(UpdateURL)
+            Dim NewVersion As New Version("0.0.0.0") 'generic
+            Dim UpdateURL As String = UpdateText.Split()(1)
+            If Version.TryParse(UpdateText.Split()(0), NewVersion) Then
+                If My.Application.Info.Version.CompareTo(NewVersion) < 0 Then
+                    If MessageBox.Show(String.Format("An update ({0}) is available! Click ""OK"" to be taken to the download page.", NewVersion.ToString), "SLAM Update", MessageBoxButtons.OKCancel) = Windows.Forms.DialogResult.OK Then
+                        Process.Start(UpdateURL)
+                    End If
                 End If
             End If
-        End If
+        Catch ex As Exception
+
+        End Try
     End Function
 
     Private Sub PlayKeyButton_Click(sender As Object, e As EventArgs) Handles PlayKeyButton.Click
