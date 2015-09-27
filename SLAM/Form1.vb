@@ -7,7 +7,6 @@ Imports SLAM.XmlSerialization
 Imports System.Net.Http
 
 Public Class Form1
-    Dim SlamVersion As New Version("1.1.0")
 
     Dim Games As New List(Of SourceGame)
 
@@ -47,7 +46,7 @@ Public Class Form1
     End Sub
 
     Private Sub WaveCreator(File As String, outputFile As String)
-        Dim reader
+        Dim reader As New Object
 
         If Path.GetExtension(File) = ".mp3" Then
             reader = New Mp3FileReader(File)
@@ -142,6 +141,7 @@ Public Class Form1
                 Return Game
             End If
         Next
+        Return Nothing 'Null if nothing found
     End Function
 
     Private Sub ReloadTracks(Game As SourceGame)
@@ -552,10 +552,10 @@ Public Class Form1
             UpdateText = Await UpdateTextTask
         End Using
 
-        Dim NewVersion As Version
+        Dim NewVersion As New Version("0.0.0.0") 'generic
         Dim UpdateURL As String = UpdateText.Split()(1)
         If Version.TryParse(UpdateText.Split()(0), NewVersion) Then
-            If SlamVersion.CompareTo(NewVersion) < 0 Then
+            If My.Application.Info.Version.CompareTo(NewVersion) < 0 Then
                 If MessageBox.Show(String.Format("An update ({0}) is available! Click ""OK"" to be taken to the download page.", NewVersion.ToString), "SLAM Update", MessageBoxButtons.OKCancel) = Windows.Forms.DialogResult.OK Then
                     Process.Start(UpdateURL)
                 End If
