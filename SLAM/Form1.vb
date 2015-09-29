@@ -14,7 +14,7 @@ Public Class Form1
     Dim running As Boolean = False
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        DisableInterface()
+        UpdateInterface()
 
         RefreshPlayKey()
 
@@ -80,7 +80,7 @@ Public Class Form1
                 Dim WorkerPassthrough() As Object = {GetCurrentGame(), ImportDialog.FileNames}
 
                 WavWorker.RunWorkerAsync(WorkerPassthrough)
-                DisableInterface()
+                UpdateInterface()
             End If
 
         Else
@@ -132,7 +132,7 @@ Public Class Form1
         ReloadTracks(GetCurrentGame)
         RefreshTrackList()
         MsgBox(MsgBoxText)
-        EnableInterface()
+        UpdateInterface()
     End Sub
 
     Private Function GetCurrentGame() As SourceGame
@@ -201,7 +201,7 @@ Public Class Form1
         running = True
         StartButton.Text = "Stop"
         CreateCfgFiles()
-        DisableInterface()
+        UpdateInterface()
         StartButton.Enabled = True
         PollRelayWorker.RunWorkerAsync(GetCurrentGame)
     End Sub
@@ -209,7 +209,8 @@ Public Class Form1
     Private Sub StopPoll()
         running = False
         StartButton.Text = "Start"
-        EnableInterface()
+        UpdateInterface()
+        StartButton.Enabled = True
         PollRelayWorker.CancelAsync()
     End Sub
 
@@ -347,17 +348,11 @@ Public Class Form1
         Next
     End Sub
 
-    Private Sub EnableInterface()
-        For Each Control In Me.Controls
-            Control.Enabled = True
-        Next
+    Private Sub UpdateInterface()
+        For Each i In Me.Controls : i.enabled = Not i.enabled : Next 'Flips the controls enabled state.
     End Sub
 
-    Private Sub DisableInterface()
-        For Each Control In Me.Controls
-            Control.Enabled = False
-        Next
-    End Sub
+    
 
     Private Sub DisplayLoaded(ByVal track As Integer)
         For i As Integer = 0 To TrackList.Items.Count - 1
@@ -397,10 +392,10 @@ Public Class Form1
             My.Settings.SteamAppsFolder = SteamappsPath
             My.Settings.Save()
 
-            EnableInterface()
+            UpdateInterface()
 
         Else
-            DisableInterface()
+            UpdateInterface()
             ChangeDirButton.Enabled = True
             ShowFolderSelector()
         End If
@@ -575,26 +570,4 @@ Public Class Form1
     Private Sub RefreshPlayKey()
         PlayKeyButton.Text = String.Format("Play key: {0} (change)", My.Settings.PlayKey)
     End Sub
-End Class
-
-Public Class SourceGame
-    Public name As String
-    Public directory As String
-    Public ToCfg As String
-    Public libraryname As String
-
-    Public FileExtension As String = ".wav"
-    Public samplerate As Integer = 11025
-    Public bits As Integer = 16
-    Public channels As Integer = 1
-
-    Public PollInterval As Integer = 100
-    Public RelayKey As String = "="
-
-    Public tracks As New List(Of track)
-    Public Class track
-        Public name As String
-        Public tags As New List(Of String)
-        Public hotkey As String
-    End Class
 End Class
