@@ -45,7 +45,7 @@ Public Class Form1
         LoadGames()
     End Sub
 
-    Private Sub WaveCreator(File As String, outputFile As String)
+    Private Sub WaveCreator(File As String, outputFile As String, Game As SourceGame)
         Dim reader As New Object
 
         If Path.GetExtension(File) = ".mp3" Then
@@ -54,7 +54,7 @@ Public Class Form1
             reader = New WaveFileReader(File)
         End If
 
-        Dim outFormat = New WaveFormat(22050, 16, 1)
+        Dim outFormat = New WaveFormat(Game.samplerate, Game.bits, Game.channels)
 
         Dim resampler = New MediaFoundationResampler(reader, outFormat)
 
@@ -75,12 +75,11 @@ Public Class Form1
     Private Sub ImportButton_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
         If File.Exists("NAudio.dll") Then
             If ImportDialog.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
-                ProgressBar1.Maximum = ImportDialog.FileNames.Count
-
-                Dim WorkerPassthrough() As Object = {GetCurrentGame(), ImportDialog.FileNames}
-
-                WavWorker.RunWorkerAsync(WorkerPassthrough)
                 DisableInterface()
+                ProgressBar1.Maximum = ImportDialog.FileNames.Count
+                Dim WorkerPassthrough() As Object = {GetCurrentGame(), ImportDialog.FileNames}
+                WavWorker.RunWorkerAsync(WorkerPassthrough)
+
             End If
 
         Else
@@ -98,7 +97,7 @@ Public Class Form1
             Try
                 Dim OutFile As String = Path.Combine(Game.libraryname, Path.GetFileNameWithoutExtension(File) & ".wav")
 
-                WaveCreator(File, OutFile)
+                WaveCreator(File, OutFile, Game)
 
             Catch ex As Exception
                 FailedFiles.Add(File)
@@ -321,7 +320,7 @@ Public Class Form1
     End Sub
 
     Private Sub CreateTags(ByVal Game As SourceGame)
-        Dim BadWords() As String = {"slam", "slam_listtracks", "list", "tracks", "la", "slam_play", "slam_play_on", "slam_play_off", "slam_updatecfg"}
+        Dim BadWords() As String = {"slam", "slam_listtracks", "list", "tracks", "la", "slam_play", "slam_play_on", "slam_play_off", "slam_updatecfg", "drop"}
         Dim NameWords As New Dictionary(Of String, Integer)
 
         Dim index As Integer
