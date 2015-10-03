@@ -320,7 +320,8 @@ Public Class Form1
     End Sub
 
     Private Sub CreateTags(ByVal Game As SourceGame)
-        Dim BadWords() As String = {"slam", "slam_listtracks", "list", "tracks", "la", "slam_play", "slam_play_on", "slam_play_off", "slam_updatecfg", "drop"}
+        Dim BadWords() As String = {"slam", "slam_listtracks", "list", "tracks", "la", "slam_play", "slam_play_on", "slam_play_off", "slam_updatecfg", "drop", "go", "fallback", "sticktog", "holdpos", "followme",
+        "coverme", "regroup", "roger", "negative", "cheer", "compliment", "thanks", "enemydown", "reportingin", "enemyspot", "takepoint", "sectorclear", "inposition", "takingfire", "report", "getout"}
         Dim NameWords As New Dictionary(Of String, Integer)
 
         Dim index As Integer
