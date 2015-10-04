@@ -10,3 +10,4 @@ Current features:
 - Import multiple .mp3 and .wav files at once with the click of a button.
 - Support for multiple games, such as: Counter-Strike: Global Offensive (CS:GO), Counter-Strike: Source (CS:S), and Team Fortress 2 (TF2)
 - Create binds to load specific songs.
+- Change track volume on the go.
