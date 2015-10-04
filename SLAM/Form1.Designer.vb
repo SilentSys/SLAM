@@ -31,6 +31,7 @@ Partial Class Form1
         Me.LoadedCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TrackCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.HotKeyCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.VolumeCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TagsCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StartButton = New System.Windows.Forms.Button()
         Me.ImportDialog = New System.Windows.Forms.OpenFileDialog()
@@ -45,6 +46,7 @@ Partial Class Form1
         Me.ContextRefresh = New System.Windows.Forms.ToolStripMenuItem()
         Me.RemoveHotkeyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextHotKey = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SetVolumeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PlayKeyButton = New System.Windows.Forms.Button()
         Me.TrackContextMenu.SuspendLayout()
         Me.SuspendLayout()
@@ -86,12 +88,11 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TrackList.AutoArrange = False
-        Me.TrackList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.LoadedCol, Me.TrackCol, Me.HotKeyCol, Me.TagsCol})
+        Me.TrackList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.LoadedCol, Me.TrackCol, Me.HotKeyCol, Me.VolumeCol, Me.TagsCol})
         Me.TrackList.FullRowSelect = True
         Me.TrackList.HideSelection = False
         Me.TrackList.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.TrackList.Location = New System.Drawing.Point(15, 39)
-        Me.TrackList.MultiSelect = False
         Me.TrackList.Name = "TrackList"
         Me.TrackList.Size = New System.Drawing.Size(457, 252)
         Me.TrackList.TabIndex = 4
@@ -110,6 +111,11 @@ Partial Class Form1
         'HotKeyCol
         '
         Me.HotKeyCol.Text = "Bind"
+        '
+        'VolumeCol
+        '
+        Me.VolumeCol.Text = "Volume"
+        Me.VolumeCol.Width = 100
         '
         'TagsCol
         '
@@ -158,50 +164,56 @@ Partial Class Form1
         Me.ChangeDirButton.Name = "ChangeDirButton"
         Me.ChangeDirButton.Size = New System.Drawing.Size(75, 23)
         Me.ChangeDirButton.TabIndex = 7
-        Me.ChangeDirButton.Text = "Change Dir"
+        Me.ChangeDirButton.Text = "Settings"
         Me.ChangeDirButton.UseVisualStyleBackColor = True
         '
         'TrackContextMenu
         '
-        Me.TrackContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextDelete, Me.GoToToolStripMenuItem, Me.LoadToolStripMenuItem, Me.ContextRefresh, Me.RemoveHotkeyToolStripMenuItem, Me.ContextHotKey})
+        Me.TrackContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextDelete, Me.GoToToolStripMenuItem, Me.LoadToolStripMenuItem, Me.ContextRefresh, Me.RemoveHotkeyToolStripMenuItem, Me.ContextHotKey, Me.SetVolumeToolStripMenuItem})
         Me.TrackContextMenu.Name = "TrackContextMenu"
-        Me.TrackContextMenu.Size = New System.Drawing.Size(153, 158)
+        Me.TrackContextMenu.Size = New System.Drawing.Size(145, 158)
         '
         'ContextDelete
         '
         Me.ContextDelete.Name = "ContextDelete"
-        Me.ContextDelete.Size = New System.Drawing.Size(158, 22)
+        Me.ContextDelete.Size = New System.Drawing.Size(144, 22)
         Me.ContextDelete.Text = "Delete"
         '
         'GoToToolStripMenuItem
         '
         Me.GoToToolStripMenuItem.Name = "GoToToolStripMenuItem"
-        Me.GoToToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.GoToToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
         Me.GoToToolStripMenuItem.Text = "Go To"
         '
         'LoadToolStripMenuItem
         '
         Me.LoadToolStripMenuItem.Name = "LoadToolStripMenuItem"
-        Me.LoadToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.LoadToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
         Me.LoadToolStripMenuItem.Text = "Load"
         '
         'ContextRefresh
         '
         Me.ContextRefresh.Name = "ContextRefresh"
-        Me.ContextRefresh.Size = New System.Drawing.Size(158, 22)
+        Me.ContextRefresh.Size = New System.Drawing.Size(144, 22)
         Me.ContextRefresh.Text = "Refresh"
         '
         'RemoveHotkeyToolStripMenuItem
         '
         Me.RemoveHotkeyToolStripMenuItem.Name = "RemoveHotkeyToolStripMenuItem"
-        Me.RemoveHotkeyToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RemoveHotkeyToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
         Me.RemoveHotkeyToolStripMenuItem.Text = "Remove Bind"
         '
         'ContextHotKey
         '
         Me.ContextHotKey.Name = "ContextHotKey"
-        Me.ContextHotKey.Size = New System.Drawing.Size(152, 22)
+        Me.ContextHotKey.Size = New System.Drawing.Size(144, 22)
         Me.ContextHotKey.Text = "Set Bind"
+        '
+        'SetVolumeToolStripMenuItem
+        '
+        Me.SetVolumeToolStripMenuItem.Name = "SetVolumeToolStripMenuItem"
+        Me.SetVolumeToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.SetVolumeToolStripMenuItem.Text = "Set Volume"
         '
         'PlayKeyButton
         '
@@ -210,7 +222,7 @@ Partial Class Form1
         Me.PlayKeyButton.Name = "PlayKeyButton"
         Me.PlayKeyButton.Size = New System.Drawing.Size(225, 23)
         Me.PlayKeyButton.TabIndex = 8
-        Me.PlayKeyButton.Text = "Play key: {0} (change)"
+        Me.PlayKeyButton.Text = "Play key: """"{0}"""" (change)"
         Me.PlayKeyButton.UseVisualStyleBackColor = True
         '
         'Form1
@@ -258,5 +270,7 @@ Partial Class Form1
     Friend WithEvents RemoveHotkeyToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GoToToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PlayKeyButton As System.Windows.Forms.Button
+    Friend WithEvents VolumeCol As System.Windows.Forms.ColumnHeader
+    Friend WithEvents SetVolumeToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

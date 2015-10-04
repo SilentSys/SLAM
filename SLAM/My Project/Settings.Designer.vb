@@ -101,6 +101,66 @@ Namespace My
                 Me("NoHint") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property UpdateCheck() As Boolean
+            Get
+                Return CType(Me("UpdateCheck"),Boolean)
+            End Get
+            Set
+                Me("UpdateCheck") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property LogError() As Boolean
+            Get
+                Return CType(Me("LogError"),Boolean)
+            End Get
+            Set
+                Me("LogError") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property StartEnabled() As Boolean
+            Get
+                Return CType(Me("StartEnabled"),Boolean)
+            End Get
+            Set
+                Me("StartEnabled") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property WriteTags() As Boolean
+            Get
+                Return CType(Me("WriteTags"),Boolean)
+            End Get
+            Set
+                Me("WriteTags") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("=")>  _
+        Public Property RelayKey() As String
+            Get
+                Return CType(Me("RelayKey"),String)
+            End Get
+            Set
+                Me("RelayKey") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
