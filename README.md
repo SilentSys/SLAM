@@ -11,3 +11,4 @@ Current features:
 - Support for multiple games, such as: Counter-Strike: Global Offensive (CS:GO), Counter-Strike: Source (CS:S), and Team Fortress 2 (TF2)
 - Create binds to load specific songs.
 - Change track volume on the go.
+- Trim tracks on the go.
