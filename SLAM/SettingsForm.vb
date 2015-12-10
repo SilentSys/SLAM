@@ -3,6 +3,7 @@
     Private Sub SettingsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         VersionLabel.Text = Join({My.Application.Info.Version.Major, My.Application.Info.Version.Minor, My.Application.Info.Version.Build}, ".")
         DirText.Text = My.Settings.SteamAppsFolder
+        UserDataDir.Text = My.Settings.UserdataPath
         UpdateCheckBox.Checked = My.Settings.UpdateCheck
         HintCheckBox.Checked = My.Settings.NoHint
         LogCheckBox.Checked = My.Settings.LogError
@@ -47,6 +48,17 @@
             My.Settings.RelayKey = SelectKeyDialog.ChosenKey
             My.Settings.Save()
             ChangeRelayButton.Text = String.Format("Relay key: ""{0}"" (change)", My.Settings.RelayKey)
+        End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim ChangeDirDialog As New FolderBrowserDialog
+        ChangeDirDialog.Description = "Select your userdata folder:"
+        ChangeDirDialog.ShowNewFolderButton = False
+
+        If ChangeDirDialog.ShowDialog = System.Windows.Forms.DialogResult.OK Then
+            My.Settings.UserdataPath = ChangeDirDialog.SelectedPath & "\"
+            UserDataDir.Text = My.Settings.UserdataPath
         End If
     End Sub
 End Class

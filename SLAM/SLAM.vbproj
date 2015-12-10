@@ -133,11 +133,21 @@
     <Compile Include="SelectKey.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="AdvWaveViewer.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TrimForm.Designer.vb">
+      <DependentUpon>TrimForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TrimForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="XmlSerialization.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.vb</DependentUpon>
@@ -154,6 +164,9 @@
     <EmbeddedResource Include="SelectKey.resx">
       <DependentUpon>SelectKey.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TrimForm.resx">
+      <DependentUpon>TrimForm.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
@@ -164,6 +177,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <None Include="App.config" />
   </ItemGroup>

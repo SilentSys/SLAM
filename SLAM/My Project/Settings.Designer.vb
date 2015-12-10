@@ -161,6 +161,18 @@ Namespace My
                 Me("RelayKey") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Program Files (x86)\Steam\userdata\")>  _
+        Public Property UserdataPath() As String
+            Get
+                Return CType(Me("UserdataPath"),String)
+            End Get
+            Set
+                Me("UserdataPath") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

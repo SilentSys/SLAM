@@ -38,12 +38,18 @@ Partial Class SettingsForm
         Me.ChangeDirButton = New System.Windows.Forms.Button()
         Me.DirText = New System.Windows.Forms.TextBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.UserDataDir = New System.Windows.Forms.TextBox()
         Me.StatusStrip1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
         '
         'StatusStrip1
@@ -70,8 +76,8 @@ Partial Class SettingsForm
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.GroupBox4)
         Me.TabPage1.Controls.Add(Me.GroupBox3)
-        Me.TabPage1.Controls.Add(Me.GroupBox2)
         Me.TabPage1.Controls.Add(Me.GroupBox1)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
@@ -107,7 +113,7 @@ Partial Class SettingsForm
         Me.GroupBox2.Controls.Add(Me.LogCheckBox)
         Me.GroupBox2.Controls.Add(Me.HintCheckBox)
         Me.GroupBox2.Controls.Add(Me.UpdateCheckBox)
-        Me.GroupBox2.Location = New System.Drawing.Point(8, 147)
+        Me.GroupBox2.Location = New System.Drawing.Point(8, 6)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(260, 132)
         Me.GroupBox2.TabIndex = 2
@@ -195,12 +201,52 @@ Partial Class SettingsForm
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(284, 331)
         Me.TabControl1.TabIndex = 0
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Controls.Add(Me.GroupBox2)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(276, 305)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Misc."
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.Button1)
+        Me.GroupBox4.Controls.Add(Me.UserDataDir)
+        Me.GroupBox4.Location = New System.Drawing.Point(8, 147)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(260, 75)
+        Me.GroupBox4.TabIndex = 2
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "UserData Directory"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(179, 45)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 1
+        Me.Button1.Text = "Change"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'UserDataDir
+        '
+        Me.UserDataDir.Location = New System.Drawing.Point(6, 19)
+        Me.UserDataDir.Name = "UserDataDir"
+        Me.UserDataDir.ReadOnly = True
+        Me.UserDataDir.Size = New System.Drawing.Size(248, 20)
+        Me.UserDataDir.TabIndex = 0
         '
         'SettingsForm
         '
@@ -222,6 +268,9 @@ Partial Class SettingsForm
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
+        Me.TabPage2.ResumeLayout(False)
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -242,4 +291,8 @@ Partial Class SettingsForm
     Friend WithEvents ConTagsCheckBox As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents ChangeRelayButton As System.Windows.Forms.Button
+    Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents UserDataDir As System.Windows.Forms.TextBox
+    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
 End Class

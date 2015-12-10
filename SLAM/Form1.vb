@@ -24,6 +24,7 @@ Public Class Form1
 
         Dim csgo As New SourceGame
         csgo.name = "Counter-Strike: Global Offensive"
+        csgo.id = 730
         csgo.directory = "common\Counter-Strike Global Offensive\"
         csgo.ToCfg = "csgo\cfg\"
         csgo.libraryname = "csgo\"
@@ -181,7 +182,13 @@ Public Class Form1
         Dim Game As SourceGame = GetCurrentGame()
 
         For Each Track In Game.tracks
-            TrackList.Items.Add(New ListViewItem({"False", Track.name, Track.hotkey, Track.volume & "%", """" & String.Join(""", """, Track.tags) & """"}))
+
+            Dim trimmed As String = ""
+            If Track.endpos > 0 Then
+                trimmed = "Yes"
+            End If
+
+            TrackList.Items.Add(New ListViewItem({"False", Track.name, Track.hotkey, Track.volume & "%", trimmed, """" & String.Join(""", """, Track.tags) & """"}))
         Next
 
 
@@ -189,7 +196,8 @@ Public Class Form1
         TrackList.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent)
         TrackList.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize)
         TrackList.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.HeaderSize)
-        TrackList.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent)
+        TrackList.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.HeaderSize)
+        TrackList.AutoResizeColumn(5, ColumnHeaderAutoResizeStyle.ColumnContent)
     End Sub
 
     Private Sub StartButton_Click(sender As Object, e As EventArgs) Handles StartButton.Click
@@ -293,16 +301,34 @@ Public Class Form1
                 Dim trackfile As String = Game.libraryname & Track.name & Game.FileExtension
                 If File.Exists(trackfile) Then
 
-                    If Track.volume = 100 Then
+                    If Track.volume = 100 And Track.startpos = -1 And Track.endpos = -1 Then
                         File.Copy(trackfile, voicefile)
                     Else
+
                         Dim WaveFloat As New WaveChannel32(New WaveFileReader(trackfile))
+
+                        If Not Track.volume = 100 Then
+                            WaveFloat.Volume = (Track.volume / 100) ^ 6
+                        End If
+
+                        If Not Track.startpos = Track.endpos And Track.endpos > 0 Then
+                            Dim bytes((Track.endpos - Track.startpos) * 4) As Byte
+
+                            WaveFloat.Position = Track.startpos * 4
+                            WaveFloat.Read(bytes, 0, (Track.endpos - Track.startpos) * 4)
+
+                            WaveFloat = New WaveChannel32(New RawSourceWaveStream(New MemoryStream(bytes), WaveFloat.WaveFormat))
+                        End If
+
                         WaveFloat.PadWithZeroes = False
-                        WaveFloat.Volume = (Track.volume / 100) ^ 6
-                        Dim Wave16 As New Wave32To16Stream(WaveFloat)
                         Dim outFormat = New WaveFormat(Game.samplerate, Game.bits, Game.channels)
-                        Dim resampler = New MediaFoundationResampler(Wave16, outFormat)
+                        Dim resampler = New MediaFoundationResampler(WaveFloat, outFormat)
+                        resampler.ResamplerQuality = 60
                         WaveFileWriter.CreateWaveFile(voicefile, resampler)
+
+                        resampler.Dispose()
+                        WaveFloat.Dispose()
+
                     End If
 
                     Dim GameCfgFolder As String = Path.Combine(SteamappsPath, Game.directory, Game.ToCfg)
@@ -338,9 +364,14 @@ Public Class Form1
         Dim GameDir As String = Path.Combine(SteamappsPath, Game.directory)
         Dim GameCfg As String = Path.Combine(GameDir, Game.ToCfg) & "slam_relay.cfg"
 
+
         Do
             If PollRelayWorker.CancellationPending Then
                 Exit Do
+            End If
+
+            If Not String.IsNullOrEmpty(Game.id) Then
+                GameCfg = UserDataCFG(Game)
             End If
 
             If File.Exists(GameCfg) Then
@@ -365,8 +396,24 @@ Public Class Form1
         Loop
     End Sub
 
+    Public Function UserDataCFG(Game As SourceGame) As String
+        For Each userdir As String In Directory.GetDirectories(My.Settings.UserdataPath)
+            Dim CFGPath As String = Path.Combine(userdir, Game.id.ToString) & "\local\cfg\slam_relay.cfg"
+            If File.Exists(CFGPath) Then
+                Return CFGPath
+            End If
+        Next
+        Return vbNullString
+    End Function
+
     Private Sub PollRelayWorker_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles PollRelayWorker.ProgressChanged
         DisplayLoaded(e.ProgressPercentage)
+    End Sub
+
+    Private Sub PollRelayWorker_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles PollRelayWorker.RunWorkerCompleted
+        If running Then
+            StopPoll()
+        End If
     End Sub
 
     Private Sub CreateTags(ByVal Game As SourceGame)
@@ -479,8 +526,11 @@ Public Class Form1
         For Each Track In Game.tracks
             For Each SetTrack In SettingsList
                 If Track.name = SetTrack.name Then
+                    'Please tell me that there is a better way to do the following...
                     Track.hotkey = SetTrack.hotkey
                     Track.volume = SetTrack.volume
+                    Track.startpos = SetTrack.startpos
+                    Track.endpos = SetTrack.endpos
                 End If
             Next
         Next
@@ -492,7 +542,7 @@ Public Class Form1
         Dim SettingsFile As String = Path.Combine(Game.libraryname, "TrackSettings.xml")
 
         For Each Track In Game.tracks
-            If Not String.IsNullOrEmpty(Track.hotkey) Or Not Track.volume = 100 Then
+            If Not String.IsNullOrEmpty(Track.hotkey) Or Not Track.volume = 100 Or Track.endpos > 0 Then
 
                 SettingsList.Add(Track)
 
@@ -530,6 +580,7 @@ Public Class Form1
                 Else
                     If running Then
                         LoadToolStripMenuItem.Visible = True 'visible when only one selected AND is running
+                        TrimToolStripMenuItem.Visible = True
                     Else
                         For Each Control In TrackContextMenu.Items 'visible when only one selected AND is not running (all)
                             Control.visible = True
@@ -652,6 +703,24 @@ Public Class Form1
 
     End Sub
 
+    Private Sub TrimToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TrimToolStripMenuItem.Click
+        Dim Game As SourceGame = GetCurrentGame()
+        Dim TrimDialog As New TrimForm
+
+        TrimDialog.WavFile = Path.Combine(Game.libraryname, Game.tracks(TrackList.SelectedIndices(0)).name & Game.FileExtension)
+        TrimDialog.startpos = Game.tracks(TrackList.SelectedIndices(0)).startpos
+        TrimDialog.endpos = Game.tracks(TrackList.SelectedIndices(0)).endpos
+
+
+        If TrimDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Game.tracks(TrackList.SelectedIndices(0)).startpos = TrimDialog.startpos
+            Game.tracks(TrackList.SelectedIndices(0)).endpos = TrimDialog.endpos
+            SaveTrackKeys(GetCurrentGame)
+            ReloadTracks(GetCurrentGame)
+            RefreshTrackList()
+        End If
+    End Sub
+
     Private Async Sub CheckForUpdate()
         Dim UpdateText As String
 
@@ -732,6 +801,7 @@ End Class
 
 Public Class SourceGame
     Public name As String
+    Public id As Integer
     Public directory As String
     Public ToCfg As String
     Public libraryname As String
@@ -750,5 +820,7 @@ Public Class SourceGame
         Public tags As New List(Of String)
         Public hotkey As String = vbNullString
         Public volume As Integer = 100
+        Public startpos As Integer
+        Public endpos As Integer
     End Class
 End Class
