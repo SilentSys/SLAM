@@ -60,7 +60,9 @@ Public Class Form1
             reader = New Mp3FileReader(File)
         ElseIf Path.GetExtension(File) = ".wav" Then
             reader = New WaveFileReader(File)
-        End If
+        ElseIf Path.GetExtension(File) = ".aac" Then
+	    reader = New MediaFoundationReader(File)
+	End If
 
         Dim outFormat = New WaveFormat(Game.samplerate, Game.bits, Game.channels)
 
