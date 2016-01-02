@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="SteamAppsFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Program Files (x86)\Steam\steamapps\</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="PlayKey" Type="System.String" Scope="User">
       <Value Profile="(Default)">X</Value>
@@ -30,7 +30,10 @@
       <Value Profile="(Default)">=</Value>
     </Setting>
     <Setting Name="UserdataPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Program Files (x86)\Steam\userdata\</Value>
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="UserDataEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

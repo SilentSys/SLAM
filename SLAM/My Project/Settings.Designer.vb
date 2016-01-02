@@ -56,7 +56,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Program Files (x86)\Steam\steamapps\")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property SteamAppsFolder() As String
             Get
                 Return CType(Me("SteamAppsFolder"),String)
@@ -164,13 +164,25 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Program Files (x86)\Steam\userdata\")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property UserdataPath() As String
             Get
                 Return CType(Me("UserdataPath"),String)
             End Get
             Set
                 Me("UserdataPath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")> _
+        Public Property UserDataEnabled() As Boolean
+            Get
+                Return CType(Me("UserDataEnabled"), Boolean)
+            End Get
+            Set(value As Boolean)
+                Me("UserDataEnabled") = value
             End Set
         End Property
     End Class

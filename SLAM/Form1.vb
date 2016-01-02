@@ -54,13 +54,7 @@ Public Class Form1
     End Sub
 
     Private Sub WaveCreator(File As String, outputFile As String, Game As SourceGame)
-        Dim reader As New Object
-
-        If Path.GetExtension(File) = ".mp3" Then
-            reader = New Mp3FileReader(File)
-        ElseIf Path.GetExtension(File) = ".wav" Then
-            reader = New WaveFileReader(File)
-        End If
+        Dim reader As New MediaFoundationReader(File)
 
         Dim outFormat = New WaveFormat(Game.samplerate, Game.bits, Game.channels)
 
@@ -215,6 +209,28 @@ Public Class Form1
     End Sub
 
     Private Sub StartPoll()
+
+        Dim Game As SourceGame = GetCurrentGame()
+        If Not Game.id = 0 And My.Settings.UserDataEnabled Then 'The CFG's are located in the userdata folder
+            Dim CFGExists As Boolean = False
+            If Directory.Exists(My.Settings.UserdataPath) Then
+                For Each userdir As String In Directory.GetDirectories(My.Settings.UserdataPath)
+                    Dim CFGPath As String = Path.Combine(userdir, Game.id.ToString) & "\local\cfg\"
+                    If Directory.Exists(CFGPath) Then
+                        CFGExists = True
+                        Exit For
+                    End If
+                Next
+            End If
+            If Not CFGExists Then
+                MessageBox.Show("The set ""UserData"" folder does not seem to be correct! Please choose the correct folder.", "Folder does not exist!", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                If ShowUserDataSelector() Then
+                    StartPoll()
+                End If
+                Return
+            End If
+        End If
+
         running = True
         StartButton.Text = "Stop"
         CreateCfgFiles()
@@ -364,45 +380,51 @@ Public Class Form1
         Dim GameDir As String = Path.Combine(SteamappsPath, Game.directory)
         Dim GameCfg As String = Path.Combine(GameDir, Game.ToCfg) & "slam_relay.cfg"
 
-
-        Do
-            If PollRelayWorker.CancellationPending Then
-                Exit Do
-            End If
-
-            If Not String.IsNullOrEmpty(Game.id) Then
-                GameCfg = UserDataCFG(Game)
-            End If
-
-            If File.Exists(GameCfg) Then
-                Dim RelayCfg As String
-                Using reader As StreamReader = New StreamReader(GameCfg)
-                    RelayCfg = reader.ReadToEnd
-                End Using
-
-                Dim command As String = recog(RelayCfg, String.Format("bind ""{0}"" ""(.*?)""", My.Settings.RelayKey))
-                If Not String.IsNullOrEmpty(command) Then
-                    'load audiofile
-                    If IsNumeric(command) Then
-                        If LoadTrack(Game, Convert.ToInt32(command) - 1) Then
-                            PollRelayWorker.ReportProgress(Convert.ToInt32(command) - 1)
-                        End If
-                    End If
-                    File.Delete(GameCfg)
+        Try
+            Do
+                If PollRelayWorker.CancellationPending Then
+                    Exit Do
                 End If
-            End If
 
-            Thread.Sleep(Game.PollInterval)
-        Loop
+                If Not Game.id = 0 And My.Settings.UserDataEnabled Then
+                    GameCfg = UserDataCFG(Game)
+                End If
+
+                If File.Exists(GameCfg) Then
+                    Dim RelayCfg As String
+                    Using reader As StreamReader = New StreamReader(GameCfg)
+                        RelayCfg = reader.ReadToEnd
+                    End Using
+
+                    Dim command As String = recog(RelayCfg, String.Format("bind ""{0}"" ""(.*?)""", My.Settings.RelayKey))
+                    If Not String.IsNullOrEmpty(command) Then
+                        'load audiofile
+                        If IsNumeric(command) Then
+                            If LoadTrack(Game, Convert.ToInt32(command) - 1) Then
+                                PollRelayWorker.ReportProgress(Convert.ToInt32(command) - 1)
+                            End If
+                        End If
+                        File.Delete(GameCfg)
+                    End If
+                End If
+
+                Thread.Sleep(Game.PollInterval)
+            Loop
+        Catch ex As Exception
+            LogError(ex)
+            e.Result = ex
+        End Try
     End Sub
 
     Public Function UserDataCFG(Game As SourceGame) As String
-        For Each userdir As String In Directory.GetDirectories(My.Settings.UserdataPath)
-            Dim CFGPath As String = Path.Combine(userdir, Game.id.ToString) & "\local\cfg\slam_relay.cfg"
-            If File.Exists(CFGPath) Then
-                Return CFGPath
-            End If
-        Next
+        If Directory.Exists(My.Settings.UserdataPath) Then
+            For Each userdir As String In Directory.GetDirectories(My.Settings.UserdataPath)
+                Dim CFGPath As String = Path.Combine(userdir, Game.id.ToString) & "\local\cfg\slam_relay.cfg"
+                If File.Exists(CFGPath) Then
+                    Return CFGPath
+                End If
+            Next
+        End If
         Return vbNullString
     End Function
 
@@ -413,6 +435,10 @@ Public Class Form1
     Private Sub PollRelayWorker_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles PollRelayWorker.RunWorkerCompleted
         If running Then
             StopPoll()
+        End If
+
+        If Not IsNothing(e.Result) Then 'Result is always an exception
+            MessageBox.Show(e.Result.Message & " See errorlog.txt for more info.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
@@ -425,7 +451,7 @@ Public Class Form1
 
             For Each Word In Words
 
-                If Not IsNumeric(Word) And Not Game.blacklist.Contains(Word.ToLower) Then
+                If Not IsNumeric(Word) And Not Game.blacklist.Contains(Word.ToLower) And Word.Length < 32 Then
                     If NameWords.ContainsKey(Word) Then
                         NameWords.Remove(Word)
                     Else
@@ -485,6 +511,12 @@ Public Class Form1
             ReloadTracks(GetCurrentGame)
             RefreshTrackList()
 
+            'This should set the UserData path drive to the same as the drive on the SteamApps path on first run
+            If String.IsNullOrEmpty(My.Settings.UserdataPath) Then
+                My.Settings.UserdataPath = SteamappsPath.Split("\")(0) & "\Program Files (x86)\Steam\userdata\"
+            End If
+
+
             My.Settings.SteamAppsFolder = SteamappsPath
             My.Settings.Save()
 
@@ -498,7 +530,7 @@ Public Class Form1
 
     End Sub
 
-    Public Sub ShowFolderSelector()
+    Public Function ShowFolderSelector() As Boolean
         Dim ChangeDirDialog As New FolderBrowserDialog
         ChangeDirDialog.Description = "Select your steamapps folder:"
         ChangeDirDialog.ShowNewFolderButton = False
@@ -506,9 +538,11 @@ Public Class Form1
         If ChangeDirDialog.ShowDialog = System.Windows.Forms.DialogResult.OK Then
             SteamappsPath = ChangeDirDialog.SelectedPath & "\"
             LoadGames()
+            Return True
         End If
 
-    End Sub
+        Return False
+    End Function
 
     Private Sub LoadTrackKeys(ByVal Game As SourceGame)
         Dim SettingsList As New List(Of SourceGame.track)
@@ -755,7 +789,7 @@ Public Class Form1
 
     Private Sub LogError(ByVal ex As Exception)
         If My.Settings.LogError Then
-            Using log As StreamWriter = New StreamWriter("log.txt", True)
+            Using log As StreamWriter = New StreamWriter("errorlog.txt", True)
                 log.WriteLine("--------------------{0}--------------------", DateTime.Now)
                 log.WriteLine(ex.ToString)
             End Using
@@ -791,6 +825,19 @@ Public Class Form1
         End Try
 
     End Sub
+
+    Public Function ShowUserDataSelector() As Boolean
+        Dim ChangeDirDialog As New FolderBrowserDialog
+        ChangeDirDialog.Description = "Select your userdata folder:"
+        ChangeDirDialog.ShowNewFolderButton = False
+
+        If ChangeDirDialog.ShowDialog = System.Windows.Forms.DialogResult.OK Then
+            My.Settings.UserdataPath = ChangeDirDialog.SelectedPath & "\"
+            Return True
+        End If
+
+        Return False
+    End Function
 
     Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If running Then

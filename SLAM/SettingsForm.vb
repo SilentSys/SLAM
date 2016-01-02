@@ -9,6 +9,7 @@
         LogCheckBox.Checked = My.Settings.LogError
         StartEnabledCheckBox.Checked = My.Settings.StartEnabled
         ConTagsCheckBox.Checked = My.Settings.WriteTags
+        UserDataCheckBox.Checked = My.Settings.UserDataEnabled
         ChangeRelayButton.Text = String.Format("Relay key: ""{0}"" (change)", My.Settings.RelayKey)
     End Sub
 
@@ -51,14 +52,13 @@
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim ChangeDirDialog As New FolderBrowserDialog
-        ChangeDirDialog.Description = "Select your userdata folder:"
-        ChangeDirDialog.ShowNewFolderButton = False
-
-        If ChangeDirDialog.ShowDialog = System.Windows.Forms.DialogResult.OK Then
-            My.Settings.UserdataPath = ChangeDirDialog.SelectedPath & "\"
+    Private Sub ChangeDataDirButton_Click(sender As Object, e As EventArgs) Handles ChangeDataDirButton.Click
+        Form1.ShowUserDataSelector()
             UserDataDir.Text = My.Settings.UserdataPath
-        End If
+    End Sub
+
+    Private Sub UserDataCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles UserDataCheckBox.CheckedChanged
+        My.Settings.UserDataEnabled = UserDataCheckBox.Checked
+        My.Settings.Save()
     End Sub
 End Class

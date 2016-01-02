@@ -32,6 +32,7 @@ Partial Class Form1
         Me.TrackCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.HotKeyCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.VolumeCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.Trimmed = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TagsCol = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StartButton = New System.Windows.Forms.Button()
         Me.ImportDialog = New System.Windows.Forms.OpenFileDialog()
@@ -49,7 +50,6 @@ Partial Class Form1
         Me.SetVolumeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TrimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PlayKeyButton = New System.Windows.Forms.Button()
-        Me.Trimmed = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TrackContextMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -119,6 +119,10 @@ Partial Class Form1
         Me.VolumeCol.Text = "Volume"
         Me.VolumeCol.Width = 100
         '
+        'Trimmed
+        '
+        Me.Trimmed.Text = "Trimmed"
+        '
         'TagsCol
         '
         Me.TagsCol.Text = "Tags"
@@ -137,7 +141,9 @@ Partial Class Form1
         'ImportDialog
         '
         Me.ImportDialog.FileName = "ImportDialog"
-        Me.ImportDialog.Filter = "Audio Files|*.mp3;*.wav"
+        Me.ImportDialog.Filter = "Media files|*.mp3;*.wav;*.aac;*.wma;*.m4a;*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Audio fi" & _
+    "les|*.mp3;*.wav;*.aac;*.wma;*.m4a;|Video files|*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Al" & _
+    "l files|*.*"
         Me.ImportDialog.Multiselect = True
         '
         'ProgressBar1
@@ -232,10 +238,6 @@ Partial Class Form1
         Me.PlayKeyButton.TabIndex = 8
         Me.PlayKeyButton.Text = "Play key: """"{0}"""" (change)"
         Me.PlayKeyButton.UseVisualStyleBackColor = True
-        '
-        'Trimmed
-        '
-        Me.Trimmed.Text = "Trimmed"
         '
         'Form1
         '

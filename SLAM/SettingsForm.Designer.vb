@@ -26,30 +26,31 @@ Partial Class SettingsForm
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.VersionLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.ChangeDataDirButton = New System.Windows.Forms.Button()
+        Me.UserDataDir = New System.Windows.Forms.TextBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.ChangeRelayButton = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.ChangeDirButton = New System.Windows.Forms.Button()
+        Me.DirText = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.ConTagsCheckBox = New System.Windows.Forms.CheckBox()
         Me.StartEnabledCheckBox = New System.Windows.Forms.CheckBox()
         Me.LogCheckBox = New System.Windows.Forms.CheckBox()
         Me.HintCheckBox = New System.Windows.Forms.CheckBox()
         Me.UpdateCheckBox = New System.Windows.Forms.CheckBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.ChangeDirButton = New System.Windows.Forms.Button()
-        Me.DirText = New System.Windows.Forms.TextBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.UserDataDir = New System.Windows.Forms.TextBox()
+        Me.UserDataCheckBox = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
         '
         'StatusStrip1
@@ -87,6 +88,35 @@ Partial Class SettingsForm
         Me.TabPage1.Text = "General"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.UserDataCheckBox)
+        Me.GroupBox4.Controls.Add(Me.ChangeDataDirButton)
+        Me.GroupBox4.Controls.Add(Me.UserDataDir)
+        Me.GroupBox4.Location = New System.Drawing.Point(8, 147)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(260, 75)
+        Me.GroupBox4.TabIndex = 2
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "UserData Directory"
+        '
+        'ChangeDataDirButton
+        '
+        Me.ChangeDataDirButton.Location = New System.Drawing.Point(179, 45)
+        Me.ChangeDataDirButton.Name = "ChangeDataDirButton"
+        Me.ChangeDataDirButton.Size = New System.Drawing.Size(75, 23)
+        Me.ChangeDataDirButton.TabIndex = 1
+        Me.ChangeDataDirButton.Text = "Change"
+        Me.ChangeDataDirButton.UseVisualStyleBackColor = True
+        '
+        'UserDataDir
+        '
+        Me.UserDataDir.Location = New System.Drawing.Point(6, 19)
+        Me.UserDataDir.Name = "UserDataDir"
+        Me.UserDataDir.ReadOnly = True
+        Me.UserDataDir.Size = New System.Drawing.Size(248, 20)
+        Me.UserDataDir.TabIndex = 0
+        '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.ChangeRelayButton)
@@ -105,6 +135,34 @@ Partial Class SettingsForm
         Me.ChangeRelayButton.TabIndex = 0
         Me.ChangeRelayButton.Text = "Relay key: """"{0}"""" (change)"
         Me.ChangeRelayButton.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.ChangeDirButton)
+        Me.GroupBox1.Controls.Add(Me.DirText)
+        Me.GroupBox1.Location = New System.Drawing.Point(8, 8)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(260, 75)
+        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "SteamApps Directory"
+        '
+        'ChangeDirButton
+        '
+        Me.ChangeDirButton.Location = New System.Drawing.Point(179, 45)
+        Me.ChangeDirButton.Name = "ChangeDirButton"
+        Me.ChangeDirButton.Size = New System.Drawing.Size(75, 23)
+        Me.ChangeDirButton.TabIndex = 1
+        Me.ChangeDirButton.Text = "Change"
+        Me.ChangeDirButton.UseVisualStyleBackColor = True
+        '
+        'DirText
+        '
+        Me.DirText.Location = New System.Drawing.Point(6, 19)
+        Me.DirText.Name = "DirText"
+        Me.DirText.ReadOnly = True
+        Me.DirText.Size = New System.Drawing.Size(248, 20)
+        Me.DirText.TabIndex = 0
         '
         'GroupBox2
         '
@@ -170,34 +228,6 @@ Partial Class SettingsForm
         Me.UpdateCheckBox.Text = "Check for updates"
         Me.UpdateCheckBox.UseVisualStyleBackColor = True
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.ChangeDirButton)
-        Me.GroupBox1.Controls.Add(Me.DirText)
-        Me.GroupBox1.Location = New System.Drawing.Point(8, 8)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(260, 75)
-        Me.GroupBox1.TabIndex = 0
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "SteamApps Directory"
-        '
-        'ChangeDirButton
-        '
-        Me.ChangeDirButton.Location = New System.Drawing.Point(179, 45)
-        Me.ChangeDirButton.Name = "ChangeDirButton"
-        Me.ChangeDirButton.Size = New System.Drawing.Size(75, 23)
-        Me.ChangeDirButton.TabIndex = 1
-        Me.ChangeDirButton.Text = "Change"
-        Me.ChangeDirButton.UseVisualStyleBackColor = True
-        '
-        'DirText
-        '
-        Me.DirText.Location = New System.Drawing.Point(6, 19)
-        Me.DirText.Name = "DirText"
-        Me.DirText.ReadOnly = True
-        Me.DirText.Size = New System.Drawing.Size(248, 20)
-        Me.DirText.TabIndex = 0
-        '
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
@@ -220,33 +250,15 @@ Partial Class SettingsForm
         Me.TabPage2.Text = "Misc."
         Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'GroupBox4
+        'UserDataCheckBox
         '
-        Me.GroupBox4.Controls.Add(Me.Button1)
-        Me.GroupBox4.Controls.Add(Me.UserDataDir)
-        Me.GroupBox4.Location = New System.Drawing.Point(8, 147)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(260, 75)
-        Me.GroupBox4.TabIndex = 2
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "UserData Directory"
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(179, 45)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 1
-        Me.Button1.Text = "Change"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'UserDataDir
-        '
-        Me.UserDataDir.Location = New System.Drawing.Point(6, 19)
-        Me.UserDataDir.Name = "UserDataDir"
-        Me.UserDataDir.ReadOnly = True
-        Me.UserDataDir.Size = New System.Drawing.Size(248, 20)
-        Me.UserDataDir.TabIndex = 0
+        Me.UserDataCheckBox.AutoSize = True
+        Me.UserDataCheckBox.Location = New System.Drawing.Point(6, 49)
+        Me.UserDataCheckBox.Name = "UserDataCheckBox"
+        Me.UserDataCheckBox.Size = New System.Drawing.Size(65, 17)
+        Me.UserDataCheckBox.TabIndex = 2
+        Me.UserDataCheckBox.Text = "Enabled"
+        Me.UserDataCheckBox.UseVisualStyleBackColor = True
         '
         'SettingsForm
         '
@@ -262,15 +274,15 @@ Partial Class SettingsForm
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.TabPage1.ResumeLayout(False)
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
-        Me.TabControl1.ResumeLayout(False)
-        Me.TabPage2.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        Me.TabControl1.ResumeLayout(False)
+        Me.TabPage2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -292,7 +304,8 @@ Partial Class SettingsForm
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents ChangeRelayButton As System.Windows.Forms.Button
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents ChangeDataDirButton As System.Windows.Forms.Button
     Friend WithEvents UserDataDir As System.Windows.Forms.TextBox
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
+    Friend WithEvents UserDataCheckBox As System.Windows.Forms.CheckBox
 End Class
