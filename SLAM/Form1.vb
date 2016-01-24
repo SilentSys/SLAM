@@ -755,6 +755,16 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub PlayToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PlayToolStripMenuItem.Click
+        Dim Game As SourceGame = GetCurrentGame()
+
+        If File.Exists(Path.Combine(Game.libraryname, Game.tracks(TrackList.SelectedIndices(0)).name & Game.FileExtension)) Then
+            My.Computer.Audio.Play(Path.Combine(Game.libraryname, Game.tracks(TrackList.SelectedIndices(0)).name & Game.FileExtension), AudioPlayMode.Background)
+        End If
+    End Sub
+
+
+
     Private Async Sub CheckForUpdate()
         Dim UpdateText As String
 
@@ -844,6 +854,8 @@ Public Class Form1
             StopPoll()
         End If
     End Sub
+
+
 End Class
 
 Public Class SourceGame
