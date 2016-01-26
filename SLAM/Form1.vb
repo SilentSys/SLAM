@@ -379,6 +379,8 @@ Public Class Form1
         Dim Game As SourceGame = e.Argument
         Dim GameDir As String = Path.Combine(SteamappsPath, Game.directory)
         Dim GameCfg As String = Path.Combine(GameDir, Game.ToCfg) & "slam_relay.cfg"
+        Dim Errors As Short = 0
+
 
         Try
             Do
@@ -399,8 +401,16 @@ TryRelay: 'HACK: Try to read RelayCfg, if it fails it does it again.
                             RelayCfg = reader.ReadToEnd
                         End Using
 
-                    Catch
-                        GoTo TryRelay
+                    Catch ex As Exception
+                        Errors += 1
+                        If (Errors >= 40) Then
+                            Thread.Sleep(100)
+
+                            GoTo TryRelay
+                        End If
+                        LogError(ex)
+
+                        Errors = 0
 
                     End Try
 
