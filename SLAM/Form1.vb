@@ -392,10 +392,19 @@ Public Class Form1
 
                 If File.Exists(GameCfg) Then
                     Dim RelayCfg As String
-                    Using reader As StreamReader = New StreamReader(GameCfg)
-                        RelayCfg = reader.ReadToEnd
-                    End Using
 
+TryRelay: 'HACK: Try to read RelayCfg, if it fails it does it again. 
+                    Try
+                        Using reader As StreamReader = New StreamReader(GameCfg)
+                            RelayCfg = reader.ReadToEnd
+                        End Using
+
+                    Catch
+                        GoTo TryRelay
+
+                    End Try
+
+                    'Does not need to check if null, because RelayConfig tries again until it success.
                     Dim command As String = recog(RelayCfg, String.Format("bind ""{0}"" ""(.*?)""", My.Settings.RelayKey))
                     If Not String.IsNullOrEmpty(command) Then
                         'load audiofile
