@@ -379,6 +379,8 @@ Public Class Form1
         Dim Game As SourceGame = e.Argument
         Dim GameDir As String = Path.Combine(SteamappsPath, Game.directory)
         Dim GameCfg As String = Path.Combine(GameDir, Game.ToCfg) & "slam_relay.cfg"
+        Dim Errors As Short = 0
+
 
         Try
             Do
@@ -392,10 +394,27 @@ Public Class Form1
 
                 If File.Exists(GameCfg) Then
                     Dim RelayCfg As String
-                    Using reader As StreamReader = New StreamReader(GameCfg)
-                        RelayCfg = reader.ReadToEnd
-                    End Using
 
+TryRelay: 'HACK: Try to read RelayCfg, if it fails it does it again. 
+                    Try
+                        Using reader As StreamReader = New StreamReader(GameCfg)
+                            RelayCfg = reader.ReadToEnd
+                        End Using
+
+                    Catch ex As Exception
+                        Errors += 1
+                        If (Errors >= 40) Then
+                            Thread.Sleep(100)
+
+                            GoTo TryRelay
+                        End If
+                        LogError(ex)
+
+                        Errors = 0
+
+                    End Try
+
+                    'Does not need to check if null, because RelayConfig tries again until it success.
                     Dim command As String = recog(RelayCfg, String.Format("bind ""{0}"" ""(.*?)""", My.Settings.RelayKey))
                     If Not String.IsNullOrEmpty(command) Then
                         'load audiofile
