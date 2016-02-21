@@ -392,7 +392,7 @@ Public Class Form1
 
                 If File.Exists(GameCfg) Then
                     Dim RelayCfg As String
-                    Using reader As StreamReader = New StreamReader(GameCfg)
+                    Using reader As StreamReader = New StreamReader(New FileStream(GameCfg, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                         RelayCfg = reader.ReadToEnd
                     End Using
 
