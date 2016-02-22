@@ -283,12 +283,26 @@ Public Class Form1
                 End If
             Next
 
-            slam_cfg.WriteLine("voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; voice_fadeouttime 0.0; con_enable 1")
+            Dim VoiceFadeOut As Boolean = True
+            ' Add game ids to this array if they don't support command voice_fadeouttime. Ex. Global Offensive
+            Dim VoiceFadeoutExempt() As Integer = {730}
+            For Each AppId As Integer In VoiceFadeoutExempt
+                If AppId.Equals(Game.id) Then
+                    VoiceFadeOut = False
+                End If
+            Next
+
+
+            If VoiceFadeOut Then
+                slam_cfg.WriteLine("voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; voice_fadeouttime 0.0; con_enable 1")
+            Else
+                slam_cfg.WriteLine("voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; con_enable 1")
+            End If
         End Using
 
         'slam_tracklist.cfg
         Using slam_tracklist_cfg As StreamWriter = New StreamWriter(GameCfgFolder & "slam_tracklist.cfg")
-            slam_tracklist_cfg.WriteLine("echo ""You can select tracks either by typing a tag, or their track number.""")
+            slam_tracklist_cfg.WriteLine("echo ""You can Select tracks either by typing a tag, Or their track number.""")
             slam_tracklist_cfg.WriteLine("echo ""--------------------Tracks--------------------""")
             For Each Track In Game.tracks
                 Dim index As String = Game.tracks.IndexOf(Track)
