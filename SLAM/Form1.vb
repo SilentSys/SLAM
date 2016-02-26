@@ -46,6 +46,14 @@ Public Class Form1
         tf2.libraryname = "tf2\"
         Games.Add(tf2)
 
+        Dim gmod As New SourceGame
+        gmod.name = "Garry's Mod"
+        '   gmod.id = 4000
+        gmod.directory = "common\GarrysMod\"
+        gmod.ToCfg = "garrysmod\cfg\"
+        gmod.libraryname = "gmod\"
+        Games.Add(gmod)
+
         LoadGames()
 
         If My.Settings.StartEnabled Then
@@ -55,6 +63,7 @@ Public Class Form1
 
     Private Sub WaveCreator(File As String, outputFile As String, Game As SourceGame)
         Dim reader As New MediaFoundationReader(File)
+
 
         Dim outFormat = New WaveFormat(Game.samplerate, Game.bits, Game.channels)
 
@@ -99,7 +108,7 @@ Public Class Form1
 
             Try
                 Dim OutFile As String = Path.Combine(Game.libraryname, Path.GetFileNameWithoutExtension(File) & ".wav")
-
+                MessageBox.Show(OutFile)
                 WaveCreator(File, OutFile, Game)
 
             Catch ex As Exception
@@ -219,6 +228,7 @@ Public Class Form1
                     If Directory.Exists(CFGPath) Then
                         CFGExists = True
                         Exit For
+
                     End If
                 Next
             End If
@@ -292,12 +302,28 @@ Public Class Form1
                 End If
             Next
 
+            Dim UseSteamVoice As Boolean = False
+            ' Add game ids to this array if they don't support command sv_use_steam_voice. Ex. CS:S and GMOD
+            Dim UseSteamVoiceExempt() As String = {"Garry's Mod"}
+            For Each AppId As String In UseSteamVoiceExempt
+                If AppId.Equals(Game.name) Then
+                    UseSteamVoice = True
+                End If
+            Next
 
+            Dim CfgData As String
+            CfgData = "voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; con_enable 1"
             If VoiceFadeOut Then
-                slam_cfg.WriteLine("voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; voice_fadeouttime 0.0; con_enable 1")
-            Else
-                slam_cfg.WriteLine("voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; con_enable 1")
+                CfgData = CfgData + ";voice_fadeouttime 0.0"
             End If
+
+            If UseSteamVoice Then
+                CfgData = CfgData + ";sv_use_steam_voice 0; sv_allow_voice_from_file 1"
+            End If
+
+
+            slam_cfg.WriteLine(CfgData)
+
         End Using
 
         'slam_tracklist.cfg
@@ -322,7 +348,6 @@ Public Class Form1
         If Game.tracks.Count > index Then
             Track = Game.tracks(index)
             Dim voicefile As String = Path.Combine(SteamappsPath, Game.directory) & "voice_input.wav"
-
             Try
                 If File.Exists(voicefile) Then
                     File.Delete(voicefile)
