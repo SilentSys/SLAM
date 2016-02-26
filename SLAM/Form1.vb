@@ -89,6 +89,15 @@ Public Class Form1
         goldeye.libraryname = "goldeye\"
         Games.Add(goldeye)
 
+        Dim insurg As New SourceGame
+        insurg.name = "Insurgency"
+        insurg.directory = "common\insurgency2\"
+        insurg.ToCfg = "insurgency\cfg\"
+        insurg.libraryname = "insurgen\"
+        Games.Add(insurg)
+
+
+
         LoadGames()
 
         If My.Settings.StartEnabled Then
@@ -143,7 +152,6 @@ Public Class Form1
 
             Try
                 Dim OutFile As String = Path.Combine(Game.libraryname, Path.GetFileNameWithoutExtension(File) & ".wav")
-                MessageBox.Show(OutFile)
                 WaveCreator(File, OutFile, Game)
 
             Catch ex As Exception
@@ -566,7 +574,6 @@ Public Class Form1
 
         For Each Game In Games
             Dim GameFullPath As String = Path.Combine(SteamappsPath, Game.directory, Game.ToCfg)
-
             If Directory.Exists(GameFullPath) Then
                 GameSelector.Items.Add(Game.name)
             End If
