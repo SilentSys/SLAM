@@ -53,7 +53,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub WaveCreator(File As String, outputFile As String, Game As SourceGame)
+    Public Sub WaveCreator(File As String, outputFile As String, Game As SourceGame)
         Dim reader As New MediaFoundationReader(File)
 
         Dim outFormat = New WaveFormat(Game.samplerate, Game.bits, Game.channels)
@@ -138,7 +138,7 @@ Public Class Form1
         EnableInterface()
     End Sub
 
-    Private Function GetCurrentGame() As SourceGame
+    Public Function GetCurrentGame() As SourceGame
         For Each Game In Games
             If Game.name = GameSelector.SelectedItem.ToString Then
                 Return Game
@@ -170,7 +170,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub RefreshTrackList()
+    Public Sub RefreshTrackList()
         TrackList.Items.Clear()
 
         Dim Game As SourceGame = GetCurrentGame()
@@ -283,11 +283,20 @@ Public Class Form1
                 End If
             Next
 
-            slam_cfg.WriteLine("voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; voice_fadeouttime 0.0; con_enable 1")
+
+            If Game.id = 730 Then
+                slam_cfg.WriteLine("voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; con_enable 1")
+
+            Else slam_cfg.WriteLine("voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; voice_fadeouttime 0.0; con_enable 1")
+
+            End If
+
+
         End Using
 
         'slam_tracklist.cfg
         Using slam_tracklist_cfg As StreamWriter = New StreamWriter(GameCfgFolder & "slam_tracklist.cfg")
+            slam_tracklist_cfg.WriteLine("exec slam")
             slam_tracklist_cfg.WriteLine("echo ""You can select tracks either by typing a tag, or their track number.""")
             slam_tracklist_cfg.WriteLine("echo ""--------------------Tracks--------------------""")
             For Each Track In Game.tracks
@@ -478,6 +487,11 @@ Public Class Form1
         For Each Control In Me.Controls
             Control.Enabled = False
         Next
+        DownladerFormButton.Enabled = True
+
+
+
+
     End Sub
 
     Private Sub DisplayLoaded(ByVal track As Integer)
@@ -844,6 +858,46 @@ Public Class Form1
             StopPoll()
         End If
     End Sub
+
+    Private Sub DownladerFormButton_Click(sender As Object, e As EventArgs) Handles DownladerFormButton.Click
+        Dim form = New YTDL()
+        If Application.OpenForms(form.Name) Is Nothing Then
+            form.Show()
+        Else
+
+            If Application.OpenForms(form.Name).WindowState = FormWindowState.Minimized Then
+                Application.OpenForms(form.Name).WindowState = FormWindowState.Normal
+            End If
+
+            Application.OpenForms(form.Name).Activate()
+        End If
+
+    End Sub
+
+    Public Sub RefreshListAndCfgFiles()
+        ReloadTracks(GetCurrentGame)
+        RefreshTrackList()
+        CreateCfgFiles()
+    End Sub
+
+    Public Sub autoload(ByVal q As String)
+        Dim Game As SourceGame = GetCurrentGame()
+        For i As Integer = 0 To TrackList.Items.Count - 1
+            Dim ii As Integer = 1
+            If TrackList.Items(i).SubItems(ii).Text = q Then
+                LoadTrack(GetCurrentGame, i)
+            End If
+            ii += 1
+        Next
+
+
+
+
+
+
+
+    End Sub
+
 End Class
 
 Public Class SourceGame
