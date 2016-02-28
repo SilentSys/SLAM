@@ -264,6 +264,7 @@ Public Class Form1
             slam_cfg.WriteLine("alias slam_play slam_play_on")
             slam_cfg.WriteLine("alias slam_play_on ""alias slam_play slam_play_off; voice_inputfromfile 1; voice_loopback 1; +voicerecord""")
             slam_cfg.WriteLine("alias slam_play_off ""-voicerecord; voice_inputfromfile 0; voice_loopback 0; alias slam_play slam_play_on""")
+            slam_cfg.WriteLine("alias slam_updatecfg ""host_writeconfig slam_relay""")
             slam_cfg.WriteLine("bind {0} slam_play", My.Settings.PlayKey)
             slam_cfg.WriteLine("alias slam_curtrack ""exec slam_curtrack.cfg""")
             slam_cfg.WriteLine("alias slam_saycurtrack ""exec slam_saycurtrack.cfg""")
