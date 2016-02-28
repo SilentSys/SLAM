@@ -264,24 +264,12 @@ Public Class Form1
             slam_cfg.WriteLine("alias slam_play slam_play_on")
             slam_cfg.WriteLine("alias slam_play_on ""alias slam_play slam_play_off; voice_inputfromfile 1; voice_loopback 1; +voicerecord""")
             slam_cfg.WriteLine("alias slam_play_off ""-voicerecord; voice_inputfromfile 0; voice_loopback 0; alias slam_play slam_play_on""")
-            slam_cfg.WriteLine("alias slam_updatecfg ""host_writeconfig slam_relay""")
             slam_cfg.WriteLine("bind {0} slam_play", My.Settings.PlayKey)
             slam_cfg.WriteLine("alias slam_curtrack ""exec slam_curtrack.cfg""")
             slam_cfg.WriteLine("alias slam_saycurtrack ""exec slam_saycurtrack.cfg""")
             slam_cfg.WriteLine("alias slam_sayteamcurtrack ""exec slam_sayteamcurtrack.cfg""")
 
-            For Each Track In Game.tracks
-                Dim index As String = Game.tracks.IndexOf(Track)
-                slam_cfg.WriteLine("alias {0} ""bind {1} {0}; slam_updatecfg; echo Loaded: {2}""", index + 1, My.Settings.RelayKey, Track.name)
 
-                For Each TrackTag In Track.tags
-                    slam_cfg.WriteLine("alias {0} ""bind {1} {2}; slam_updatecfg; echo Loaded: {3}""", TrackTag, My.Settings.RelayKey, index + 1, Track.name)
-                Next
-
-                If Not String.IsNullOrEmpty(Track.hotkey) Then
-                    slam_cfg.WriteLine("bind {0} ""bind {1} {2}; slam_updatecfg; echo Loaded: {3}""", Track.hotkey, My.Settings.RelayKey, index + 1, Track.name)
-                End If
-            Next
 
 
             If Game.id = 730 Then
@@ -296,7 +284,19 @@ Public Class Form1
 
         'slam_tracklist.cfg
         Using slam_tracklist_cfg As StreamWriter = New StreamWriter(GameCfgFolder & "slam_tracklist.cfg")
-            slam_tracklist_cfg.WriteLine("exec slam")
+            For Each Track In Game.tracks
+                Dim index As String = Game.tracks.IndexOf(Track)
+                slam_tracklist_cfg.WriteLine("alias {0} ""bind {1} {0}; slam_updatecfg; echo Loaded: {2}""", index + 1, My.Settings.RelayKey, Track.name)
+
+                For Each TrackTag In Track.tags
+                    slam_tracklist_cfg.WriteLine("alias {0} ""bind {1} {2}; slam_updatecfg; echo Loaded: {3}""", TrackTag, My.Settings.RelayKey, index + 1, Track.name)
+                Next
+
+                If Not String.IsNullOrEmpty(Track.hotkey) Then
+                    slam_tracklist_cfg.WriteLine("bind {0} ""bind {1} {2}; slam_updatecfg; echo Loaded: {3}""", Track.hotkey, My.Settings.RelayKey, index + 1, Track.name)
+                End If
+            Next
+
             slam_tracklist_cfg.WriteLine("echo ""You can select tracks either by typing a tag, or their track number.""")
             slam_tracklist_cfg.WriteLine("echo ""--------------------Tracks--------------------""")
             For Each Track In Game.tracks
