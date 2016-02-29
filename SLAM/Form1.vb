@@ -345,15 +345,6 @@ Public Class Form1
                 End If
             Next
 
-            Dim UseSteamVoice As Boolean = False
-            ' Add game ids to this array if they don't support command sv_use_steam_voice. Ex. CS:S and GMOD
-            Dim UseSteamVoiceExempt() As String = {"Garry's Mod"}
-            For Each AppId As String In UseSteamVoiceExempt
-                If AppId.Equals(Game.name) Then
-                    UseSteamVoice = True
-                End If
-            Next
-
             Dim CfgData As String
             CfgData = "voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; con_enable 1"
 
