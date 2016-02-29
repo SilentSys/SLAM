@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
@@ -50,6 +50,7 @@ Partial Class Form1
         Me.SetVolumeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TrimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PlayKeyButton = New System.Windows.Forms.Button()
+        Me.DownladerFormButton = New System.Windows.Forms.Button()
         Me.TrackContextMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -141,8 +142,8 @@ Partial Class Form1
         'ImportDialog
         '
         Me.ImportDialog.FileName = "ImportDialog"
-        Me.ImportDialog.Filter = "Media files|*.mp3;*.wav;*.aac;*.wma;*.m4a;*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Audio fi" & _
-    "les|*.mp3;*.wav;*.aac;*.wma;*.m4a;|Video files|*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Al" & _
+        Me.ImportDialog.Filter = "Media files|*.mp3;*.wav;*.aac;*.wma;*.m4a;*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Audio fi" &
+    "les|*.mp3;*.wav;*.aac;*.wma;*.m4a;|Video files|*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Al" &
     "l files|*.*"
         Me.ImportDialog.Multiselect = True
         '
@@ -239,11 +240,21 @@ Partial Class Form1
         Me.PlayKeyButton.Text = "Play key: """"{0}"""" (change)"
         Me.PlayKeyButton.UseVisualStyleBackColor = True
         '
+        'DownladerFormButton
+        '
+        Me.DownladerFormButton.Location = New System.Drawing.Point(177, 297)
+        Me.DownladerFormButton.Name = "DownladerFormButton"
+        Me.DownladerFormButton.Size = New System.Drawing.Size(120, 23)
+        Me.DownladerFormButton.TabIndex = 9
+        Me.DownladerFormButton.Text = "YouTube Downloader"
+        Me.DownladerFormButton.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(584, 361)
+        Me.ClientSize = New System.Drawing.Size(584, 362)
+        Me.Controls.Add(Me.DownladerFormButton)
         Me.Controls.Add(Me.PlayKeyButton)
         Me.Controls.Add(Me.ChangeDirButton)
         Me.Controls.Add(Me.ProgressBar1)
@@ -288,5 +299,5 @@ Partial Class Form1
     Friend WithEvents SetVolumeToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TrimToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Trimmed As System.Windows.Forms.ColumnHeader
-
+    Friend WithEvents DownladerFormButton As Button
 End Class
