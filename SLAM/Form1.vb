@@ -4,6 +4,8 @@ Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports SLAM.XmlSerialization
+Imports SLAM.SourceGame
+Imports SLAM.Track
 Imports System.Net.Http
 
 Public Class Form1
@@ -207,13 +209,13 @@ Public Class Form1
     End Function
 
     Private Sub ReloadTracks(Game As SourceGame)
-        If Directory.Exists(Game.libraryname) Then
+        If System.IO.Directory.Exists(Game.libraryname) Then
 
             Game.tracks.Clear()
-            For Each File In Directory.GetFiles(Game.libraryname)
+            For Each File In System.IO.Directory.GetFiles(Game.libraryname)
 
                 If Game.FileExtension = Path.GetExtension(File) Then
-                    Dim track As New SourceGame.track
+                    Dim track As New Track
                     track.name = Path.GetFileNameWithoutExtension(File)
                     Game.tracks.Add(track)
                 End If
@@ -225,7 +227,7 @@ Public Class Form1
             SaveTrackKeys(Game) 'To prune hotkeys from non-existing tracks
 
         Else
-            Directory.CreateDirectory(Game.libraryname)
+            System.IO.Directory.CreateDirectory(Game.libraryname)
         End If
     End Sub
 
@@ -272,10 +274,10 @@ Public Class Form1
         Dim Game As SourceGame = GetCurrentGame()
         If Not Game.id = 0 And My.Settings.UserDataEnabled Then 'The CFG's are located in the userdata folder
             Dim CFGExists As Boolean = False
-            If Directory.Exists(My.Settings.UserdataPath) Then
-                For Each userdir As String In Directory.GetDirectories(My.Settings.UserdataPath)
+            If System.IO.Directory.Exists(My.Settings.UserdataPath) Then
+                For Each userdir As String In System.IO.Directory.GetDirectories(My.Settings.UserdataPath)
                     Dim CFGPath As String = Path.Combine(userdir, Game.id.ToString) & "\local\cfg\"
-                    If Directory.Exists(CFGPath) Then
+                    If System.IO.Directory.Exists(CFGPath) Then
                         CFGExists = True
                         Exit For
 
@@ -381,7 +383,7 @@ Public Class Form1
     End Sub
 
     Private Function LoadTrack(ByVal Game As SourceGame, ByVal index As Integer) As Boolean
-        Dim Track As SourceGame.track
+        Dim Track As Track
         If Game.tracks.Count > index Then
             Track = Game.tracks(index)
             Dim voicefile As String = Path.Combine(SteamappsPath, Game.directory) & "voice_input.wav"
@@ -493,8 +495,8 @@ Public Class Form1
     End Sub
 
     Public Function UserDataCFG(Game As SourceGame) As String
-        If Directory.Exists(My.Settings.UserdataPath) Then
-            For Each userdir As String In Directory.GetDirectories(My.Settings.UserdataPath)
+        If System.IO.Directory.Exists(My.Settings.UserdataPath) Then
+            For Each userdir As String In System.IO.Directory.GetDirectories(My.Settings.UserdataPath)
                 Dim CFGPath As String = Path.Combine(userdir, Game.id.ToString) & "\local\cfg\slam_relay.cfg"
                 If File.Exists(CFGPath) Then
                     Return CFGPath
@@ -568,7 +570,7 @@ Public Class Form1
 
         For Each Game In Games
             Dim GameFullPath As String = Path.Combine(SteamappsPath, Game.directory, Game.ToCfg)
-            If Directory.Exists(GameFullPath) Then
+            If System.IO.Directory.Exists(GameFullPath) Then
                 GameSelector.Items.Add(Game.name)
             End If
 
@@ -620,7 +622,7 @@ Public Class Form1
     End Function
 
     Private Sub LoadTrackKeys(ByVal Game As SourceGame)
-        Dim SettingsList As New List(Of SourceGame.track)
+        Dim SettingsList As New List(Of Track)
         Dim SettingsFile As String = Path.Combine(Game.libraryname, "TrackSettings.xml")
 
         If File.Exists(SettingsFile) Then
@@ -628,7 +630,7 @@ Public Class Form1
             Using reader As StreamReader = New StreamReader(SettingsFile)
                 XmlFile = reader.ReadToEnd
             End Using
-            SettingsList = Deserialize(Of List(Of SourceGame.track))(XmlFile)
+            SettingsList = Deserialize(Of List(Of Track))(XmlFile)
         End If
 
 
@@ -647,7 +649,7 @@ Public Class Form1
     End Sub
 
     Private Sub SaveTrackKeys(ByVal Game As SourceGame)
-        Dim SettingsList As New List(Of SourceGame.track)
+        Dim SettingsList As New List(Of Track)
         Dim SettingsFile As String = Path.Combine(Game.libraryname, "TrackSettings.xml")
 
         For Each Track In Game.tracks

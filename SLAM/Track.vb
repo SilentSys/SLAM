@@ -1,4 +1,4 @@
-﻿Public Class track
+﻿Public Class Track
     Public name As String
     Public tags As New List(Of String)
     Public hotkey As String = vbNullString

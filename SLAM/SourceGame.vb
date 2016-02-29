@@ -1,4 +1,6 @@
-﻿Public Class SourceGame
+﻿Imports SLAM.Track
+
+Public Class SourceGame
     Public name As String
     Public id As Integer
     Public directory As String
@@ -13,7 +15,7 @@
 
     Public PollInterval As Integer = 100
 
-    Public tracks As New List(Of track)
+    Public tracks As New List(Of Track)
     Public blacklist As New List(Of String) From {"slam", "slam_listtracks", "list", "tracks", "la", "slam_play", "slam_play_on", "slam_play_off", "slam_updatecfg", "slam_curtrack", "slam_saycurtrack", "slam_sayteamcurtrack"}
 
 End Class
