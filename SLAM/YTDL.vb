@@ -84,30 +84,27 @@ Public Class YTDL
         Await Task.Delay(100)
 
 
-        ' Form1.WaveCreator("1.mp3", "csgo/" + pavadinimas + ".wav", Form1.GetCurrentGame())
-
         Dim reader = New WaveChannel32(New Mp3FileReader("1.mp3"))
         reader.PadWithZeroes = False
-        Dim newFormat = New WaveFormat(22050, 16, 1)
 
+
+
+        Dim newFormat = New WaveFormat(Form1.GetCurrentGame.samplerate, Form1.GetCurrentGame.bits, Form1.GetCurrentGame.channels)
+
+        Dim OutFile As String = Path.Combine(Form1.GetCurrentGame.libraryname, pavadinimas + ".wav")
         Dim resampler = New MediaFoundationResampler(reader, newFormat)
 
         resampler.ResamplerQuality = 60
         Await Task.Delay(10)
 
 
-        WaveFileWriter.CreateWaveFile("csgo/" + pavadinimas + ".wav", resampler)
+        WaveFileWriter.CreateWaveFile(OutFile, resampler)
         resampler.Dispose()
         reader.Dispose()
         My.Computer.FileSystem.DeleteFile("1.mp3")
 
 
-        Await Task.Delay(10)
-        SystemSounds.Beep.Play()
-        Threading.Thread.Sleep(100)
-        SystemSounds.Beep.Play()
-        Threading.Thread.Sleep(100)
-        SystemSounds.Beep.Play()
+
 
         Form1.RefreshListAndCfgFiles()
 
@@ -116,6 +113,12 @@ Public Class YTDL
             Form1.autoload(pavadinimas)
         End If
 
+        Await Task.Delay(10)
+        SystemSounds.Beep.Play()
+        Threading.Thread.Sleep(100)
+        SystemSounds.Beep.Play()
+        Threading.Thread.Sleep(100)
+        SystemSounds.Beep.Play()
 
     End Sub
 
