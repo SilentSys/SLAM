@@ -29,6 +29,7 @@ Public Class Form1
         csgo.ToCfg = "csgo\cfg\"
         csgo.libraryname = "csgo\"
         csgo.samplerate = 22050
+        csgo.VoiceFadeOut = False
         csgo.blacklist.AddRange({"drop", "buy", "go", "fallback", "sticktog", "holdpos", "followme", "coverme", "regroup", "roger", "negative", "cheer", "compliment", "thanks", "enemydown", "reportingin", "enemyspot", "takepoint", "sectorclear", "inposition", "takingfire", "report", "getout"})
         Games.Add(csgo)
 
@@ -37,6 +38,7 @@ Public Class Form1
         css.directory = "common\Counter-Strike Source\"
         css.ToCfg = "cstrike\cfg\"
         css.libraryname = "css\"
+        css.VoiceFadeOut = True
         Games.Add(css)
 
         Dim tf2 As New SourceGame
@@ -44,14 +46,15 @@ Public Class Form1
         tf2.directory = "common\Team Fortress 2\"
         tf2.ToCfg = "tf\cfg\"
         tf2.libraryname = "tf2\"
+        tf2.VoiceFadeOut = True
         Games.Add(tf2)
 
         Dim gmod As New SourceGame
         gmod.name = "Garry's Mod"
-        '   gmod.id = 4000
         gmod.directory = "common\GarrysMod\"
         gmod.ToCfg = "garrysmod\cfg\"
         gmod.libraryname = "gmod\"
+        gmod.VoiceFadeOut = True
         Games.Add(gmod)
 
         Dim hl2dm As New SourceGame
@@ -59,6 +62,7 @@ Public Class Form1
         hl2dm.directory = "common\half-life 2 deathmatch\"
         hl2dm.ToCfg = "hl2mp\cfg\"
         hl2dm.libraryname = "hl2dm\"
+        hl2dm.VoiceFadeOut = True
         Games.Add(hl2dm)
 
         Dim l4d As New SourceGame
@@ -66,6 +70,7 @@ Public Class Form1
         l4d.directory = "common\Left 4 Dead\"
         l4d.ToCfg = "left4dead\cfg\"
         l4d.libraryname = "l4d\"
+        l4d.VoiceFadeOut = True
         Games.Add(l4d)
 
         Dim l4d2 As New SourceGame
@@ -73,6 +78,7 @@ Public Class Form1
         l4d2.directory = "common\Left 4 Dead 2\"
         l4d2.ToCfg = "left4dead2\cfg\"
         l4d2.libraryname = "l4d2\"
+        l4d2.VoiceFadeOut = True
         Games.Add(l4d2)
 
         Dim dods As New SourceGame
@@ -80,6 +86,7 @@ Public Class Form1
         dods.directory = "common\day of defeat source\"
         dods.ToCfg = "dod\cfg\"
         dods.libraryname = "dods\"
+        dods.VoiceFadeOut = True
         Games.Add(dods)
 
         Dim goldeye As New SourceGame
@@ -87,6 +94,7 @@ Public Class Form1
         goldeye.directory = "sourcemods\"
         goldeye.ToCfg = "gesource\cfg\"
         goldeye.libraryname = "goldeye\"
+        goldeye.VoiceFadeOut = True
         Games.Add(goldeye)
 
         Dim insurg As New SourceGame
@@ -94,9 +102,8 @@ Public Class Form1
         insurg.directory = "common\insurgency2\"
         insurg.ToCfg = "insurgency\cfg\"
         insurg.libraryname = "insurgen\"
+        insurg.VoiceFadeOut = True
         Games.Add(insurg)
-
-
 
         LoadGames()
 
@@ -336,15 +343,6 @@ Public Class Form1
                 End If
             Next
 
-            Dim VoiceFadeOut As Boolean = True
-            ' Add game ids to this array if they don't support command voice_fadeouttime. Ex. Global Offensive
-            Dim VoiceFadeoutExempt() As Integer = {730}
-            For Each AppId As Integer In VoiceFadeoutExempt
-                If AppId.Equals(Game.id) Then
-                    VoiceFadeOut = False
-                End If
-            Next
-
             Dim UseSteamVoice As Boolean = False
             ' Add game ids to this array if they don't support command sv_use_steam_voice. Ex. CS:S and GMOD
             Dim UseSteamVoiceExempt() As String = {"Garry's Mod"}
@@ -356,14 +354,10 @@ Public Class Form1
 
             Dim CfgData As String
             CfgData = "voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; con_enable 1"
-            If VoiceFadeOut Then
+
+            If Game.VoiceFadeOut Then
                 CfgData = CfgData + ";voice_fadeouttime 0.0"
             End If
-
-            If UseSteamVoice Then
-                CfgData = CfgData + ";sv_use_steam_voice 0; sv_allow_voice_from_file 1"
-            End If
-
 
             slam_cfg.WriteLine(CfgData)
 
@@ -927,28 +921,4 @@ Public Class Form1
     End Sub
 End Class
 
-Public Class SourceGame
-    Public name As String
-    Public id As Integer
-    Public directory As String
-    Public ToCfg As String
-    Public libraryname As String
 
-    Public FileExtension As String = ".wav"
-    Public samplerate As Integer = 11025
-    Public bits As Integer = 16
-    Public channels As Integer = 1
-
-    Public PollInterval As Integer = 100
-
-    Public tracks As New List(Of track)
-    Public blacklist As New List(Of String) From {"slam", "slam_listtracks", "list", "tracks", "la", "slam_play", "slam_play_on", "slam_play_off", "slam_updatecfg", "slam_curtrack", "slam_saycurtrack", "slam_sayteamcurtrack"}
-    Public Class track
-        Public name As String
-        Public tags As New List(Of String)
-        Public hotkey As String = vbNullString
-        Public volume As Integer = 100
-        Public startpos As Integer
-        Public endpos As Integer
-    End Class
-End Class
