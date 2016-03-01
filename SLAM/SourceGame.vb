@@ -6,7 +6,7 @@ Public Class SourceGame
     Public directory As String
     Public ToCfg As String
     Public libraryname As String
-    Public VoiceFadeOut As Boolean
+    Public VoiceFadeOut As Boolean = True
 
     Public FileExtension As String = ".wav"
     Public samplerate As Integer = 11025

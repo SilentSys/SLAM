@@ -40,7 +40,6 @@ Public Class Form1
         css.directory = "common\Counter-Strike Source\"
         css.ToCfg = "cstrike\cfg\"
         css.libraryname = "css\"
-        css.VoiceFadeOut = True
         Games.Add(css)
 
         Dim tf2 As New SourceGame
@@ -48,7 +47,6 @@ Public Class Form1
         tf2.directory = "common\Team Fortress 2\"
         tf2.ToCfg = "tf\cfg\"
         tf2.libraryname = "tf2\"
-        tf2.VoiceFadeOut = True
         Games.Add(tf2)
 
         Dim gmod As New SourceGame
@@ -56,7 +54,6 @@ Public Class Form1
         gmod.directory = "common\GarrysMod\"
         gmod.ToCfg = "garrysmod\cfg\"
         gmod.libraryname = "gmod\"
-        gmod.VoiceFadeOut = True
         Games.Add(gmod)
 
         Dim hl2dm As New SourceGame
@@ -64,7 +61,6 @@ Public Class Form1
         hl2dm.directory = "common\half-life 2 deathmatch\"
         hl2dm.ToCfg = "hl2mp\cfg\"
         hl2dm.libraryname = "hl2dm\"
-        hl2dm.VoiceFadeOut = True
         Games.Add(hl2dm)
 
         Dim l4d As New SourceGame
@@ -72,7 +68,6 @@ Public Class Form1
         l4d.directory = "common\Left 4 Dead\"
         l4d.ToCfg = "left4dead\cfg\"
         l4d.libraryname = "l4d\"
-        l4d.VoiceFadeOut = True
         Games.Add(l4d)
 
         Dim l4d2 As New SourceGame
@@ -80,7 +75,6 @@ Public Class Form1
         l4d2.directory = "common\Left 4 Dead 2\"
         l4d2.ToCfg = "left4dead2\cfg\"
         l4d2.libraryname = "l4d2\"
-        l4d2.VoiceFadeOut = True
         Games.Add(l4d2)
 
         Dim dods As New SourceGame
@@ -88,7 +82,6 @@ Public Class Form1
         dods.directory = "common\day of defeat source\"
         dods.ToCfg = "dod\cfg\"
         dods.libraryname = "dods\"
-        dods.VoiceFadeOut = True
         Games.Add(dods)
 
         Dim goldeye As New SourceGame
@@ -96,7 +89,6 @@ Public Class Form1
         goldeye.directory = "sourcemods\"
         goldeye.ToCfg = "gesource\cfg\"
         goldeye.libraryname = "goldeye\"
-        goldeye.VoiceFadeOut = True
         Games.Add(goldeye)
 
         Dim insurg As New SourceGame
@@ -104,7 +96,6 @@ Public Class Form1
         insurg.directory = "common\insurgency2\"
         insurg.ToCfg = "insurgency\cfg\"
         insurg.libraryname = "insurgen\"
-        insurg.VoiceFadeOut = True
         Games.Add(insurg)
 
         LoadGames()
@@ -349,7 +340,7 @@ Public Class Form1
             CfgData = "voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; con_enable 1"
 
             If Game.VoiceFadeOut Then
-                CfgData = CfgData + ";voice_fadeouttime 0.0"
+                CfgData = CfgData + "; voice_fadeouttime 0.0"
             End If
 
             slam_cfg.WriteLine(CfgData)
@@ -435,7 +426,10 @@ Public Class Form1
                 Return False
             End Try
 
+        Else
+            Return False
         End If
+
         Return True
     End Function
 
@@ -449,8 +443,9 @@ Public Class Form1
         Dim GameDir As String = Path.Combine(SteamappsPath, Game.directory)
         Dim GameCfg As String = Path.Combine(GameDir, Game.ToCfg) & "slam_relay.cfg"
 
-        Try
-            Do
+
+        Do
+            Try
                 If PollRelayWorker.CancellationPending Then
                     Exit Do
                 End If
@@ -461,7 +456,7 @@ Public Class Form1
 
                 If File.Exists(GameCfg) Then
                     Dim RelayCfg As String
-                    Using reader As StreamReader = New StreamReader(New FileStream(GameCfg, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    Using reader As StreamReader = New StreamReader(GameCfg)
                         RelayCfg = reader.ReadToEnd
                     End Using
 
@@ -478,11 +473,16 @@ Public Class Form1
                 End If
 
                 Thread.Sleep(Game.PollInterval)
-            Loop
-        Catch ex As Exception
-            LogError(ex)
-            e.Result = ex
-        End Try
+
+            Catch ex As Exception
+                If Not ex.HResult = -2147024864 Then '-2147024864 = "System.IO.IOException: The process cannot access the file because it is being used by another process."
+                    LogError(ex)
+                    e.Result = ex
+                    Return
+                End If
+            End Try
+        Loop
+
     End Sub
 
     Public Function UserDataCFG(Game As SourceGame) As String
@@ -826,10 +826,14 @@ Public Class Form1
     Private Async Sub CheckForUpdate()
         Dim UpdateText As String
 
-        Using client As New HttpClient
-            Dim UpdateTextTask As Task(Of String) = client.GetStringAsync("http://slam.flankers.net/updates.php")
-            UpdateText = Await UpdateTextTask
-        End Using
+        Try
+            Using client As New HttpClient
+                Dim UpdateTextTask As Task(Of String) = client.GetStringAsync("http://slam.flankers.net/updates.php")
+                UpdateText = Await UpdateTextTask
+            End Using
+        Catch ex As Exception
+            Return
+        End Try
 
         Dim NewVersion As New Version("0.0.0.0") 'generic
         Dim UpdateURL As String = UpdateText.Split()(1)
