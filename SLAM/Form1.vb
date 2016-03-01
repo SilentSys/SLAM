@@ -190,7 +190,7 @@ Public Class Form1
         EnableInterface()
     End Sub
 
-    Private Function GetCurrentGame() As SourceGame
+    Public Function GetCurrentGame() As SourceGame
         For Each Game In Games
             If Game.name = GameSelector.SelectedItem.ToString Then
                 Return Game
@@ -323,18 +323,7 @@ Public Class Form1
             slam_cfg.WriteLine("alias slam_saycurtrack ""exec slam_saycurtrack.cfg""")
             slam_cfg.WriteLine("alias slam_sayteamcurtrack ""exec slam_sayteamcurtrack.cfg""")
 
-            For Each Track In Game.tracks
-                Dim index As String = Game.tracks.IndexOf(Track)
-                slam_cfg.WriteLine("alias {0} ""bind {1} {0}; slam_updatecfg; echo Loaded: {2}""", index + 1, My.Settings.RelayKey, Track.name)
 
-                For Each TrackTag In Track.tags
-                    slam_cfg.WriteLine("alias {0} ""bind {1} {2}; slam_updatecfg; echo Loaded: {3}""", TrackTag, My.Settings.RelayKey, index + 1, Track.name)
-                Next
-
-                If Not String.IsNullOrEmpty(Track.hotkey) Then
-                    slam_cfg.WriteLine("bind {0} ""bind {1} {2}; slam_updatecfg; echo Loaded: {3}""", Track.hotkey, My.Settings.RelayKey, index + 1, Track.name)
-                End If
-            Next
 
             Dim CfgData As String
             CfgData = "voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; con_enable 1"
@@ -347,8 +336,21 @@ Public Class Form1
 
         End Using
 
-        'slam_tracklist.cfg
+        'slam_tracklist.cfg     
         Using slam_tracklist_cfg As StreamWriter = New StreamWriter(GameCfgFolder & "slam_tracklist.cfg")
+            For Each Track In Game.tracks
+                Dim index As String = Game.tracks.IndexOf(Track)
+                slam_tracklist_cfg.WriteLine("alias {0} ""bind {1} {0}; slam_updatecfg; echo Loaded: {2}""", index + 1, My.Settings.RelayKey, Track.name)
+
+                For Each TrackTag In Track.tags
+                    slam_tracklist_cfg.WriteLine("alias {0} ""bind {1} {2}; slam_updatecfg; echo Loaded: {3}""", TrackTag, My.Settings.RelayKey, index + 1, Track.name)
+                Next
+
+                If Not String.IsNullOrEmpty(Track.hotkey) Then
+                    slam_tracklist_cfg.WriteLine("bind {0} ""bind {1} {2}; slam_updatecfg; echo Loaded: {3}""", Track.hotkey, My.Settings.RelayKey, index + 1, Track.name)
+                End If
+            Next
+
             slam_tracklist_cfg.WriteLine("echo ""You can select tracks either by typing a tag, or their track number.""")
             slam_tracklist_cfg.WriteLine("echo ""--------------------Tracks--------------------""")
             For Each Track In Game.tracks
@@ -547,6 +549,7 @@ Public Class Form1
         For Each Control In Me.Controls
             Control.Enabled = False
         Next
+        Button1.Enabled = True
     End Sub
 
     Private Sub DisplayLoaded(ByVal track As Integer)
@@ -915,6 +918,37 @@ Public Class Form1
         If running Then
             StopPoll()
         End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim form = New YTDL()
+        If Application.OpenForms(form.Name) Is Nothing Then
+            form.Show()
+        Else
+
+            If Application.OpenForms(form.Name).WindowState = FormWindowState.Minimized Then
+                Application.OpenForms(form.Name).WindowState = FormWindowState.Normal
+            End If
+
+            Application.OpenForms(form.Name).Activate()
+        End If
+    End Sub
+
+    Public Sub RefreshListAndCfgFiles()
+        ReloadTracks(GetCurrentGame)
+        RefreshTrackList()
+        CreateCfgFiles()
+    End Sub
+
+    Public Sub autoload(ByVal q As String)
+        Dim Game As SourceGame = GetCurrentGame()
+        For i As Integer = 0 To TrackList.Items.Count - 1
+            Dim ii As Integer = 1
+            If TrackList.Items(i).SubItems(ii).Text = q Then
+                LoadTrack(GetCurrentGame, i)
+            End If
+            ii += 1
+        Next
     End Sub
 End Class
 
