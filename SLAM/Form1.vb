@@ -4,6 +4,8 @@ Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports SLAM.XmlSerialization
+Imports SLAM.SourceGame
+Imports SLAM.Track
 Imports System.Net.Http
 
 Public Class Form1
@@ -29,6 +31,7 @@ Public Class Form1
         csgo.ToCfg = "csgo\cfg\"
         csgo.libraryname = "csgo\"
         csgo.samplerate = 22050
+        csgo.VoiceFadeOut = False
         csgo.blacklist.AddRange({"drop", "buy", "go", "fallback", "sticktog", "holdpos", "followme", "coverme", "regroup", "roger", "negative", "cheer", "compliment", "thanks", "enemydown", "reportingin", "enemyspot", "takepoint", "sectorclear", "inposition", "takingfire", "report", "getout"})
         Games.Add(csgo)
 
@@ -37,6 +40,7 @@ Public Class Form1
         css.directory = "common\Counter-Strike Source\"
         css.ToCfg = "cstrike\cfg\"
         css.libraryname = "css\"
+        css.VoiceFadeOut = True
         Games.Add(css)
 
         Dim tf2 As New SourceGame
@@ -44,7 +48,64 @@ Public Class Form1
         tf2.directory = "common\Team Fortress 2\"
         tf2.ToCfg = "tf\cfg\"
         tf2.libraryname = "tf2\"
+        tf2.VoiceFadeOut = True
         Games.Add(tf2)
+
+        Dim gmod As New SourceGame
+        gmod.name = "Garry's Mod"
+        gmod.directory = "common\GarrysMod\"
+        gmod.ToCfg = "garrysmod\cfg\"
+        gmod.libraryname = "gmod\"
+        gmod.VoiceFadeOut = True
+        Games.Add(gmod)
+
+        Dim hl2dm As New SourceGame
+        hl2dm.name = "Half-Life 2 Deathmatch"
+        hl2dm.directory = "common\half-life 2 deathmatch\"
+        hl2dm.ToCfg = "hl2mp\cfg\"
+        hl2dm.libraryname = "hl2dm\"
+        hl2dm.VoiceFadeOut = True
+        Games.Add(hl2dm)
+
+        Dim l4d As New SourceGame
+        l4d.name = "Left 4 Dead"
+        l4d.directory = "common\Left 4 Dead\"
+        l4d.ToCfg = "left4dead\cfg\"
+        l4d.libraryname = "l4d\"
+        l4d.VoiceFadeOut = True
+        Games.Add(l4d)
+
+        Dim l4d2 As New SourceGame
+        l4d2.name = "Left 4 Dead 2"
+        l4d2.directory = "common\Left 4 Dead 2\"
+        l4d2.ToCfg = "left4dead2\cfg\"
+        l4d2.libraryname = "l4d2\"
+        l4d2.VoiceFadeOut = True
+        Games.Add(l4d2)
+
+        Dim dods As New SourceGame
+        dods.name = "Day of Defeat Source"
+        dods.directory = "common\day of defeat source\"
+        dods.ToCfg = "dod\cfg\"
+        dods.libraryname = "dods\"
+        dods.VoiceFadeOut = True
+        Games.Add(dods)
+
+        Dim goldeye As New SourceGame
+        goldeye.name = "Goldeneye Source"
+        goldeye.directory = "sourcemods\"
+        goldeye.ToCfg = "gesource\cfg\"
+        goldeye.libraryname = "goldeye\"
+        goldeye.VoiceFadeOut = True
+        Games.Add(goldeye)
+
+        Dim insurg As New SourceGame
+        insurg.name = "Insurgency"
+        insurg.directory = "common\insurgency2\"
+        insurg.ToCfg = "insurgency\cfg\"
+        insurg.libraryname = "insurgen\"
+        insurg.VoiceFadeOut = True
+        Games.Add(insurg)
 
         LoadGames()
 
@@ -55,6 +116,7 @@ Public Class Form1
 
     Private Sub WaveCreator(File As String, outputFile As String, Game As SourceGame)
         Dim reader As New MediaFoundationReader(File)
+
 
         Dim outFormat = New WaveFormat(Game.samplerate, Game.bits, Game.channels)
 
@@ -99,7 +161,6 @@ Public Class Form1
 
             Try
                 Dim OutFile As String = Path.Combine(Game.libraryname, Path.GetFileNameWithoutExtension(File) & ".wav")
-
                 WaveCreator(File, OutFile, Game)
 
             Catch ex As Exception
@@ -148,13 +209,13 @@ Public Class Form1
     End Function
 
     Private Sub ReloadTracks(Game As SourceGame)
-        If Directory.Exists(Game.libraryname) Then
+        If System.IO.Directory.Exists(Game.libraryname) Then
 
             Game.tracks.Clear()
-            For Each File In Directory.GetFiles(Game.libraryname)
+            For Each File In System.IO.Directory.GetFiles(Game.libraryname)
 
                 If Game.FileExtension = Path.GetExtension(File) Then
-                    Dim track As New SourceGame.track
+                    Dim track As New Track
                     track.name = Path.GetFileNameWithoutExtension(File)
                     Game.tracks.Add(track)
                 End If
@@ -166,7 +227,7 @@ Public Class Form1
             SaveTrackKeys(Game) 'To prune hotkeys from non-existing tracks
 
         Else
-            Directory.CreateDirectory(Game.libraryname)
+            System.IO.Directory.CreateDirectory(Game.libraryname)
         End If
     End Sub
 
@@ -213,12 +274,13 @@ Public Class Form1
         Dim Game As SourceGame = GetCurrentGame()
         If Not Game.id = 0 And My.Settings.UserDataEnabled Then 'The CFG's are located in the userdata folder
             Dim CFGExists As Boolean = False
-            If Directory.Exists(My.Settings.UserdataPath) Then
-                For Each userdir As String In Directory.GetDirectories(My.Settings.UserdataPath)
+            If System.IO.Directory.Exists(My.Settings.UserdataPath) Then
+                For Each userdir As String In System.IO.Directory.GetDirectories(My.Settings.UserdataPath)
                     Dim CFGPath As String = Path.Combine(userdir, Game.id.ToString) & "\local\cfg\"
-                    If Directory.Exists(CFGPath) Then
+                    If System.IO.Directory.Exists(CFGPath) Then
                         CFGExists = True
                         Exit For
+
                     End If
                 Next
             End If
@@ -283,7 +345,15 @@ Public Class Form1
                 End If
             Next
 
-            slam_cfg.WriteLine("voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; voice_fadeouttime 0.0; con_enable 1")
+            Dim CfgData As String
+            CfgData = "voice_enable 1; voice_modenable 1; voice_forcemicrecord 0; con_enable 1"
+
+            If Game.VoiceFadeOut Then
+                CfgData = CfgData + ";voice_fadeouttime 0.0"
+            End If
+
+            slam_cfg.WriteLine(CfgData)
+
         End Using
 
         'slam_tracklist.cfg
@@ -304,11 +374,10 @@ Public Class Form1
     End Sub
 
     Private Function LoadTrack(ByVal Game As SourceGame, ByVal index As Integer) As Boolean
-        Dim Track As SourceGame.track
+        Dim Track As Track
         If Game.tracks.Count > index Then
             Track = Game.tracks(index)
             Dim voicefile As String = Path.Combine(SteamappsPath, Game.directory) & "voice_input.wav"
-
             Try
                 If File.Exists(voicefile) Then
                     File.Delete(voicefile)
@@ -392,7 +461,7 @@ Public Class Form1
 
                 If File.Exists(GameCfg) Then
                     Dim RelayCfg As String
-                    Using reader As StreamReader = New StreamReader(GameCfg)
+                    Using reader As StreamReader = New StreamReader(New FileStream(GameCfg, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                         RelayCfg = reader.ReadToEnd
                     End Using
 
@@ -417,8 +486,8 @@ Public Class Form1
     End Sub
 
     Public Function UserDataCFG(Game As SourceGame) As String
-        If Directory.Exists(My.Settings.UserdataPath) Then
-            For Each userdir As String In Directory.GetDirectories(My.Settings.UserdataPath)
+        If System.IO.Directory.Exists(My.Settings.UserdataPath) Then
+            For Each userdir As String In System.IO.Directory.GetDirectories(My.Settings.UserdataPath)
                 Dim CFGPath As String = Path.Combine(userdir, Game.id.ToString) & "\local\cfg\slam_relay.cfg"
                 If File.Exists(CFGPath) Then
                     Return CFGPath
@@ -492,8 +561,7 @@ Public Class Form1
 
         For Each Game In Games
             Dim GameFullPath As String = Path.Combine(SteamappsPath, Game.directory, Game.ToCfg)
-
-            If Directory.Exists(GameFullPath) Then
+            If System.IO.Directory.Exists(GameFullPath) Then
                 GameSelector.Items.Add(Game.name)
             End If
 
@@ -545,7 +613,7 @@ Public Class Form1
     End Function
 
     Private Sub LoadTrackKeys(ByVal Game As SourceGame)
-        Dim SettingsList As New List(Of SourceGame.track)
+        Dim SettingsList As New List(Of Track)
         Dim SettingsFile As String = Path.Combine(Game.libraryname, "TrackSettings.xml")
 
         If File.Exists(SettingsFile) Then
@@ -553,7 +621,7 @@ Public Class Form1
             Using reader As StreamReader = New StreamReader(SettingsFile)
                 XmlFile = reader.ReadToEnd
             End Using
-            SettingsList = Deserialize(Of List(Of SourceGame.track))(XmlFile)
+            SettingsList = Deserialize(Of List(Of Track))(XmlFile)
         End If
 
 
@@ -572,7 +640,7 @@ Public Class Form1
     End Sub
 
     Private Sub SaveTrackKeys(ByVal Game As SourceGame)
-        Dim SettingsList As New List(Of SourceGame.track)
+        Dim SettingsList As New List(Of Track)
         Dim SettingsFile As String = Path.Combine(Game.libraryname, "TrackSettings.xml")
 
         For Each Track In Game.tracks
@@ -846,28 +914,4 @@ Public Class Form1
     End Sub
 End Class
 
-Public Class SourceGame
-    Public name As String
-    Public id As Integer
-    Public directory As String
-    Public ToCfg As String
-    Public libraryname As String
 
-    Public FileExtension As String = ".wav"
-    Public samplerate As Integer = 11025
-    Public bits As Integer = 16
-    Public channels As Integer = 1
-
-    Public PollInterval As Integer = 100
-
-    Public tracks As New List(Of track)
-    Public blacklist As New List(Of String) From {"slam", "slam_listtracks", "list", "tracks", "la", "slam_play", "slam_play_on", "slam_play_off", "slam_updatecfg", "slam_curtrack", "slam_saycurtrack", "slam_sayteamcurtrack"}
-    Public Class track
-        Public name As String
-        Public tags As New List(Of String)
-        Public hotkey As String = vbNullString
-        Public volume As Integer = 100
-        Public startpos As Integer
-        Public endpos As Integer
-    End Class
-End Class
