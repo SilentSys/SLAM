@@ -50,6 +50,7 @@ Partial Class Form1
         Me.TrimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PlayKeyButton = New System.Windows.Forms.Button()
         Me.StatusLabel = New System.Windows.Forms.Label()
+        Me.HoldToPlay = New System.Windows.Forms.CheckBox()
         Me.TrackContextMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -141,8 +142,8 @@ Partial Class Form1
         'ImportDialog
         '
         Me.ImportDialog.FileName = "ImportDialog"
-        Me.ImportDialog.Filter = "Media files|*.mp3;*.wav;*.aac;*.wma;*.m4a;*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Audio fi" & _
-    "les|*.mp3;*.wav;*.aac;*.wma;*.m4a;|Video files|*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Al" & _
+        Me.ImportDialog.Filter = "Media files|*.mp3;*.wav;*.aac;*.wma;*.m4a;*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Audio fi" &
+    "les|*.mp3;*.wav;*.aac;*.wma;*.m4a;|Video files|*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Al" &
     "l files|*.*"
         Me.ImportDialog.Multiselect = True
         '
@@ -226,9 +227,9 @@ Partial Class Form1
         'PlayKeyButton
         '
         Me.PlayKeyButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PlayKeyButton.Location = New System.Drawing.Point(347, 297)
+        Me.PlayKeyButton.Location = New System.Drawing.Point(292, 297)
         Me.PlayKeyButton.Name = "PlayKeyButton"
-        Me.PlayKeyButton.Size = New System.Drawing.Size(225, 23)
+        Me.PlayKeyButton.Size = New System.Drawing.Size(192, 23)
         Me.PlayKeyButton.TabIndex = 8
         Me.PlayKeyButton.Text = "Play key: """"{0}"""" (change)"
         Me.PlayKeyButton.UseVisualStyleBackColor = True
@@ -243,11 +244,22 @@ Partial Class Form1
         Me.StatusLabel.TabIndex = 9
         Me.StatusLabel.Text = "Status: Idle"
         '
+        'HoldToPlay
+        '
+        Me.HoldToPlay.AutoSize = True
+        Me.HoldToPlay.Location = New System.Drawing.Point(490, 301)
+        Me.HoldToPlay.Name = "HoldToPlay"
+        Me.HoldToPlay.Size = New System.Drawing.Size(82, 17)
+        Me.HoldToPlay.TabIndex = 10
+        Me.HoldToPlay.Text = "Hold to play"
+        Me.HoldToPlay.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 361)
+        Me.Controls.Add(Me.HoldToPlay)
         Me.Controls.Add(Me.StatusLabel)
         Me.Controls.Add(Me.PlayKeyButton)
         Me.Controls.Add(Me.ChangeDirButton)
@@ -293,5 +305,5 @@ Partial Class Form1
     Friend WithEvents TrimToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Trimmed As System.Windows.Forms.ColumnHeader
     Friend WithEvents StatusLabel As System.Windows.Forms.Label
-
+    Friend WithEvents HoldToPlay As CheckBox
 End Class
