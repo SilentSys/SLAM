@@ -11,13 +11,10 @@ Imports System.Net.Http
 Public Class Form1
 
     Dim Games As New List(Of SourceGame)
-
-    Dim SteamappsPath As String = My.Settings.SteamAppsFolder
     Dim running As Boolean = False
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        DisableInterface()
-
+        'DisableInterface()
         RefreshPlayKey()
 
         If My.Settings.UpdateCheck Then
@@ -30,9 +27,10 @@ Public Class Form1
         csgo.directory = "common\Counter-Strike Global Offensive\"
         csgo.ToCfg = "csgo\cfg\"
         csgo.libraryname = "csgo\"
+        csgo.exename = "csgo"
         csgo.samplerate = 22050
-        csgo.VoiceFadeOut = False
         csgo.blacklist.AddRange({"drop", "buy", "go", "fallback", "sticktog", "holdpos", "followme", "coverme", "regroup", "roger", "negative", "cheer", "compliment", "thanks", "enemydown", "reportingin", "enemyspot", "takepoint", "sectorclear", "inposition", "takingfire", "report", "getout"})
+        csgo.VoiceFadeOut = False
         Games.Add(csgo)
 
         Dim css As New SourceGame
@@ -68,6 +66,7 @@ Public Class Form1
         l4d.directory = "common\Left 4 Dead\"
         l4d.ToCfg = "left4dead\cfg\"
         l4d.libraryname = "l4d\"
+        l4d.exename = "left4dead"
         Games.Add(l4d)
 
         Dim l4d2 As New SourceGame
@@ -75,6 +74,7 @@ Public Class Form1
         l4d2.directory = "common\Left 4 Dead 2\"
         l4d2.ToCfg = "left4dead2\cfg\"
         l4d2.libraryname = "l4d2\"
+        l4d2.exename = "left4dead2"
         Games.Add(l4d2)
 
         Dim dods As New SourceGame
@@ -84,21 +84,31 @@ Public Class Form1
         dods.libraryname = "dods\"
         Games.Add(dods)
 
-        Dim goldeye As New SourceGame
-        goldeye.name = "Goldeneye Source"
-        goldeye.directory = "sourcemods\"
-        goldeye.ToCfg = "gesource\cfg\"
-        goldeye.libraryname = "goldeye\"
-        Games.Add(goldeye)
+        'NEEDS EXENAME!!!
+        'Dim goldeye As New SourceGame
+        'goldeye.name = "Goldeneye Source"
+        'goldeye.directory = "sourcemods\"
+        'goldeye.ToCfg = "gesource\cfg\"
+        'goldeye.libraryname = "goldeye\"
+        'Games.Add(goldeye)
 
         Dim insurg As New SourceGame
         insurg.name = "Insurgency"
         insurg.directory = "common\insurgency2\"
         insurg.ToCfg = "insurgency\cfg\"
         insurg.libraryname = "insurgen\"
+        insurg.exename = "insurgency"
         Games.Add(insurg)
 
-        LoadGames()
+        For Each Game In Games
+            GameSelector.Items.Add(Game.name)
+        Next
+
+        If GameSelector.Items.Contains(My.Settings.LastGame) Then
+            GameSelector.Text = GameSelector.Items(GameSelector.Items.IndexOf(My.Settings.LastGame)).ToString
+        End If
+        ReloadTracks(GetCurrentGame)
+        RefreshTrackList()
 
         If My.Settings.StartEnabled Then
             StartPoll()
@@ -261,50 +271,23 @@ Public Class Form1
     End Sub
 
     Private Sub StartPoll()
-
-        Dim Game As SourceGame = GetCurrentGame()
-        If Not Game.id = 0 And My.Settings.UserDataEnabled Then 'The CFG's are located in the userdata folder
-            Dim CFGExists As Boolean = False
-            If System.IO.Directory.Exists(My.Settings.UserdataPath) Then
-                For Each userdir As String In System.IO.Directory.GetDirectories(My.Settings.UserdataPath)
-                    Dim CFGPath As String = Path.Combine(userdir, Game.id.ToString) & "\local\cfg\"
-                    If System.IO.Directory.Exists(CFGPath) Then
-                        CFGExists = True
-                        Exit For
-
-                    End If
-                Next
-            End If
-            If Not CFGExists Then
-                MessageBox.Show("The set ""UserData"" folder does not seem to be correct! Please choose the correct folder.", "Folder does not exist!", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                If ShowUserDataSelector() Then
-                    StartPoll()
-                End If
-                Return
-            End If
-        End If
-
         running = True
         StartButton.Text = "Stop"
-        CreateCfgFiles()
         DisableInterface()
         StartButton.Enabled = True
         TrackList.Enabled = True
         SetVolumeToolStripMenuItem.Enabled = True
-        LoadToolStripMenuItem.Enabled = True
         PollRelayWorker.RunWorkerAsync(GetCurrentGame)
     End Sub
 
     Private Sub StopPoll()
         running = False
         StartButton.Text = "Start"
-        DeleteCFGs(GetCurrentGame)
         EnableInterface()
         PollRelayWorker.CancelAsync()
     End Sub
 
-    Private Sub CreateCfgFiles()
-        Dim Game As SourceGame = GetCurrentGame()
+    Private Sub CreateCfgFiles(Game As SourceGame, SteamappsPath As String)
         Dim GameDir As String = Path.Combine(SteamappsPath, Game.directory)
         Dim GameCfgFolder As String = Path.Combine(GameDir, Game.ToCfg)
 
@@ -364,7 +347,7 @@ Public Class Form1
 
     End Sub
 
-    Private Function LoadTrack(ByVal Game As SourceGame, ByVal index As Integer) As Boolean
+    Private Function LoadTrack(ByVal Game As SourceGame, ByVal index As Integer, ByVal SteamappsPath As String) As Boolean
         Dim Track As Track
         If Game.tracks.Count > index Then
             Track = Game.tracks(index)
@@ -439,19 +422,67 @@ Public Class Form1
     End Function
 
     Private Sub PollRelayWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles PollRelayWorker.DoWork
+        PollRelayWorker.ReportProgress(-1) 'Report that SLAM is searching.
+
         Dim Game As SourceGame = e.Argument
-        Dim GameDir As String = Path.Combine(SteamappsPath, Game.directory)
-        Dim GameCfg As String = Path.Combine(GameDir, Game.ToCfg) & "slam_relay.cfg"
+        Dim GameDir As String = Game.directory & Game.exename & ".exe"
+
+        Dim SteamAppsPath As String = vbNullString
+        Dim UserDataPath As String = vbNullString
+
+        Try
+            Do While Not PollRelayWorker.CancellationPending
+
+                Dim processes As System.Diagnostics.Process()
+                processes = System.Diagnostics.Process.GetProcesses
+                Dim process As System.Diagnostics.Process
+
+                For Each process In processes
+
+                    If process.ProcessName.ToString = Game.exename AndAlso process.MainModule.FileName.ToString.EndsWith(GameDir) Then
+                        Dim ProcessPath As String = process.MainModule.FileName.ToString
+                        SteamAppsPath = ProcessPath.Remove(ProcessPath.Length - GameDir.Length)
+                    End If
+
+                    If process.ProcessName.ToString = "Steam" Then
+                        Dim ProcessPath As String = process.MainModule.FileName.ToString
+                        UserDataPath = ProcessPath.Remove(ProcessPath.Length - "Steam.exe".Length) & "userdata\"
+                    End If
+                Next
 
 
-        Do
-            Try
-                If PollRelayWorker.CancellationPending Then
-                    Exit Do
+                If System.IO.Directory.Exists(SteamAppsPath) Then
+                    If Not Game.id = 0 Then
+
+                        If System.IO.Directory.Exists(UserDataPath) Then
+                            Exit Do
+                        End If
+
+                    Else
+                        Exit Do
+                    End If
                 End If
 
-                If Not Game.id = 0 And My.Settings.UserDataEnabled Then
-                    GameCfg = UserDataCFG(Game)
+            Loop
+        Catch ex As Exception
+            LogError(ex)
+            e.Result = ex
+            Return
+        End Try
+
+        If Not String.IsNullOrEmpty(SteamAppsPath) Then
+            CreateCfgFiles(Game, SteamAppsPath)
+        End If
+
+        PollRelayWorker.ReportProgress(-2) 'Report that SLAM is working.
+
+        Do While Not PollRelayWorker.CancellationPending
+            Try
+                Dim GameFolder As String = Path.Combine(SteamAppsPath, Game.directory)
+                Dim GameCfg As String = Path.Combine(GameFolder, Game.ToCfg) & "slam_relay.cfg"
+
+                If Not Game.id = 0 Then
+                    GameCfg = UserDataCFG(Game, UserDataPath)
                 End If
 
                 If File.Exists(GameCfg) Then
@@ -464,7 +495,7 @@ Public Class Form1
                     If Not String.IsNullOrEmpty(command) Then
                         'load audiofile
                         If IsNumeric(command) Then
-                            If LoadTrack(Game, Convert.ToInt32(command) - 1) Then
+                            If LoadTrack(Game, Convert.ToInt32(command) - 1, SteamAppsPath) Then
                                 PollRelayWorker.ReportProgress(Convert.ToInt32(command) - 1)
                             End If
                         End If
@@ -483,11 +514,15 @@ Public Class Form1
             End Try
         Loop
 
+        If Not String.IsNullOrEmpty(SteamAppsPath) Then
+            DeleteCFGs(Game, SteamAppsPath)
+        End If
+
     End Sub
 
-    Public Function UserDataCFG(Game As SourceGame) As String
-        If System.IO.Directory.Exists(My.Settings.UserdataPath) Then
-            For Each userdir As String In System.IO.Directory.GetDirectories(My.Settings.UserdataPath)
+    Public Function UserDataCFG(Game As SourceGame, UserdataPath As String) As String
+        If System.IO.Directory.Exists(UserdataPath) Then
+            For Each userdir As String In System.IO.Directory.GetDirectories(UserdataPath)
                 Dim CFGPath As String = Path.Combine(userdir, Game.id.ToString) & "\local\cfg\slam_relay.cfg"
                 If File.Exists(CFGPath) Then
                     Return CFGPath
@@ -498,13 +533,23 @@ Public Class Form1
     End Function
 
     Private Sub PollRelayWorker_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles PollRelayWorker.ProgressChanged
-        DisplayLoaded(e.ProgressPercentage)
+        Select Case e.ProgressPercentage
+            Case -1
+                StatusLabel.Text = "Status: Searching..."
+            Case -2
+                StatusLabel.Text = "Status: Working."
+            Case Else
+                DisplayLoaded(e.ProgressPercentage)
+        End Select
+
     End Sub
 
     Private Sub PollRelayWorker_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles PollRelayWorker.RunWorkerCompleted
         If running Then
             StopPoll()
         End If
+
+        StatusLabel.Text = "Status: Idle."
 
         If Not IsNothing(e.Result) Then 'Result is always an exception
             MessageBox.Show(e.Result.Message & " See errorlog.txt for more info.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -555,62 +600,6 @@ Public Class Form1
         Next
         TrackList.Items(track).SubItems(0).Text = "True"
     End Sub
-
-    Private Sub LoadGames()
-        GameSelector.Items.Clear()
-
-        For Each Game In Games
-            Dim GameFullPath As String = Path.Combine(SteamappsPath, Game.directory, Game.ToCfg)
-            If System.IO.Directory.Exists(GameFullPath) Then
-                GameSelector.Items.Add(Game.name)
-            End If
-
-        Next
-
-
-        If GameSelector.Items.Count > 0 Then
-            Dim GoToIndex As String = 0
-
-            If GameSelector.Items.Contains(My.Settings.LastGame) Then
-                GoToIndex = GameSelector.Items.IndexOf(My.Settings.LastGame)
-            End If
-
-            GameSelector.Text = GameSelector.Items(GoToIndex).ToString
-            ReloadTracks(GetCurrentGame)
-            RefreshTrackList()
-
-            'This should set the UserData path drive to the same as the drive on the SteamApps path on first run
-            If String.IsNullOrEmpty(My.Settings.UserdataPath) Then
-                My.Settings.UserdataPath = SteamappsPath.Split("\")(0) & "\Program Files (x86)\Steam\userdata\"
-            End If
-
-
-            My.Settings.SteamAppsFolder = SteamappsPath
-            My.Settings.Save()
-
-            EnableInterface()
-
-        Else
-            DisableInterface()
-            ChangeDirButton.Enabled = True
-            ShowFolderSelector()
-        End If
-
-    End Sub
-
-    Public Function ShowFolderSelector() As Boolean
-        Dim ChangeDirDialog As New FolderBrowserDialog
-        ChangeDirDialog.Description = "Select your steamapps folder:"
-        ChangeDirDialog.ShowNewFolderButton = False
-
-        If ChangeDirDialog.ShowDialog = System.Windows.Forms.DialogResult.OK Then
-            SteamappsPath = ChangeDirDialog.SelectedPath & "\"
-            LoadGames()
-            Return True
-        End If
-
-        Return False
-    End Function
 
     Private Sub LoadTrackKeys(ByVal Game As SourceGame)
         Dim SettingsList As New List(Of Track)
@@ -681,8 +670,7 @@ Public Class Form1
 
                 Else
                     If running Then
-                        LoadToolStripMenuItem.Visible = True 'visible when only one selected AND is running
-                        TrimToolStripMenuItem.Visible = True
+                        TrimToolStripMenuItem.Visible = True 'visible when only one selected AND is running
                     Else
                         For Each Control In TrackContextMenu.Items 'visible when only one selected AND is not running (all)
                             Control.visible = True
@@ -732,11 +720,6 @@ Public Class Form1
 
         ReloadTracks(GetCurrentGame)
         RefreshTrackList()
-    End Sub
-
-    Private Sub LoadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadToolStripMenuItem.Click
-        LoadTrack(GetCurrentGame, TrackList.SelectedItems(0).Index)
-        DisplayLoaded(TrackList.SelectedItems(0).Index)
     End Sub
 
     Private Sub ContextHotKey_Click(sender As Object, e As EventArgs) Handles ContextHotKey.Click
@@ -872,7 +855,7 @@ Public Class Form1
         SettingsForm.ShowDialog()
     End Sub
 
-    Private Sub DeleteCFGs(ByVal Game As SourceGame)
+    Private Sub DeleteCFGs(ByVal Game As SourceGame, ByVal SteamappsPath As String)
         Dim GameDir As String = Path.Combine(SteamappsPath, Game.directory)
         Dim GameCfgFolder As String = Path.Combine(GameDir, Game.ToCfg)
         Dim SlamFiles() As String = {"slam.cfg", "slam_tracklist.cfg", "slam_relay.cfg", "slam_curtrack.cfg", "slam_saycurtrack.cfg", "slam_sayteamcurtrack.cfg"}
@@ -897,19 +880,6 @@ Public Class Form1
         End Try
 
     End Sub
-
-    Public Function ShowUserDataSelector() As Boolean
-        Dim ChangeDirDialog As New FolderBrowserDialog
-        ChangeDirDialog.Description = "Select your userdata folder:"
-        ChangeDirDialog.ShowNewFolderButton = False
-
-        If ChangeDirDialog.ShowDialog = System.Windows.Forms.DialogResult.OK Then
-            My.Settings.UserdataPath = ChangeDirDialog.SelectedPath & "\"
-            Return True
-        End If
-
-        Return False
-    End Function
 
     Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If running Then

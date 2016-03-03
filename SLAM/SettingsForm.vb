@@ -2,20 +2,12 @@
 
     Private Sub SettingsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         VersionLabel.Text = Join({My.Application.Info.Version.Major, My.Application.Info.Version.Minor, My.Application.Info.Version.Build}, ".")
-        DirText.Text = My.Settings.SteamAppsFolder
-        UserDataDir.Text = My.Settings.UserdataPath
         UpdateCheckBox.Checked = My.Settings.UpdateCheck
         HintCheckBox.Checked = My.Settings.NoHint
         LogCheckBox.Checked = My.Settings.LogError
         StartEnabledCheckBox.Checked = My.Settings.StartEnabled
         ConTagsCheckBox.Checked = My.Settings.WriteTags
-        UserDataCheckBox.Checked = My.Settings.UserDataEnabled
         ChangeRelayButton.Text = String.Format("Relay key: ""{0}"" (change)", My.Settings.RelayKey)
-    End Sub
-
-    Private Sub ChangeDirButton_Click(sender As Object, e As EventArgs) Handles ChangeDirButton.Click
-        Form1.ShowFolderSelector()
-        DirText.Text = My.Settings.SteamAppsFolder
     End Sub
 
     Private Sub UpdateCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles UpdateCheckBox.CheckedChanged
@@ -50,15 +42,5 @@
             My.Settings.Save()
             ChangeRelayButton.Text = String.Format("Relay key: ""{0}"" (change)", My.Settings.RelayKey)
         End If
-    End Sub
-
-    Private Sub ChangeDataDirButton_Click(sender As Object, e As EventArgs) Handles ChangeDataDirButton.Click
-        Form1.ShowUserDataSelector()
-            UserDataDir.Text = My.Settings.UserdataPath
-    End Sub
-
-    Private Sub UserDataCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles UserDataCheckBox.CheckedChanged
-        My.Settings.UserDataEnabled = UserDataCheckBox.Checked
-        My.Settings.Save()
     End Sub
 End Class

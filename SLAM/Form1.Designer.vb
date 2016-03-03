@@ -43,13 +43,13 @@ Partial Class Form1
         Me.TrackContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ContextDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.GoToToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LoadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextRefresh = New System.Windows.Forms.ToolStripMenuItem()
         Me.RemoveHotkeyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextHotKey = New System.Windows.Forms.ToolStripMenuItem()
         Me.SetVolumeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TrimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PlayKeyButton = New System.Windows.Forms.Button()
+        Me.StatusLabel = New System.Windows.Forms.Label()
         Me.TrackContextMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -177,9 +177,9 @@ Partial Class Form1
         '
         'TrackContextMenu
         '
-        Me.TrackContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextDelete, Me.GoToToolStripMenuItem, Me.LoadToolStripMenuItem, Me.ContextRefresh, Me.RemoveHotkeyToolStripMenuItem, Me.ContextHotKey, Me.SetVolumeToolStripMenuItem, Me.TrimToolStripMenuItem})
+        Me.TrackContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextDelete, Me.GoToToolStripMenuItem, Me.ContextRefresh, Me.RemoveHotkeyToolStripMenuItem, Me.ContextHotKey, Me.SetVolumeToolStripMenuItem, Me.TrimToolStripMenuItem})
         Me.TrackContextMenu.Name = "TrackContextMenu"
-        Me.TrackContextMenu.Size = New System.Drawing.Size(145, 180)
+        Me.TrackContextMenu.Size = New System.Drawing.Size(145, 158)
         '
         'ContextDelete
         '
@@ -192,12 +192,6 @@ Partial Class Form1
         Me.GoToToolStripMenuItem.Name = "GoToToolStripMenuItem"
         Me.GoToToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
         Me.GoToToolStripMenuItem.Text = "Go To"
-        '
-        'LoadToolStripMenuItem
-        '
-        Me.LoadToolStripMenuItem.Name = "LoadToolStripMenuItem"
-        Me.LoadToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
-        Me.LoadToolStripMenuItem.Text = "Load"
         '
         'ContextRefresh
         '
@@ -239,11 +233,22 @@ Partial Class Form1
         Me.PlayKeyButton.Text = "Play key: """"{0}"""" (change)"
         Me.PlayKeyButton.UseVisualStyleBackColor = True
         '
+        'StatusLabel
+        '
+        Me.StatusLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.StatusLabel.AutoSize = True
+        Me.StatusLabel.Location = New System.Drawing.Point(177, 302)
+        Me.StatusLabel.Name = "StatusLabel"
+        Me.StatusLabel.Size = New System.Drawing.Size(60, 13)
+        Me.StatusLabel.TabIndex = 9
+        Me.StatusLabel.Text = "Status: Idle"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 361)
+        Me.Controls.Add(Me.StatusLabel)
         Me.Controls.Add(Me.PlayKeyButton)
         Me.Controls.Add(Me.ChangeDirButton)
         Me.Controls.Add(Me.ProgressBar1)
@@ -280,7 +285,6 @@ Partial Class Form1
     Friend WithEvents ContextRefresh As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ContextHotKey As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents HotKeyCol As System.Windows.Forms.ColumnHeader
-    Friend WithEvents LoadToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents RemoveHotkeyToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GoToToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PlayKeyButton As System.Windows.Forms.Button
@@ -288,5 +292,6 @@ Partial Class Form1
     Friend WithEvents SetVolumeToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TrimToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Trimmed As System.Windows.Forms.ColumnHeader
+    Friend WithEvents StatusLabel As System.Windows.Forms.Label
 
 End Class
