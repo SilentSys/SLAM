@@ -14,7 +14,6 @@ Public Class Form1
     Dim running As Boolean = False
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'DisableInterface()
         RefreshPlayKey()
 
         If My.Settings.UpdateCheck Then
@@ -106,7 +105,10 @@ Public Class Form1
 
         If GameSelector.Items.Contains(My.Settings.LastGame) Then
             GameSelector.Text = GameSelector.Items(GameSelector.Items.IndexOf(My.Settings.LastGame)).ToString
+        Else
+            GameSelector.Text = GameSelector.Items(0).ToString
         End If
+
         ReloadTracks(GetCurrentGame)
         RefreshTrackList()
 
@@ -463,6 +465,7 @@ Public Class Form1
                     End If
                 End If
 
+                Thread.Sleep(Game.PollInterval)
             Loop
         Catch ex As Exception
             LogError(ex)
