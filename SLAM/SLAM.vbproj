@@ -137,7 +137,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SourceGame.vb" />
-    <Compile Include="Track.vb" />
     <Compile Include="TrimForm.Designer.vb">
       <DependentUpon>TrimForm.vb</DependentUpon>
     </Compile>

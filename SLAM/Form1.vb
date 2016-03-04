@@ -5,7 +5,6 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports SLAM.XmlSerialization
 Imports SLAM.SourceGame
-Imports SLAM.Track
 Imports System.Net.Http
 
 Public Class Form1
@@ -782,10 +781,10 @@ Public Class Form1
 
             For Each index In TrackList.SelectedIndices
                 GetCurrentGame.tracks(index).volume = SetVolumeDialog.Volume
-                SaveTrackKeys(GetCurrentGame)
-                ReloadTracks(GetCurrentGame)
-                RefreshTrackList()
             Next
+            SaveTrackKeys(GetCurrentGame)
+            ReloadTracks(GetCurrentGame)
+            RefreshTrackList()
 
         End If
 
