@@ -434,22 +434,23 @@ Public Class Form1
         Try
             Do While Not PollRelayWorker.CancellationPending
 
-                Dim processes As System.Diagnostics.Process()
-                processes = System.Diagnostics.Process.GetProcesses
-                Dim process As System.Diagnostics.Process
+                Dim GameProcesses As Process() = System.Diagnostics.Process.GetProcessesByName(Game.exename)
 
-                For Each process In processes
+                If GameProcesses.Length = 1 Then
+                    Dim GameProcessPath As String = GameProcesses(0).MainModule.FileName.ToString
 
-                    If process.ProcessName.ToString = Game.exename AndAlso process.MainModule.FileName.ToString.EndsWith(GameDir) Then
-                        Dim ProcessPath As String = process.MainModule.FileName.ToString
-                        SteamAppsPath = ProcessPath.Remove(ProcessPath.Length - GameDir.Length)
+                    If GameProcessPath.EndsWith(GameDir) Then
+                        SteamAppsPath = GameProcessPath.Remove(GameProcessPath.Length - GameDir.Length)
                     End If
+                End If
 
-                    If process.ProcessName.ToString = "Steam" Then
-                        Dim ProcessPath As String = process.MainModule.FileName.ToString
-                        UserDataPath = ProcessPath.Remove(ProcessPath.Length - "Steam.exe".Length) & "userdata\"
-                    End If
-                Next
+                Dim SteamProcesses As Process() = System.Diagnostics.Process.GetProcessesByName("Steam")
+
+                If SteamProcesses.Length = 1 Then
+                    Dim SteamProcessPath As String = SteamProcesses(0).MainModule.FileName.ToString
+                    UserDataPath = SteamProcessPath.Remove(SteamProcessPath.Length - "Steam.exe".Length) & "userdata\"
+                End If
+
 
 
                 If System.IO.Directory.Exists(SteamAppsPath) Then
@@ -466,15 +467,17 @@ Public Class Form1
 
                 Thread.Sleep(Game.PollInterval)
             Loop
+
+            If Not String.IsNullOrEmpty(SteamAppsPath) Then
+                CreateCfgFiles(Game, SteamAppsPath)
+            End If
+
         Catch ex As Exception
             LogError(ex)
             e.Result = ex
             Return
         End Try
 
-        If Not String.IsNullOrEmpty(SteamAppsPath) Then
-            CreateCfgFiles(Game, SteamAppsPath)
-        End If
 
         PollRelayWorker.ReportProgress(-2) 'Report that SLAM is working.
 
