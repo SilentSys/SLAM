@@ -15,6 +15,8 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RefreshPlayKey()
 
+        HoldToPlay.Checked = My.Settings.HoldToPlay
+
         If My.Settings.UpdateCheck Then
             CheckForUpdate()
         End If
@@ -302,7 +304,13 @@ Public Class Form1
             slam_cfg.WriteLine("alias slam_play_on ""alias slam_play slam_play_off; voice_inputfromfile 1; voice_loopback 1; +voicerecord""")
             slam_cfg.WriteLine("alias slam_play_off ""-voicerecord; voice_inputfromfile 0; voice_loopback 0; alias slam_play slam_play_on""")
             slam_cfg.WriteLine("alias slam_updatecfg ""host_writeconfig slam_relay""")
-            slam_cfg.WriteLine("bind {0} slam_play", My.Settings.PlayKey)
+            If HoldToPlay.Checked Then
+                slam_cfg.WriteLine("alias +slam_hold_play slam_play_on")
+                slam_cfg.WriteLine("alias -slam_hold_play slam_play_off")
+                slam_cfg.WriteLine("bind {0} +slam_hold_play", My.Settings.PlayKey)
+            Else
+                slam_cfg.WriteLine("bind {0} slam_play", My.Settings.PlayKey)
+            End If
             slam_cfg.WriteLine("alias slam_curtrack ""exec slam_curtrack.cfg""")
             slam_cfg.WriteLine("alias slam_saycurtrack ""exec slam_saycurtrack.cfg""")
             slam_cfg.WriteLine("alias slam_sayteamcurtrack ""exec slam_sayteamcurtrack.cfg""")
@@ -894,6 +902,11 @@ Public Class Form1
         If running Then
             StopPoll()
         End If
+    End Sub
+
+    Private Sub HoldToPlay_CheckedChanged(sender As Object, e As EventArgs) Handles HoldToPlay.CheckedChanged
+        My.Settings.HoldToPlay = HoldToPlay.Checked
+        My.Settings.Save()
     End Sub
 End Class
 
