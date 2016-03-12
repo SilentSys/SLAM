@@ -814,11 +814,15 @@ Public Class Form1
     Private Async Sub CheckForUpdate()
         Dim UpdateText As String
 
+        Dim NeatVersion As String = My.Application.Info.Version.ToString.Remove(My.Application.Info.Version.ToString.LastIndexOf("."))
+
         Try
+
             Using client As New HttpClient
-                Dim UpdateTextTask As Task(Of String) = client.GetStringAsync("http://slam.flankers.net/updates.php")
+                Dim UpdateTextTask As Task(Of String) = client.GetStringAsync("http://slam.flankers.net/updates.php?version=" & NeatVersion)
                 UpdateText = Await UpdateTextTask
             End Using
+
         Catch ex As Exception
             Return
         End Try
