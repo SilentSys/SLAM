@@ -8,6 +8,7 @@
         StartEnabledCheckBox.Checked = My.Settings.StartEnabled
         ConTagsCheckBox.Checked = My.Settings.WriteTags
         ChangeRelayButton.Text = String.Format("Relay key: ""{0}"" (change)", My.Settings.RelayKey)
+        HoldToPlay.Checked = My.Settings.HoldToPlay
     End Sub
 
     Private Sub UpdateCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles UpdateCheckBox.CheckedChanged
@@ -42,5 +43,10 @@
             My.Settings.Save()
             ChangeRelayButton.Text = String.Format("Relay key: ""{0}"" (change)", My.Settings.RelayKey)
         End If
+    End Sub
+
+    Private Sub HoldToPlay_CheckedChanged(sender As Object, e As EventArgs) Handles HoldToPlay.CheckedChanged
+        My.Settings.HoldToPlay = HoldToPlay.Checked
+        My.Settings.Save()
     End Sub
 End Class

@@ -36,6 +36,7 @@ Partial Class SettingsForm
         Me.UpdateCheckBox = New System.Windows.Forms.CheckBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.HoldToPlay = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -98,6 +99,7 @@ Partial Class SettingsForm
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.HoldToPlay)
         Me.GroupBox2.Controls.Add(Me.ConTagsCheckBox)
         Me.GroupBox2.Controls.Add(Me.StartEnabledCheckBox)
         Me.GroupBox2.Controls.Add(Me.LogCheckBox)
@@ -105,7 +107,7 @@ Partial Class SettingsForm
         Me.GroupBox2.Controls.Add(Me.UpdateCheckBox)
         Me.GroupBox2.Location = New System.Drawing.Point(8, 6)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(260, 132)
+        Me.GroupBox2.Size = New System.Drawing.Size(260, 155)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Other"
@@ -182,6 +184,16 @@ Partial Class SettingsForm
         Me.TabPage1.Text = "Misc."
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'HoldToPlay
+        '
+        Me.HoldToPlay.AutoSize = True
+        Me.HoldToPlay.Location = New System.Drawing.Point(6, 134)
+        Me.HoldToPlay.Name = "HoldToPlay"
+        Me.HoldToPlay.Size = New System.Drawing.Size(82, 17)
+        Me.HoldToPlay.TabIndex = 11
+        Me.HoldToPlay.Text = "Hold to play"
+        Me.HoldToPlay.UseVisualStyleBackColor = True
+        '
         'SettingsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -219,4 +231,5 @@ Partial Class SettingsForm
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents ChangeRelayButton As System.Windows.Forms.Button
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
+    Friend WithEvents HoldToPlay As System.Windows.Forms.CheckBox
 End Class

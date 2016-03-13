@@ -11,11 +11,10 @@ Public Class Form1
 
     Dim Games As New List(Of SourceGame)
     Dim running As Boolean = False
+    Dim ClosePending As Boolean = False
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RefreshPlayKey()
-
-        HoldToPlay.Checked = My.Settings.HoldToPlay
 
         If My.Settings.UpdateCheck Then
             CheckForUpdate()
@@ -304,7 +303,7 @@ Public Class Form1
             slam_cfg.WriteLine("alias slam_play_on ""alias slam_play slam_play_off; voice_inputfromfile 1; voice_loopback 1; +voicerecord""")
             slam_cfg.WriteLine("alias slam_play_off ""-voicerecord; voice_inputfromfile 0; voice_loopback 0; alias slam_play slam_play_on""")
             slam_cfg.WriteLine("alias slam_updatecfg ""host_writeconfig slam_relay""")
-            If HoldToPlay.Checked Then
+            If My.Settings.HoldToPlay Then
                 slam_cfg.WriteLine("alias +slam_hold_play slam_play_on")
                 slam_cfg.WriteLine("alias -slam_hold_play slam_play_off")
                 slam_cfg.WriteLine("bind {0} +slam_hold_play", My.Settings.PlayKey)
@@ -567,6 +566,10 @@ Public Class Form1
         If Not IsNothing(e.Result) Then 'Result is always an exception
             MessageBox.Show(e.Result.Message & " See errorlog.txt for more info.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
+
+        If ClosePending Then
+            Me.Close()
+        End If
     End Sub
 
     Private Sub CreateTags(ByVal Game As SourceGame)
@@ -667,7 +670,7 @@ Public Class Form1
 
     Private Sub TrackList_MouseClick(sender As Object, e As MouseEventArgs) Handles TrackList.MouseClick
         If e.Button = MouseButtons.Right Then
-            If TrackList.FocusedItem.Bounds.Contains(e.Location) = True Then
+            If TrackList.FocusedItem.Bounds.Contains(e.Location) Then
 
                 For Each Control In TrackContextMenu.Items 'everything invisible
                     Control.visible = False
@@ -901,12 +904,9 @@ Public Class Form1
     Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If running Then
             StopPoll()
+            ClosePending = True
+            e.Cancel = True
         End If
-    End Sub
-
-    Private Sub HoldToPlay_CheckedChanged(sender As Object, e As EventArgs) Handles HoldToPlay.CheckedChanged
-        My.Settings.HoldToPlay = HoldToPlay.Checked
-        My.Settings.Save()
     End Sub
 End Class
 
