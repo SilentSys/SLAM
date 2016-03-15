@@ -5,7 +5,9 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports SLAM.XmlSerialization
 Imports SLAM.SourceGame
+Imports System.Management
 Imports System.Net.Http
+
 
 Public Class Form1
 
@@ -74,6 +76,7 @@ Public Class Form1
         l4d2.ToCfg = "left4dead2\cfg\"
         l4d2.libraryname = "l4d2\"
         l4d2.exename = "left4dead2"
+        l4d2.VoiceFadeOut = False
         Games.Add(l4d2)
 
         Dim dods As New SourceGame
@@ -218,7 +221,7 @@ Public Class Form1
             For Each File In System.IO.Directory.GetFiles(Game.libraryname)
 
                 If Game.FileExtension = Path.GetExtension(File) Then
-                    Dim track As New Track
+                    Dim track As New track
                     track.name = Path.GetFileNameWithoutExtension(File)
                     Game.tracks.Add(track)
                 End If
@@ -356,7 +359,7 @@ Public Class Form1
     End Sub
 
     Private Function LoadTrack(ByVal Game As SourceGame, ByVal index As Integer, ByVal SteamappsPath As String) As Boolean
-        Dim Track As Track
+        Dim Track As track
         If Game.tracks.Count > index Then
             Track = Game.tracks(index)
             Dim voicefile As String = Path.Combine(SteamappsPath, Game.directory) & "voice_input.wav"
@@ -441,24 +444,15 @@ Public Class Form1
         Try
             Do While Not PollRelayWorker.CancellationPending
 
-                Dim GameProcesses As Process() = System.Diagnostics.Process.GetProcessesByName(Game.exename)
-
-                If GameProcesses.Length = 1 Then
-                    Dim GameProcessPath As String = GameProcesses(0).MainModule.FileName.ToString
-
-                    If GameProcessPath.EndsWith(GameDir) Then
-                        SteamAppsPath = GameProcessPath.Remove(GameProcessPath.Length - GameDir.Length)
-                    End If
+                Dim GameProcess As String = GetFilepath(Game.exename)
+                If Not String.IsNullOrEmpty(GameProcess) AndAlso GameProcess.EndsWith(GameDir) Then
+                    SteamAppsPath = GameProcess.Remove(GameProcess.Length - GameDir.Length)
                 End If
 
-                Dim SteamProcesses As Process() = System.Diagnostics.Process.GetProcessesByName("Steam")
-
-                If SteamProcesses.Length = 1 Then
-                    Dim SteamProcessPath As String = SteamProcesses(0).MainModule.FileName.ToString
-                    UserDataPath = SteamProcessPath.Remove(SteamProcessPath.Length - "Steam.exe".Length) & "userdata\"
+                Dim SteamProcess As String = GetFilepath("Steam")
+                If Not String.IsNullOrEmpty(SteamProcess) Then
+                    UserDataPath = SteamProcess.Remove(SteamProcess.Length - "Steam.exe".Length) & "userdata\"
                 End If
-
-
 
                 If System.IO.Directory.Exists(SteamAppsPath) Then
                     If Not Game.id = 0 Then
@@ -544,6 +538,24 @@ Public Class Form1
         Return vbNullString
     End Function
 
+    Private Function GetFilepath(ProcessName As String) As String
+
+        Dim wmiQueryString As String = "Select * from Win32_Process Where Name = """ & ProcessName & ".exe"""
+
+        Using searcher = New ManagementObjectSearcher(wmiQueryString)
+            Using results = searcher.Get()
+
+                Dim Process As ManagementObject = results.Cast(Of ManagementObject)().FirstOrDefault()
+                If Process IsNot Nothing Then
+                    Return Process("ExecutablePath").ToString
+                End If
+
+            End Using
+        End Using
+
+        Return Nothing
+    End Function
+
     Private Sub PollRelayWorker_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles PollRelayWorker.ProgressChanged
         Select Case e.ProgressPercentage
             Case -1
@@ -618,7 +630,7 @@ Public Class Form1
     End Sub
 
     Private Sub LoadTrackKeys(ByVal Game As SourceGame)
-        Dim SettingsList As New List(Of Track)
+        Dim SettingsList As New List(Of track)
         Dim SettingsFile As String = Path.Combine(Game.libraryname, "TrackSettings.xml")
 
         If File.Exists(SettingsFile) Then
@@ -626,7 +638,7 @@ Public Class Form1
             Using reader As StreamReader = New StreamReader(SettingsFile)
                 XmlFile = reader.ReadToEnd
             End Using
-            SettingsList = Deserialize(Of List(Of Track))(XmlFile)
+            SettingsList = Deserialize(Of List(Of track))(XmlFile)
         End If
 
 
@@ -645,7 +657,7 @@ Public Class Form1
     End Sub
 
     Private Sub SaveTrackKeys(ByVal Game As SourceGame)
-        Dim SettingsList As New List(Of Track)
+        Dim SettingsList As New List(Of track)
         Dim SettingsFile As String = Path.Combine(Game.libraryname, "TrackSettings.xml")
 
         For Each Track In Game.tracks
@@ -909,5 +921,3 @@ Public Class Form1
         End If
     End Sub
 End Class
-
-
