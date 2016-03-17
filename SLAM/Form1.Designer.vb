@@ -45,6 +45,7 @@ Partial Class Form1
         Me.GoToToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextRefresh = New System.Windows.Forms.ToolStripMenuItem()
         Me.RemoveHotkeyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RenameToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextHotKey = New System.Windows.Forms.ToolStripMenuItem()
         Me.SetVolumeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TrimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -177,9 +178,9 @@ Partial Class Form1
         '
         'TrackContextMenu
         '
-        Me.TrackContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextDelete, Me.GoToToolStripMenuItem, Me.ContextRefresh, Me.RemoveHotkeyToolStripMenuItem, Me.ContextHotKey, Me.SetVolumeToolStripMenuItem, Me.TrimToolStripMenuItem})
+        Me.TrackContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextDelete, Me.GoToToolStripMenuItem, Me.ContextRefresh, Me.RemoveHotkeyToolStripMenuItem, Me.RenameToolStripMenuItem, Me.ContextHotKey, Me.SetVolumeToolStripMenuItem, Me.TrimToolStripMenuItem})
         Me.TrackContextMenu.Name = "TrackContextMenu"
-        Me.TrackContextMenu.Size = New System.Drawing.Size(145, 158)
+        Me.TrackContextMenu.Size = New System.Drawing.Size(145, 180)
         '
         'ContextDelete
         '
@@ -204,6 +205,12 @@ Partial Class Form1
         Me.RemoveHotkeyToolStripMenuItem.Name = "RemoveHotkeyToolStripMenuItem"
         Me.RemoveHotkeyToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
         Me.RemoveHotkeyToolStripMenuItem.Text = "Remove Bind"
+        '
+        'RenameToolStripMenuItem
+        '
+        Me.RenameToolStripMenuItem.Name = "RenameToolStripMenuItem"
+        Me.RenameToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.RenameToolStripMenuItem.Text = "Rename"
         '
         'ContextHotKey
         '
@@ -293,4 +300,5 @@ Partial Class Form1
     Friend WithEvents TrimToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Trimmed As System.Windows.Forms.ColumnHeader
     Friend WithEvents StatusLabel As System.Windows.Forms.Label
+    Friend WithEvents RenameToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

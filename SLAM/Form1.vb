@@ -8,7 +8,6 @@ Imports SLAM.SourceGame
 Imports System.Management
 Imports System.Net.Http
 
-
 Public Class Form1
 
     Dim Games As New List(Of SourceGame)
@@ -831,6 +830,39 @@ Public Class Form1
             SaveTrackKeys(GetCurrentGame)
             ReloadTracks(GetCurrentGame)
             RefreshTrackList()
+        End If
+    End Sub
+
+    Private Sub RenameToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RenameToolStripMenuItem.Click
+        Dim Game As SourceGame = GetCurrentGame()
+        Dim RenameDialog As New RenameForm
+        Dim SelectedTrack As SourceGame.track = GetCurrentGame.tracks(TrackList.SelectedIndices(0))
+
+        RenameDialog.filename = SelectedTrack.name
+
+        If RenameDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Try
+
+                FileSystem.Rename(Game.libraryname & SelectedTrack.name & Game.FileExtension, Game.libraryname & RenameDialog.filename & Game.FileExtension)
+                GetCurrentGame.tracks(TrackList.SelectedIndices(0)).name = RenameDialog.filename
+
+                SaveTrackKeys(GetCurrentGame)
+                ReloadTracks(GetCurrentGame)
+                RefreshTrackList()
+
+            Catch ex As Exception
+                Select Case ex.HResult
+                    Case -2147024809
+                        MessageBox.Show("""" & RenameDialog.filename & """ contains invalid characters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+                    Case -2146232800
+                        MessageBox.Show("A track with that name already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+                    Case Else
+                        MessageBox.Show(ex.Message & " See errorlog.txt for more info.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Select
+
+            End Try
         End If
     End Sub
 
