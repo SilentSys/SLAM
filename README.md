@@ -1,7 +1,9 @@
 # SLAM
 
 [Source Live Audio Mixer home page](http://slam.flankers.net/)
+
 [Twitter](https://twitter.com/SilentFL)
+
 [Reddit](https://www.reddit.com/r/SourceLiveAudioMixer/)
 
 SLAM is a new way to share sounds with your friends over the built in communication system of Source games. With SLAM's super-simple design, you will be pleasing the ears of your audience in no time! 
