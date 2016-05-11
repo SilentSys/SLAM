@@ -141,7 +141,8 @@ Partial Class Form1
         '
         'ImportDialog
         '
-        Me.ImportDialog.FileName = "ImportDialog"
+        Me.ImportDialog.Title = "Import Files"
+        Me.ImportDialog.FileName = ""
         Me.ImportDialog.Filter = "Media files|*.mp3;*.wav;*.aac;*.wma;*.m4a;*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Audio fi" & _
     "les|*.mp3;*.wav;*.aac;*.wma;*.m4a;|Video files|*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Al" & _
     "l files|*.*"
