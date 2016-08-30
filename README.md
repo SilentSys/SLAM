@@ -1,12 +1,14 @@
 # SLAM
 
+[Download this version from Google Drive](http://goo.gl/qZHOYb)
+
 [Source Live Audio Mixer home page](http://slam.flankers.net/)
 
 [Twitter](https://twitter.com/SilentFL)
 
 [Reddit](https://www.reddit.com/r/SourceLiveAudioMixer/)
 
-SLAM is a new way to share sounds with your friends over the built in communication system of Source games. With SLAM's super-simple design, you will be pleasing the ears of your audience in no time! 
+SLAM is a new way to share sounds with your friends over the built in communication system of Source games. With SLAM's super-simple design, you will be pleasing the ears of your audience in no time!
 
 Current features:
 - Simple in-game interface.
@@ -16,7 +18,8 @@ Current features:
 - Create binds to load specific songs.
 - Change track volume on the go.
 - Trim tracks on the go.
-
+- Package manager
+- Music folder wipe
 
 ![1](http://i.imgur.com/aQ0sWeJ.png)
 ![2](http://i.imgur.com/vfWozNU.png)
