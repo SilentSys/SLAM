@@ -7,6 +7,7 @@ Imports SLAM.XmlSerialization
 Imports SLAM.SourceGame
 Imports System.Management
 Imports System.Net.Http
+Imports System.IO.Compression
 
 Public Class Form1
 
@@ -277,6 +278,7 @@ Public Class Form1
     Private Sub StartPoll()
         running = True
         StartButton.Text = "Stop"
+        LoadPackageToolStripMenuItem.Enabled = False
         DisableInterface()
         StartButton.Enabled = True
         TrackList.Enabled = True
@@ -287,6 +289,7 @@ Public Class Form1
     Private Sub StopPoll()
         running = False
         StartButton.Text = "Start"
+        LoadPackageToolStripMenuItem.Enabled = True
         EnableInterface()
         PollRelayWorker.CancelAsync()
     End Sub
@@ -951,5 +954,71 @@ Public Class Form1
             ClosePending = True
             e.Cancel = True
         End If
+    End Sub
+
+    Sub DeleteFilesFromFolder(Folder As String)
+        If IO.Directory.Exists(Folder) Then
+            For Each _file As String In IO.Directory.GetFiles(Folder)
+                File.Delete(_file)
+            Next
+            For Each _folder As String In IO.Directory.GetDirectories(Folder)
+
+                DeleteFilesFromFolder(_folder)
+            Next
+
+        End If
+
+    End Sub
+
+    Private Sub SavePackageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SavePackageToolStripMenuItem.Click
+        'Save smthing
+        Dim saveFileDialog1 As New SaveFileDialog()
+        saveFileDialog1.Filter = "SLAM package|*.slam"
+        saveFileDialog1.Title = "Save package"
+        saveFileDialog1.ShowDialog()
+
+        ' If the file name is not an empty string open it for saving.
+        If saveFileDialog1.FileName <> "" Then
+            Try
+                ZipFile.CreateFromDirectory(GetCurrentGame().libraryname, saveFileDialog1.FileName)
+                MsgBox("Done")
+            Catch ex As Exception
+                LogError(ex)
+            End Try
+        End If
+
+    End Sub
+
+    Private Sub LoadPackageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadPackageToolStripMenuItem.Click
+        Dim fd As OpenFileDialog = New OpenFileDialog()
+
+        fd.Title = "Load package"
+        fd.Filter = "SLAM package|*.slam"
+        fd.FilterIndex = 2
+        fd.RestoreDirectory = True
+
+        If fd.ShowDialog() = DialogResult.OK Then
+            'Delete all in game folder
+            Try
+                DeleteFilesFromFolder(GetCurrentGame().libraryname)
+                ZipFile.ExtractToDirectory(fd.FileName, GetCurrentGame().libraryname)
+                ReloadTracks(GetCurrentGame)
+                RefreshTrackList()
+            Catch ex As Exception
+                LogError(ex)
+            End Try
+            'Fill it with files from package
+
+        End If
+    End Sub
+
+    Private Sub WipeFolderWithMusicToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WipeFolderWithMusicToolStripMenuItem.Click
+        Try
+            DeleteFilesFromFolder(GetCurrentGame().libraryname)
+            ReloadTracks(GetCurrentGame)
+            RefreshTrackList()
+        Catch ex As Exception
+            LogError(ex)
+        End Try
     End Sub
 End Class

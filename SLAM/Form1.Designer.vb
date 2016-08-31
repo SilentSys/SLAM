@@ -18,7 +18,7 @@ Partial Class Form1
     Private components As System.ComponentModel.IContainer
 
     'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
+    'It can be modified using the Windows Form Designer.
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
@@ -51,7 +51,14 @@ Partial Class Form1
         Me.TrimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PlayKeyButton = New System.Windows.Forms.Button()
         Me.StatusLabel = New System.Windows.Forms.Label()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SavePackageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LoadPackageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.WipeFolderWithMusicToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TrackContextMenu.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GameSelector
@@ -60,27 +67,30 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GameSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.GameSelector.FormattingEnabled = True
-        Me.GameSelector.Location = New System.Drawing.Point(56, 12)
+        Me.GameSelector.Location = New System.Drawing.Point(69, 34)
+        Me.GameSelector.Margin = New System.Windows.Forms.Padding(4)
         Me.GameSelector.MaxDropDownItems = 100
         Me.GameSelector.Name = "GameSelector"
-        Me.GameSelector.Size = New System.Drawing.Size(435, 21)
+        Me.GameSelector.Size = New System.Drawing.Size(579, 24)
         Me.GameSelector.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 15)
+        Me.Label1.Location = New System.Drawing.Point(10, 37)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(38, 13)
+        Me.Label1.Size = New System.Drawing.Size(50, 17)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Game:"
         '
         'ImportButton
         '
         Me.ImportButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ImportButton.Location = New System.Drawing.Point(15, 297)
+        Me.ImportButton.Location = New System.Drawing.Point(13, 411)
+        Me.ImportButton.Margin = New System.Windows.Forms.Padding(4)
         Me.ImportButton.Name = "ImportButton"
-        Me.ImportButton.Size = New System.Drawing.Size(75, 23)
+        Me.ImportButton.Size = New System.Drawing.Size(100, 28)
         Me.ImportButton.TabIndex = 3
         Me.ImportButton.Text = "Import"
         Me.ImportButton.UseVisualStyleBackColor = True
@@ -95,9 +105,10 @@ Partial Class Form1
         Me.TrackList.FullRowSelect = True
         Me.TrackList.HideSelection = False
         Me.TrackList.ImeMode = System.Windows.Forms.ImeMode.Off
-        Me.TrackList.Location = New System.Drawing.Point(15, 39)
+        Me.TrackList.Location = New System.Drawing.Point(13, 66)
+        Me.TrackList.Margin = New System.Windows.Forms.Padding(4)
         Me.TrackList.Name = "TrackList"
-        Me.TrackList.Size = New System.Drawing.Size(557, 252)
+        Me.TrackList.Size = New System.Drawing.Size(741, 336)
         Me.TrackList.TabIndex = 4
         Me.TrackList.UseCompatibleStateImageBehavior = False
         Me.TrackList.View = System.Windows.Forms.View.Details
@@ -132,9 +143,10 @@ Partial Class Form1
         'StartButton
         '
         Me.StartButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.StartButton.Location = New System.Drawing.Point(96, 297)
+        Me.StartButton.Location = New System.Drawing.Point(121, 411)
+        Me.StartButton.Margin = New System.Windows.Forms.Padding(4)
         Me.StartButton.Name = "StartButton"
-        Me.StartButton.Size = New System.Drawing.Size(75, 23)
+        Me.StartButton.Size = New System.Drawing.Size(100, 28)
         Me.StartButton.TabIndex = 5
         Me.StartButton.Text = "Start"
         Me.StartButton.UseVisualStyleBackColor = True
@@ -142,8 +154,8 @@ Partial Class Form1
         'ImportDialog
         '
         Me.ImportDialog.FileName = "ImportDialog"
-        Me.ImportDialog.Filter = "Media files|*.mp3;*.wav;*.aac;*.wma;*.m4a;*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Audio fi" & _
-    "les|*.mp3;*.wav;*.aac;*.wma;*.m4a;|Video files|*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Al" & _
+        Me.ImportDialog.Filter = "Media files|*.mp3;*.wav;*.aac;*.wma;*.m4a;*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Audio fi" &
+    "les|*.mp3;*.wav;*.aac;*.wma;*.m4a;|Video files|*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Al" &
     "l files|*.*"
         Me.ImportDialog.Multiselect = True
         '
@@ -151,9 +163,10 @@ Partial Class Form1
         '
         Me.ProgressBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar1.Location = New System.Drawing.Point(15, 326)
+        Me.ProgressBar1.Location = New System.Drawing.Point(13, 446)
+        Me.ProgressBar1.Margin = New System.Windows.Forms.Padding(4)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(557, 23)
+        Me.ProgressBar1.Size = New System.Drawing.Size(743, 28)
         Me.ProgressBar1.Step = 1
         Me.ProgressBar1.TabIndex = 6
         '
@@ -168,74 +181,78 @@ Partial Class Form1
         '
         'ChangeDirButton
         '
-        Me.ChangeDirButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ChangeDirButton.Location = New System.Drawing.Point(497, 10)
+        Me.ChangeDirButton.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ChangeDirButton.Location = New System.Drawing.Point(654, 34)
+        Me.ChangeDirButton.Margin = New System.Windows.Forms.Padding(4)
         Me.ChangeDirButton.Name = "ChangeDirButton"
-        Me.ChangeDirButton.Size = New System.Drawing.Size(75, 23)
+        Me.ChangeDirButton.Size = New System.Drawing.Size(102, 24)
         Me.ChangeDirButton.TabIndex = 7
         Me.ChangeDirButton.Text = "Settings"
         Me.ChangeDirButton.UseVisualStyleBackColor = True
         '
         'TrackContextMenu
         '
+        Me.TrackContextMenu.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.TrackContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextDelete, Me.GoToToolStripMenuItem, Me.ContextRefresh, Me.RemoveHotkeyToolStripMenuItem, Me.RenameToolStripMenuItem, Me.ContextHotKey, Me.SetVolumeToolStripMenuItem, Me.TrimToolStripMenuItem})
         Me.TrackContextMenu.Name = "TrackContextMenu"
-        Me.TrackContextMenu.Size = New System.Drawing.Size(145, 180)
+        Me.TrackContextMenu.Size = New System.Drawing.Size(173, 212)
         '
         'ContextDelete
         '
         Me.ContextDelete.Name = "ContextDelete"
-        Me.ContextDelete.Size = New System.Drawing.Size(144, 22)
+        Me.ContextDelete.Size = New System.Drawing.Size(172, 26)
         Me.ContextDelete.Text = "Delete"
         '
         'GoToToolStripMenuItem
         '
         Me.GoToToolStripMenuItem.Name = "GoToToolStripMenuItem"
-        Me.GoToToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.GoToToolStripMenuItem.Size = New System.Drawing.Size(172, 26)
         Me.GoToToolStripMenuItem.Text = "Go To"
         '
         'ContextRefresh
         '
         Me.ContextRefresh.Name = "ContextRefresh"
-        Me.ContextRefresh.Size = New System.Drawing.Size(144, 22)
+        Me.ContextRefresh.Size = New System.Drawing.Size(172, 26)
         Me.ContextRefresh.Text = "Refresh"
         '
         'RemoveHotkeyToolStripMenuItem
         '
         Me.RemoveHotkeyToolStripMenuItem.Name = "RemoveHotkeyToolStripMenuItem"
-        Me.RemoveHotkeyToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.RemoveHotkeyToolStripMenuItem.Size = New System.Drawing.Size(172, 26)
         Me.RemoveHotkeyToolStripMenuItem.Text = "Remove Bind"
         '
         'RenameToolStripMenuItem
         '
         Me.RenameToolStripMenuItem.Name = "RenameToolStripMenuItem"
-        Me.RenameToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.RenameToolStripMenuItem.Size = New System.Drawing.Size(172, 26)
         Me.RenameToolStripMenuItem.Text = "Rename"
         '
         'ContextHotKey
         '
         Me.ContextHotKey.Name = "ContextHotKey"
-        Me.ContextHotKey.Size = New System.Drawing.Size(144, 22)
+        Me.ContextHotKey.Size = New System.Drawing.Size(172, 26)
         Me.ContextHotKey.Text = "Set Bind"
         '
         'SetVolumeToolStripMenuItem
         '
         Me.SetVolumeToolStripMenuItem.Name = "SetVolumeToolStripMenuItem"
-        Me.SetVolumeToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.SetVolumeToolStripMenuItem.Size = New System.Drawing.Size(172, 26)
         Me.SetVolumeToolStripMenuItem.Text = "Set Volume"
         '
         'TrimToolStripMenuItem
         '
         Me.TrimToolStripMenuItem.Name = "TrimToolStripMenuItem"
-        Me.TrimToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.TrimToolStripMenuItem.Size = New System.Drawing.Size(172, 26)
         Me.TrimToolStripMenuItem.Text = "Trim"
         '
         'PlayKeyButton
         '
         Me.PlayKeyButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PlayKeyButton.Location = New System.Drawing.Point(380, 297)
+        Me.PlayKeyButton.Location = New System.Drawing.Point(500, 411)
+        Me.PlayKeyButton.Margin = New System.Windows.Forms.Padding(4)
         Me.PlayKeyButton.Name = "PlayKeyButton"
-        Me.PlayKeyButton.Size = New System.Drawing.Size(192, 23)
+        Me.PlayKeyButton.Size = New System.Drawing.Size(256, 28)
         Me.PlayKeyButton.TabIndex = 8
         Me.PlayKeyButton.Text = "Play key: """"{0}"""" (change)"
         Me.PlayKeyButton.UseVisualStyleBackColor = True
@@ -244,17 +261,58 @@ Partial Class Form1
         '
         Me.StatusLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.StatusLabel.AutoSize = True
-        Me.StatusLabel.Location = New System.Drawing.Point(177, 302)
+        Me.StatusLabel.Location = New System.Drawing.Point(229, 417)
+        Me.StatusLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(60, 13)
+        Me.StatusLabel.Size = New System.Drawing.Size(78, 17)
         Me.StatusLabel.TabIndex = 9
         Me.StatusLabel.Text = "Status: Idle"
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(779, 28)
+        Me.MenuStrip1.TabIndex = 10
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'FileToolStripMenuItem
+        '
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SavePackageToolStripMenuItem, Me.LoadPackageToolStripMenuItem, Me.WipeFolderWithMusicToolStripMenuItem})
+        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(44, 24)
+        Me.FileToolStripMenuItem.Text = "File"
+        '
+        'SavePackageToolStripMenuItem
+        '
+        Me.SavePackageToolStripMenuItem.Name = "SavePackageToolStripMenuItem"
+        Me.SavePackageToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+S"
+        Me.SavePackageToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
+        Me.SavePackageToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
+        Me.SavePackageToolStripMenuItem.Text = "Save package"
+        '
+        'LoadPackageToolStripMenuItem
+        '
+        Me.LoadPackageToolStripMenuItem.Name = "LoadPackageToolStripMenuItem"
+        Me.LoadPackageToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+O"
+        Me.LoadPackageToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
+        Me.LoadPackageToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
+        Me.LoadPackageToolStripMenuItem.Text = "Load package"
+        '
+        'WipeFolderWithMusicToolStripMenuItem
+        '
+        Me.WipeFolderWithMusicToolStripMenuItem.Name = "WipeFolderWithMusicToolStripMenuItem"
+        Me.WipeFolderWithMusicToolStripMenuItem.Size = New System.Drawing.Size(237, 26)
+        Me.WipeFolderWithMusicToolStripMenuItem.Text = "Wipe folder with music"
+        '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(584, 361)
+        Me.ClientSize = New System.Drawing.Size(779, 483)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.StatusLabel)
         Me.Controls.Add(Me.PlayKeyButton)
         Me.Controls.Add(Me.ChangeDirButton)
@@ -265,11 +323,15 @@ Partial Class Form1
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.GameSelector)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MinimumSize = New System.Drawing.Size(500, 400)
+        Me.MainMenuStrip = Me.MenuStrip1
+        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.MinimumSize = New System.Drawing.Size(661, 481)
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Source Live Audio Mixer"
         Me.TrackContextMenu.ResumeLayout(False)
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -301,4 +363,10 @@ Partial Class Form1
     Friend WithEvents Trimmed As System.Windows.Forms.ColumnHeader
     Friend WithEvents StatusLabel As System.Windows.Forms.Label
     Friend WithEvents RenameToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LoadPackageToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SavePackageToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents WipeFolderWithMusicToolStripMenuItem As ToolStripMenuItem
 End Class
