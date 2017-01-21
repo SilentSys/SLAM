@@ -161,6 +161,42 @@ Namespace My
                 Me("HoldToPlay") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property OverrideFolders() As Boolean
+            Get
+                Return CType(Me("OverrideFolders"),Boolean)
+            End Get
+            Set
+                Me("OverrideFolders") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Program Files (x86)\Steam\steamapps\")>  _
+        Public Property steamapps() As String
+            Get
+                Return CType(Me("steamapps"),String)
+            End Get
+            Set
+                Me("steamapps") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Program Files (x86)\Steam\userdata\")>  _
+        Public Property userdata() As String
+            Get
+                Return CType(Me("userdata"),String)
+            End Get
+            Set
+                Me("userdata") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

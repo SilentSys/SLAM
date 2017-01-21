@@ -9,6 +9,9 @@
         ConTagsCheckBox.Checked = My.Settings.WriteTags
         ChangeRelayButton.Text = String.Format("Relay key: ""{0}"" (change)", My.Settings.RelayKey)
         HoldToPlay.Checked = My.Settings.HoldToPlay
+        userdatatext.Text = My.Settings.userdata
+        steamappstext.Text = My.Settings.steamapps
+        EnableOverrideBox.Checked = My.Settings.OverrideFolders
     End Sub
 
     Private Sub UpdateCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles UpdateCheckBox.CheckedChanged
@@ -39,14 +42,54 @@
     Private Sub ChangeRelayButton_Click(sender As Object, e As EventArgs) Handles ChangeRelayButton.Click
         Dim SelectKeyDialog As New SelectKey
         If SelectKeyDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
-            My.Settings.RelayKey = SelectKeyDialog.ChosenKey
-            My.Settings.Save()
-            ChangeRelayButton.Text = String.Format("Relay key: ""{0}"" (change)", My.Settings.RelayKey)
+            If Not SelectKeyDialog.ChosenKey = My.Settings.PlayKey Then
+                My.Settings.RelayKey = SelectKeyDialog.ChosenKey
+                My.Settings.Save()
+                ChangeRelayButton.Text = String.Format("Relay key: ""{0}"" (change)", My.Settings.RelayKey)
+            Else
+                MessageBox.Show("Play key and relay key can not be the same!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
         End If
     End Sub
 
     Private Sub HoldToPlay_CheckedChanged(sender As Object, e As EventArgs) Handles HoldToPlay.CheckedChanged
         My.Settings.HoldToPlay = HoldToPlay.Checked
         My.Settings.Save()
+    End Sub
+
+    Private Sub DonateLabel_Click(sender As Object, e As EventArgs) Handles DonateLabel.Click
+        Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RVLLPGWJUG6CY")
+    End Sub
+
+    Private Sub EnableOverrideBox_CheckedChanged(sender As Object, e As EventArgs) Handles EnableOverrideBox.CheckedChanged
+        My.Settings.OverrideFolders = EnableOverrideBox.Checked
+        My.Settings.Save()
+
+        For Each control In OverrideGroup.Controls
+            control.enabled = EnableOverrideBox.Checked
+        Next
+        EnableOverrideBox.Enabled = True
+    End Sub
+
+    Private Sub ShowFolderSelector(name As String, ByRef setting As String)
+        Dim ChangeDirDialog As New FolderBrowserDialog
+        ChangeDirDialog.Description = String.Format("Select your {0} folder:", name)
+        ChangeDirDialog.ShowNewFolderButton = False
+
+        If ChangeDirDialog.ShowDialog = System.Windows.Forms.DialogResult.OK Then
+            setting = ChangeDirDialog.SelectedPath & "\"
+            My.Settings.Save()
+        End If
+
+    End Sub
+
+    Private Sub FindsteamappsButton_Click(sender As Object, e As EventArgs) Handles FindsteamappsButton.Click
+        ShowFolderSelector("steamapps", My.Settings.steamapps)
+        steamappstext.Text = My.Settings.steamapps
+    End Sub
+
+    Private Sub FinduserdataButton_Click(sender As Object, e As EventArgs) Handles FinduserdataButton.Click
+        ShowFolderSelector("userdata", My.Settings.userdata)
+        userdatatext.Text = My.Settings.userdata
     End Sub
 End Class

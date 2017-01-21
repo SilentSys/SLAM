@@ -13,9 +13,20 @@ Public Class Form1
     Dim Games As New List(Of SourceGame)
     Dim running As Boolean = False
     Dim ClosePending As Boolean = False
+    Dim SteamAppsPath As String
+    Dim status As Integer = IDLE
+
+    Const IDLE = -1
+    Const SEARCHING = -2
+    Const WORKING = -3
+
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RefreshPlayKey()
+        If My.Settings.PlayKey = My.Settings.RelayKey Then
+            My.Settings.RelayKey = "="
+            My.Settings.Save()
+        End If
 
         If My.Settings.UpdateCheck Then
             CheckForUpdate()
@@ -45,6 +56,7 @@ Public Class Form1
         tf2.directory = "common\Team Fortress 2\"
         tf2.ToCfg = "tf\cfg\"
         tf2.libraryname = "tf2\"
+        tf2.samplerate = 22050
         Games.Add(tf2)
 
         Dim gmod As New SourceGame
@@ -214,7 +226,7 @@ Public Class Form1
     End Function
 
     Private Sub ReloadTracks(Game As SourceGame)
-        If System.IO.Directory.Exists(Game.libraryname) Then
+        If IO.Directory.Exists(Game.libraryname) Then
 
             Game.tracks.Clear()
             For Each File In System.IO.Directory.GetFiles(Game.libraryname)
@@ -295,6 +307,10 @@ Public Class Form1
         Dim GameDir As String = Path.Combine(SteamappsPath, Game.directory)
         Dim GameCfgFolder As String = Path.Combine(GameDir, Game.ToCfg)
 
+        If Not IO.Directory.Exists(GameCfgFolder) Then
+            Throw New System.Exception("Steamapps folder is incorrect. Disable ""override folder detection"", or select a correct folder.")
+        End If
+
         'slam.cfg
         Using slam_cfg As StreamWriter = New StreamWriter(GameCfgFolder & "slam.cfg")
             slam_cfg.WriteLine("alias slam_listtracks ""exec slam_tracklist.cfg""")
@@ -357,11 +373,11 @@ Public Class Form1
 
     End Sub
 
-    Private Function LoadTrack(ByVal Game As SourceGame, ByVal index As Integer, ByVal SteamappsPath As String) As Boolean
+    Private Function LoadTrack(ByVal Game As SourceGame, ByVal index As Integer) As Boolean
         Dim Track As track
         If Game.tracks.Count > index Then
             Track = Game.tracks(index)
-            Dim voicefile As String = Path.Combine(SteamappsPath, Game.directory) & "voice_input.wav"
+            Dim voicefile As String = Path.Combine(SteamAppsPath, Game.directory) & "voice_input.wav"
             Try
                 If File.Exists(voicefile) Then
                     File.Delete(voicefile)
@@ -400,7 +416,7 @@ Public Class Form1
 
                     End If
 
-                    Dim GameCfgFolder As String = Path.Combine(SteamappsPath, Game.directory, Game.ToCfg)
+                    Dim GameCfgFolder As String = Path.Combine(SteamAppsPath, Game.directory, Game.ToCfg)
                     Using slam_curtrack As StreamWriter = New StreamWriter(GameCfgFolder & "slam_curtrack.cfg")
                         slam_curtrack.WriteLine("echo ""[SLAM] Track name: {0}""", Track.name)
                     End Using
@@ -432,41 +448,52 @@ Public Class Form1
     End Function
 
     Private Sub PollRelayWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles PollRelayWorker.DoWork
-        PollRelayWorker.ReportProgress(-1) 'Report that SLAM is searching.
+        PollRelayWorker.ReportProgress(SEARCHING) 'Report that SLAM is searching.
 
         Dim Game As SourceGame = e.Argument
         Dim GameDir As String = Game.directory & Game.exename & ".exe"
 
-        Dim SteamAppsPath As String = vbNullString
+        SteamAppsPath = vbNullString
         Dim UserDataPath As String = vbNullString
 
         Try
-            Do While Not PollRelayWorker.CancellationPending
+            If Not My.Settings.OverrideFolders Then
 
-                Dim GameProcess As String = GetFilepath(Game.exename)
-                If Not String.IsNullOrEmpty(GameProcess) AndAlso GameProcess.EndsWith(GameDir) Then
-                    SteamAppsPath = GameProcess.Remove(GameProcess.Length - GameDir.Length)
-                End If
+                Do While Not PollRelayWorker.CancellationPending
 
-                Dim SteamProcess As String = GetFilepath("Steam")
-                If Not String.IsNullOrEmpty(SteamProcess) Then
-                    UserDataPath = SteamProcess.Remove(SteamProcess.Length - "Steam.exe".Length) & "userdata\"
-                End If
+                    Dim GameProcess As String = GetFilepath(Game.exename)
+                    If Not String.IsNullOrEmpty(GameProcess) AndAlso GameProcess.EndsWith(GameDir) Then
+                        SteamAppsPath = GameProcess.Remove(GameProcess.Length - GameDir.Length)
+                    End If
 
-                If System.IO.Directory.Exists(SteamAppsPath) Then
-                    If Not Game.id = 0 Then
+                    Dim SteamProcess As String = GetFilepath("Steam")
+                    If Not String.IsNullOrEmpty(SteamProcess) Then
+                        UserDataPath = SteamProcess.Remove(SteamProcess.Length - "Steam.exe".Length) & "userdata\"
+                    End If
 
-                        If System.IO.Directory.Exists(UserDataPath) Then
+                    If IO.Directory.Exists(SteamAppsPath) Then
+                        If Not Game.id = 0 Then
+
+                            If IO.Directory.Exists(UserDataPath) Then
+                                Exit Do
+                            End If
+
+                        Else
                             Exit Do
                         End If
-
-                    Else
-                        Exit Do
                     End If
-                End If
 
-                Thread.Sleep(Game.PollInterval)
-            Loop
+                    Thread.Sleep(Game.PollInterval)
+                Loop
+
+            Else
+                SteamAppsPath = My.Settings.steamapps
+                If IO.Directory.Exists(My.Settings.userdata) Then
+                    UserDataPath = My.Settings.userdata
+                Else
+                    Throw New System.Exception("Userdata folder does not exist. Disable ""override folder detection"", or select a correct folder.")
+                End If
+            End If
 
             If Not String.IsNullOrEmpty(SteamAppsPath) Then
                 CreateCfgFiles(Game, SteamAppsPath)
@@ -479,7 +506,7 @@ Public Class Form1
         End Try
 
 
-        PollRelayWorker.ReportProgress(-2) 'Report that SLAM is working.
+        PollRelayWorker.ReportProgress(WORKING) 'Report that SLAM is working.
 
         Do While Not PollRelayWorker.CancellationPending
             Try
@@ -500,7 +527,7 @@ Public Class Form1
                     If Not String.IsNullOrEmpty(command) Then
                         'load audiofile
                         If IsNumeric(command) Then
-                            If LoadTrack(Game, Convert.ToInt32(command) - 1, SteamAppsPath) Then
+                            If LoadTrack(Game, Convert.ToInt32(command) - 1) Then
                                 PollRelayWorker.ReportProgress(Convert.ToInt32(command) - 1)
                             End If
                         End If
@@ -526,7 +553,7 @@ Public Class Form1
     End Sub
 
     Public Function UserDataCFG(Game As SourceGame, UserdataPath As String) As String
-        If System.IO.Directory.Exists(UserdataPath) Then
+        If IO.Directory.Exists(UserdataPath) Then
             For Each userdir As String In System.IO.Directory.GetDirectories(UserdataPath)
                 Dim CFGPath As String = Path.Combine(userdir, Game.id.ToString) & "\local\cfg\slam_relay.cfg"
                 If File.Exists(CFGPath) Then
@@ -545,7 +572,7 @@ Public Class Form1
             Using results = searcher.Get()
 
                 Dim Process As ManagementObject = results.Cast(Of ManagementObject)().FirstOrDefault()
-                If Process IsNot Nothing Then
+                If Process IsNot Nothing AndAlso Not String.IsNullOrEmpty(Process("ExecutablePath").ToString) Then
                     Return Process("ExecutablePath").ToString
                 End If
 
@@ -557,9 +584,11 @@ Public Class Form1
 
     Private Sub PollRelayWorker_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles PollRelayWorker.ProgressChanged
         Select Case e.ProgressPercentage
-            Case -1
+            Case SEARCHING
+                status = SEARCHING
                 StatusLabel.Text = "Status: Searching..."
-            Case -2
+            Case WORKING
+                status = WORKING
                 StatusLabel.Text = "Status: Working."
             Case Else
                 DisplayLoaded(e.ProgressPercentage)
@@ -572,6 +601,7 @@ Public Class Form1
             StopPoll()
         End If
 
+        status = IDLE
         StatusLabel.Text = "Status: Idle."
 
         If Not IsNothing(e.Result) Then 'Result is always an exception
@@ -698,10 +728,14 @@ Public Class Form1
                 Else
                     If running Then
                         TrimToolStripMenuItem.Visible = True 'visible when only one selected AND is running
+                        If status = WORKING Then
+                            LoadToolStripMenuItem.Visible = True
+                        End If
                     Else
                         For Each Control In TrackContextMenu.Items 'visible when only one selected AND is not running (all)
                             Control.visible = True
                         Next
+                        LoadToolStripMenuItem.Visible = False
                     End If
 
                 End If
@@ -896,9 +930,13 @@ Public Class Form1
     Private Sub PlayKeyButton_Click(sender As Object, e As EventArgs) Handles PlayKeyButton.Click
         Dim SelectKeyDialog As New SelectKey
         If SelectKeyDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
-            My.Settings.PlayKey = SelectKeyDialog.ChosenKey
-            My.Settings.Save()
-            RefreshPlayKey()
+            If Not SelectKeyDialog.ChosenKey = My.Settings.RelayKey Then
+                My.Settings.PlayKey = SelectKeyDialog.ChosenKey
+                My.Settings.Save()
+                RefreshPlayKey()
+            Else
+                MessageBox.Show("Play key and relay key can not be the same!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         End If
     End Sub
 
@@ -909,7 +947,7 @@ Public Class Form1
     Private Sub LogError(ByVal ex As Exception)
         If My.Settings.LogError Then
             Using log As StreamWriter = New StreamWriter("errorlog.txt", True)
-                log.WriteLine("--------------------{0}--------------------", DateTime.Now)
+                log.WriteLine("--------------------{0} UTC--------------------", DateTime.Now.ToUniversalTime)
                 log.WriteLine(ex.ToString)
             End Using
         End If
@@ -951,5 +989,10 @@ Public Class Form1
             ClosePending = True
             e.Cancel = True
         End If
+    End Sub
+
+    Private Sub LoadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadToolStripMenuItem.Click
+        LoadTrack(GetCurrentGame, TrackList.SelectedItems(0).Index)
+        DisplayLoaded(TrackList.SelectedItems(0).Index)
     End Sub
 End Class

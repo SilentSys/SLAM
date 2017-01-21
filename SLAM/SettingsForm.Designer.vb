@@ -25,10 +25,20 @@ Partial Class SettingsForm
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.VersionLabel = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.DonateLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.OverrideGroup = New System.Windows.Forms.GroupBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.FinduserdataButton = New System.Windows.Forms.Button()
+        Me.userdatatext = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.FindsteamappsButton = New System.Windows.Forms.Button()
+        Me.steamappstext = New System.Windows.Forms.TextBox()
+        Me.EnableOverrideBox = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.ChangeRelayButton = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.HoldToPlay = New System.Windows.Forms.CheckBox()
         Me.ConTagsCheckBox = New System.Windows.Forms.CheckBox()
         Me.StartEnabledCheckBox = New System.Windows.Forms.CheckBox()
         Me.LogCheckBox = New System.Windows.Forms.CheckBox()
@@ -36,9 +46,9 @@ Partial Class SettingsForm
         Me.UpdateCheckBox = New System.Windows.Forms.CheckBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.HoldToPlay = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
+        Me.OverrideGroup.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -47,7 +57,8 @@ Partial Class SettingsForm
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.VersionLabel})
+        Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.VersionLabel, Me.DonateLabel})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 309)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(284, 22)
@@ -67,8 +78,16 @@ Partial Class SettingsForm
         Me.VersionLabel.Size = New System.Drawing.Size(31, 17)
         Me.VersionLabel.Text = "0.0.0"
         '
+        'DonateLabel
+        '
+        Me.DonateLabel.IsLink = True
+        Me.DonateLabel.Name = "DonateLabel"
+        Me.DonateLabel.Size = New System.Drawing.Size(199, 17)
+        Me.DonateLabel.Text = "Want to support SLAM by donating?"
+        '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.OverrideGroup)
         Me.TabPage2.Controls.Add(Me.GroupBox3)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
@@ -77,6 +96,90 @@ Partial Class SettingsForm
         Me.TabPage2.TabIndex = 0
         Me.TabPage2.Text = "Advanced"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'OverrideGroup
+        '
+        Me.OverrideGroup.Controls.Add(Me.Label2)
+        Me.OverrideGroup.Controls.Add(Me.FinduserdataButton)
+        Me.OverrideGroup.Controls.Add(Me.userdatatext)
+        Me.OverrideGroup.Controls.Add(Me.Label1)
+        Me.OverrideGroup.Controls.Add(Me.FindsteamappsButton)
+        Me.OverrideGroup.Controls.Add(Me.steamappstext)
+        Me.OverrideGroup.Controls.Add(Me.EnableOverrideBox)
+        Me.OverrideGroup.Location = New System.Drawing.Point(8, 64)
+        Me.OverrideGroup.Name = "OverrideGroup"
+        Me.OverrideGroup.Size = New System.Drawing.Size(260, 96)
+        Me.OverrideGroup.TabIndex = 3
+        Me.OverrideGroup.TabStop = False
+        Me.OverrideGroup.Text = "Override folder detection"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Enabled = False
+        Me.Label2.Location = New System.Drawing.Point(6, 71)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(51, 13)
+        Me.Label2.TabIndex = 6
+        Me.Label2.Text = "userdata:"
+        '
+        'FinduserdataButton
+        '
+        Me.FinduserdataButton.Enabled = False
+        Me.FinduserdataButton.Location = New System.Drawing.Point(230, 66)
+        Me.FinduserdataButton.Name = "FinduserdataButton"
+        Me.FinduserdataButton.Size = New System.Drawing.Size(24, 23)
+        Me.FinduserdataButton.TabIndex = 5
+        Me.FinduserdataButton.Text = "..."
+        Me.FinduserdataButton.UseVisualStyleBackColor = True
+        '
+        'userdatatext
+        '
+        Me.userdatatext.Enabled = False
+        Me.userdatatext.Location = New System.Drawing.Point(73, 68)
+        Me.userdatatext.Name = "userdatatext"
+        Me.userdatatext.ReadOnly = True
+        Me.userdatatext.Size = New System.Drawing.Size(151, 20)
+        Me.userdatatext.TabIndex = 4
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Enabled = False
+        Me.Label1.Location = New System.Drawing.Point(6, 45)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(61, 13)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "steamapps:"
+        '
+        'FindsteamappsButton
+        '
+        Me.FindsteamappsButton.Enabled = False
+        Me.FindsteamappsButton.Location = New System.Drawing.Point(230, 40)
+        Me.FindsteamappsButton.Name = "FindsteamappsButton"
+        Me.FindsteamappsButton.Size = New System.Drawing.Size(24, 23)
+        Me.FindsteamappsButton.TabIndex = 2
+        Me.FindsteamappsButton.Text = "..."
+        Me.FindsteamappsButton.UseVisualStyleBackColor = True
+        '
+        'steamappstext
+        '
+        Me.steamappstext.Enabled = False
+        Me.steamappstext.Location = New System.Drawing.Point(73, 42)
+        Me.steamappstext.Name = "steamappstext"
+        Me.steamappstext.ReadOnly = True
+        Me.steamappstext.Size = New System.Drawing.Size(151, 20)
+        Me.steamappstext.TabIndex = 1
+        '
+        'EnableOverrideBox
+        '
+        Me.EnableOverrideBox.AutoSize = True
+        Me.EnableOverrideBox.Location = New System.Drawing.Point(6, 19)
+        Me.EnableOverrideBox.Name = "EnableOverrideBox"
+        Me.EnableOverrideBox.Size = New System.Drawing.Size(59, 17)
+        Me.EnableOverrideBox.TabIndex = 0
+        Me.EnableOverrideBox.Text = "Enable"
+        Me.EnableOverrideBox.UseVisualStyleBackColor = True
         '
         'GroupBox3
         '
@@ -111,6 +214,16 @@ Partial Class SettingsForm
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Other"
+        '
+        'HoldToPlay
+        '
+        Me.HoldToPlay.AutoSize = True
+        Me.HoldToPlay.Location = New System.Drawing.Point(6, 134)
+        Me.HoldToPlay.Name = "HoldToPlay"
+        Me.HoldToPlay.Size = New System.Drawing.Size(82, 17)
+        Me.HoldToPlay.TabIndex = 11
+        Me.HoldToPlay.Text = "Hold to play"
+        Me.HoldToPlay.UseVisualStyleBackColor = True
         '
         'ConTagsCheckBox
         '
@@ -184,16 +297,6 @@ Partial Class SettingsForm
         Me.TabPage1.Text = "Misc."
         Me.TabPage1.UseVisualStyleBackColor = True
         '
-        'HoldToPlay
-        '
-        Me.HoldToPlay.AutoSize = True
-        Me.HoldToPlay.Location = New System.Drawing.Point(6, 134)
-        Me.HoldToPlay.Name = "HoldToPlay"
-        Me.HoldToPlay.Size = New System.Drawing.Size(82, 17)
-        Me.HoldToPlay.TabIndex = 11
-        Me.HoldToPlay.Text = "Hold to play"
-        Me.HoldToPlay.UseVisualStyleBackColor = True
-        '
         'SettingsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -208,6 +311,8 @@ Partial Class SettingsForm
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
+        Me.OverrideGroup.ResumeLayout(False)
+        Me.OverrideGroup.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
@@ -232,4 +337,13 @@ Partial Class SettingsForm
     Friend WithEvents ChangeRelayButton As System.Windows.Forms.Button
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
     Friend WithEvents HoldToPlay As System.Windows.Forms.CheckBox
+    Friend WithEvents OverrideGroup As GroupBox
+    Friend WithEvents FindsteamappsButton As Button
+    Friend WithEvents steamappstext As TextBox
+    Friend WithEvents EnableOverrideBox As CheckBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents DonateLabel As ToolStripStatusLabel
+    Friend WithEvents Label2 As Label
+    Friend WithEvents FinduserdataButton As Button
+    Friend WithEvents userdatatext As TextBox
 End Class

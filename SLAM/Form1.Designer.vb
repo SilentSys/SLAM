@@ -49,6 +49,7 @@ Partial Class Form1
         Me.ContextHotKey = New System.Windows.Forms.ToolStripMenuItem()
         Me.SetVolumeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TrimToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LoadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PlayKeyButton = New System.Windows.Forms.Button()
         Me.StatusLabel = New System.Windows.Forms.Label()
         Me.TrackContextMenu.SuspendLayout()
@@ -142,8 +143,8 @@ Partial Class Form1
         'ImportDialog
         '
         Me.ImportDialog.FileName = "ImportDialog"
-        Me.ImportDialog.Filter = "Media files|*.mp3;*.wav;*.aac;*.wma;*.m4a;*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Audio fi" & _
-    "les|*.mp3;*.wav;*.aac;*.wma;*.m4a;|Video files|*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Al" & _
+        Me.ImportDialog.Filter = "Media files|*.mp3;*.wav;*.aac;*.wma;*.m4a;*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Audio fi" &
+    "les|*.mp3;*.wav;*.aac;*.wma;*.m4a;|Video files|*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Al" &
     "l files|*.*"
         Me.ImportDialog.Multiselect = True
         '
@@ -178,9 +179,10 @@ Partial Class Form1
         '
         'TrackContextMenu
         '
-        Me.TrackContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextDelete, Me.GoToToolStripMenuItem, Me.ContextRefresh, Me.RemoveHotkeyToolStripMenuItem, Me.RenameToolStripMenuItem, Me.ContextHotKey, Me.SetVolumeToolStripMenuItem, Me.TrimToolStripMenuItem})
+        Me.TrackContextMenu.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.TrackContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContextDelete, Me.GoToToolStripMenuItem, Me.ContextRefresh, Me.RemoveHotkeyToolStripMenuItem, Me.RenameToolStripMenuItem, Me.ContextHotKey, Me.SetVolumeToolStripMenuItem, Me.TrimToolStripMenuItem, Me.LoadToolStripMenuItem})
         Me.TrackContextMenu.Name = "TrackContextMenu"
-        Me.TrackContextMenu.Size = New System.Drawing.Size(145, 180)
+        Me.TrackContextMenu.Size = New System.Drawing.Size(145, 202)
         '
         'ContextDelete
         '
@@ -229,6 +231,12 @@ Partial Class Form1
         Me.TrimToolStripMenuItem.Name = "TrimToolStripMenuItem"
         Me.TrimToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
         Me.TrimToolStripMenuItem.Text = "Trim"
+        '
+        'LoadToolStripMenuItem
+        '
+        Me.LoadToolStripMenuItem.Name = "LoadToolStripMenuItem"
+        Me.LoadToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.LoadToolStripMenuItem.Text = "Load"
         '
         'PlayKeyButton
         '
@@ -301,4 +309,5 @@ Partial Class Form1
     Friend WithEvents Trimmed As System.Windows.Forms.ColumnHeader
     Friend WithEvents StatusLabel As System.Windows.Forms.Label
     Friend WithEvents RenameToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents LoadToolStripMenuItem As ToolStripMenuItem
 End Class
