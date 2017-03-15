@@ -995,4 +995,25 @@ Public Class Form1
         LoadTrack(GetCurrentGame, TrackList.SelectedItems(0).Index)
         DisplayLoaded(TrackList.SelectedItems(0).Index)
     End Sub
+
+    Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        If My.Settings.MinimizeToSysTray Then
+            If WindowState = FormWindowState.Minimized Then
+                NotifyIcon1.Visible = True
+                NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
+                NotifyIcon1.BalloonTipTitle = "Verificador corriendo"
+                NotifyIcon1.BalloonTipText = "Verificador corriendo"
+                NotifyIcon1.ShowBalloonTip(50000)
+                Hide()
+                ShowInTaskbar = False
+            End If
+        End If
+    End Sub
+
+    Private Sub NotifyIcon1_DoubleClick(sender As Object, e As EventArgs) Handles NotifyIcon1.DoubleClick
+        Show()
+        ShowInTaskbar = True
+        WindowState = FormWindowState.Normal
+        NotifyIcon1.Visible = False
+    End Sub
 End Class

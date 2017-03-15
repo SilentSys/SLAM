@@ -38,6 +38,7 @@ Partial Class SettingsForm
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.ChangeRelayButton = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.MinimizeToSysTrayCheckBox = New System.Windows.Forms.CheckBox()
         Me.HoldToPlay = New System.Windows.Forms.CheckBox()
         Me.ConTagsCheckBox = New System.Windows.Forms.CheckBox()
         Me.StartEnabledCheckBox = New System.Windows.Forms.CheckBox()
@@ -69,7 +70,7 @@ Partial Class SettingsForm
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(49, 17)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(48, 17)
         Me.ToolStripStatusLabel1.Text = "Version:"
         '
         'VersionLabel
@@ -202,6 +203,7 @@ Partial Class SettingsForm
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.MinimizeToSysTrayCheckBox)
         Me.GroupBox2.Controls.Add(Me.HoldToPlay)
         Me.GroupBox2.Controls.Add(Me.ConTagsCheckBox)
         Me.GroupBox2.Controls.Add(Me.StartEnabledCheckBox)
@@ -210,10 +212,20 @@ Partial Class SettingsForm
         Me.GroupBox2.Controls.Add(Me.UpdateCheckBox)
         Me.GroupBox2.Location = New System.Drawing.Point(8, 6)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(260, 155)
+        Me.GroupBox2.Size = New System.Drawing.Size(260, 188)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Other"
+        '
+        'MinimizeToSysTrayCheckBox
+        '
+        Me.MinimizeToSysTrayCheckBox.AutoSize = True
+        Me.MinimizeToSysTrayCheckBox.Location = New System.Drawing.Point(6, 157)
+        Me.MinimizeToSysTrayCheckBox.Name = "MinimizeToSysTrayCheckBox"
+        Me.MinimizeToSysTrayCheckBox.Size = New System.Drawing.Size(143, 17)
+        Me.MinimizeToSysTrayCheckBox.TabIndex = 12
+        Me.MinimizeToSysTrayCheckBox.Text = "Minimize To System Tray"
+        Me.MinimizeToSysTrayCheckBox.UseVisualStyleBackColor = True
         '
         'HoldToPlay
         '
@@ -346,4 +358,5 @@ Partial Class SettingsForm
     Friend WithEvents Label2 As Label
     Friend WithEvents FinduserdataButton As Button
     Friend WithEvents userdatatext As TextBox
+    Friend WithEvents MinimizeToSysTrayCheckBox As CheckBox
 End Class
