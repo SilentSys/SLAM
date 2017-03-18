@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
@@ -52,8 +52,14 @@ Partial Class Form1
         Me.LoadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PlayKeyButton = New System.Windows.Forms.Button()
         Me.StatusLabel = New System.Windows.Forms.Label()
-        Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.SystemTrayIcon = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.SystemTrayMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.SystemTrayMenu_Open = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SystemTrayMenu_StartStop = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.SystemTrayMenu_Exit = New System.Windows.Forms.ToolStripMenuItem()
         Me.TrackContextMenu.SuspendLayout()
+        Me.SystemTrayMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'GameSelector
@@ -259,10 +265,40 @@ Partial Class Form1
         Me.StatusLabel.TabIndex = 9
         Me.StatusLabel.Text = "Status: Idle"
         '
-        'NotifyIcon1
+        'SystemTrayIcon
         '
-        Me.NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), System.Drawing.Icon)
-        Me.NotifyIcon1.Text = "SLAM"
+        Me.SystemTrayIcon.ContextMenuStrip = Me.SystemTrayMenu
+        Me.SystemTrayIcon.Icon = CType(resources.GetObject("SystemTrayIcon.Icon"), System.Drawing.Icon)
+        Me.SystemTrayIcon.Text = "SLAM"
+        '
+        'SystemTrayMenu
+        '
+        Me.SystemTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SystemTrayMenu_Open, Me.SystemTrayMenu_StartStop, Me.ToolStripSeparator1, Me.SystemTrayMenu_Exit})
+        Me.SystemTrayMenu.Name = "SystemTrayMenu"
+        Me.SystemTrayMenu.Size = New System.Drawing.Size(153, 98)
+        '
+        'SystemTrayMenu_Open
+        '
+        Me.SystemTrayMenu_Open.Name = "SystemTrayMenu_Open"
+        Me.SystemTrayMenu_Open.Size = New System.Drawing.Size(152, 22)
+        Me.SystemTrayMenu_Open.Text = "Open"
+        '
+        'SystemTrayMenu_StartStop
+        '
+        Me.SystemTrayMenu_StartStop.Name = "SystemTrayMenu_StartStop"
+        Me.SystemTrayMenu_StartStop.Size = New System.Drawing.Size(152, 22)
+        Me.SystemTrayMenu_StartStop.Text = "Start"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
+        '
+        'SystemTrayMenu_Exit
+        '
+        Me.SystemTrayMenu_Exit.Name = "SystemTrayMenu_Exit"
+        Me.SystemTrayMenu_Exit.Size = New System.Drawing.Size(152, 22)
+        Me.SystemTrayMenu_Exit.Text = "Exit"
         '
         'Form1
         '
@@ -284,6 +320,7 @@ Partial Class Form1
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Source Live Audio Mixer"
         Me.TrackContextMenu.ResumeLayout(False)
+        Me.SystemTrayMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -316,5 +353,10 @@ Partial Class Form1
     Friend WithEvents StatusLabel As System.Windows.Forms.Label
     Friend WithEvents RenameToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents LoadToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents NotifyIcon1 As NotifyIcon
+    Friend WithEvents SystemTrayIcon As NotifyIcon
+    Friend WithEvents SystemTrayMenu As ContextMenuStrip
+    Friend WithEvents SystemTrayMenu_Open As ToolStripMenuItem
+    Friend WithEvents SystemTrayMenu_StartStop As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents SystemTrayMenu_Exit As ToolStripMenuItem
 End Class

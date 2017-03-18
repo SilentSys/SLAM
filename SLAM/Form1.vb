@@ -289,6 +289,7 @@ Public Class Form1
     Private Sub StartPoll()
         running = True
         StartButton.Text = "Stop"
+        SystemTrayMenu_StartStop.Text = "Stop"
         DisableInterface()
         StartButton.Enabled = True
         TrackList.Enabled = True
@@ -299,6 +300,7 @@ Public Class Form1
     Private Sub StopPoll()
         running = False
         StartButton.Text = "Start"
+        SystemTrayMenu_StartStop.Text = "Start"
         EnableInterface()
         PollRelayWorker.CancelAsync()
     End Sub
@@ -999,21 +1001,45 @@ Public Class Form1
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         If My.Settings.MinimizeToSysTray Then
             If WindowState = FormWindowState.Minimized Then
-                NotifyIcon1.Visible = True
-                NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
-                NotifyIcon1.BalloonTipTitle = "Verificador corriendo"
-                NotifyIcon1.BalloonTipText = "Verificador corriendo"
-                NotifyIcon1.ShowBalloonTip(50000)
+                SystemTrayIcon.Visible = True
+                SystemTrayIcon.BalloonTipIcon = ToolTipIcon.Info
+                SystemTrayIcon.BalloonTipTitle = "Verificador corriendo"
+                SystemTrayIcon.BalloonTipText = "Verificador corriendo"
+                SystemTrayIcon.ShowBalloonTip(50000)
                 Hide()
                 ShowInTaskbar = False
             End If
         End If
     End Sub
 
-    Private Sub NotifyIcon1_DoubleClick(sender As Object, e As EventArgs) Handles NotifyIcon1.DoubleClick
+    Private Sub SystemTrayIcon_DoubleClick(sender As Object, e As EventArgs) Handles SystemTrayIcon.DoubleClick
         Show()
         ShowInTaskbar = True
         WindowState = FormWindowState.Normal
-        NotifyIcon1.Visible = False
+        SystemTrayIcon.Visible = False
+    End Sub
+
+    Private Sub SystemTrayMenu_OpenHandler(sender As Object, e As EventArgs) Handles SystemTrayMenu_Open.Click
+        Show()
+        ShowInTaskbar = True
+        WindowState = FormWindowState.Normal
+        SystemTrayIcon.Visible = False
+    End Sub
+
+    Private Sub SystemTrayMenu_StartStopHandler(sender As Object, e As EventArgs) Handles SystemTrayMenu_StartStop.Click
+        If running Then
+            StopPoll()
+        Else
+            StartPoll()
+        End If
+    End Sub
+
+    Private Sub SystemTrayMenu_ExitHandler(sender As Object, e As EventArgs) Handles SystemTrayMenu_Exit.Click
+        If running Then
+            StopPoll()
+            ClosePending = True
+        Else
+            Me.Close()
+        End If
     End Sub
 End Class
