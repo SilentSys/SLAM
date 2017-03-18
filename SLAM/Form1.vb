@@ -1003,8 +1003,8 @@ Public Class Form1
             If WindowState = FormWindowState.Minimized Then
                 SystemTrayIcon.Visible = True
                 SystemTrayIcon.BalloonTipIcon = ToolTipIcon.Info
-                SystemTrayIcon.BalloonTipTitle = "Verificador corriendo"
-                SystemTrayIcon.BalloonTipText = "Verificador corriendo"
+                SystemTrayIcon.BalloonTipTitle = "SLAM"
+                SystemTrayIcon.BalloonTipText = "Minimized to tray"
                 SystemTrayIcon.ShowBalloonTip(50000)
                 Hide()
                 ShowInTaskbar = False
