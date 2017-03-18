@@ -12,6 +12,7 @@
         userdatatext.Text = My.Settings.userdata
         steamappstext.Text = My.Settings.steamapps
         EnableOverrideBox.Checked = My.Settings.OverrideFolders
+        MinimizeToSysTrayCheckBox.Checked = My.Settings.MinimizeToSysTray
     End Sub
 
     Private Sub UpdateCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles UpdateCheckBox.CheckedChanged
@@ -48,7 +49,7 @@
                 ChangeRelayButton.Text = String.Format("Relay key: ""{0}"" (change)", My.Settings.RelayKey)
             Else
                 MessageBox.Show("Play key and relay key can not be the same!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
+            End If
         End If
     End Sub
 
@@ -91,5 +92,10 @@
     Private Sub FinduserdataButton_Click(sender As Object, e As EventArgs) Handles FinduserdataButton.Click
         ShowFolderSelector("userdata", My.Settings.userdata)
         userdatatext.Text = My.Settings.userdata
+    End Sub
+
+    Private Sub MinimizeToSysTrayCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles MinimizeToSysTrayCheckBox.CheckedChanged
+        My.Settings.MinimizeToSysTray = MinimizeToSysTrayCheckBox.Checked
+        My.Settings.Save()
     End Sub
 End Class
