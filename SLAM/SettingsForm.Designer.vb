@@ -47,6 +47,7 @@ Partial Class SettingsForm
         Me.UpdateCheckBox = New System.Windows.Forms.CheckBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.StartMinimizedCheckBox = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.OverrideGroup.SuspendLayout()
@@ -203,6 +204,7 @@ Partial Class SettingsForm
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.StartMinimizedCheckBox)
         Me.GroupBox2.Controls.Add(Me.MinimizeToSysTrayCheckBox)
         Me.GroupBox2.Controls.Add(Me.HoldToPlay)
         Me.GroupBox2.Controls.Add(Me.ConTagsCheckBox)
@@ -212,7 +214,7 @@ Partial Class SettingsForm
         Me.GroupBox2.Controls.Add(Me.UpdateCheckBox)
         Me.GroupBox2.Location = New System.Drawing.Point(8, 6)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(260, 188)
+        Me.GroupBox2.Size = New System.Drawing.Size(260, 217)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Other"
@@ -309,6 +311,16 @@ Partial Class SettingsForm
         Me.TabPage1.Text = "Misc."
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'StartMinimizedCheckBox
+        '
+        Me.StartMinimizedCheckBox.AutoSize = True
+        Me.StartMinimizedCheckBox.Location = New System.Drawing.Point(6, 180)
+        Me.StartMinimizedCheckBox.Name = "StartMinimizedCheckBox"
+        Me.StartMinimizedCheckBox.Size = New System.Drawing.Size(97, 17)
+        Me.StartMinimizedCheckBox.TabIndex = 13
+        Me.StartMinimizedCheckBox.Text = "Start Minimized"
+        Me.StartMinimizedCheckBox.UseVisualStyleBackColor = True
+        '
         'SettingsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -359,4 +371,5 @@ Partial Class SettingsForm
     Friend WithEvents FinduserdataButton As Button
     Friend WithEvents userdatatext As TextBox
     Friend WithEvents MinimizeToSysTrayCheckBox As CheckBox
+    Friend WithEvents StartMinimizedCheckBox As CheckBox
 End Class

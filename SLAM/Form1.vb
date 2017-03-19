@@ -131,6 +131,10 @@ Public Class Form1
         If My.Settings.StartEnabled Then
             StartPoll()
         End If
+
+        If My.Settings.StartMinimized Then
+            WindowState = FormWindowState.Minimized
+        End If
     End Sub
 
     Private Sub WaveCreator(File As String, outputFile As String, Game As SourceGame)
