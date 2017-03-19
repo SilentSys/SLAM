@@ -40,7 +40,7 @@ Public Class Form1
         csgo.libraryname = "csgo\"
         csgo.exename = "csgo"
         csgo.samplerate = 22050
-        csgo.blacklist.AddRange({"drop", "buy", "go", "fallback", "sticktog", "holdpos", "followme", "coverme", "regroup", "roger", "negative", "cheer", "compliment", "thanks", "enemydown", "reportingin", "enemyspot", "takepoint", "sectorclear", "inposition", "takingfire", "report", "getout"})
+        csgo.blacklist.AddRange({"attack", "attack2", "autobuy", "back", "buy", "buyammo1", "buyammo2", "buymenu", "callvote", "cancelselect", "cheer", "compliment", "coverme", "drop", "duck", "enemydown", "enemyspot", "fallback", "followme", "forward", "getout", "go", "holdpos", "inposition", "invnext", "invprev", "jump", "lastinv", "messagemode", "messagemode2", "moveleft", "moveright", "mute", "negative", "quit", "radio1", "radio2", "radio3", "rebuy", "regroup", "reload", "report", "reportingin", "roger", "sectorclear", "showscores", "slot1", "slot10", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "speed", "sticktog", "takepoint", "takingfire", "teammenu", "thanks", "toggleconsole", "use", "voicerecord"})
         csgo.VoiceFadeOut = False
         Games.Add(csgo)
 
@@ -49,6 +49,7 @@ Public Class Form1
         css.directory = "common\Counter-Strike Source\"
         css.ToCfg = "cstrike\cfg\"
         css.libraryname = "css\"
+        css.blacklist.AddRange({"attack", "attack2", "back", "boom", "buyammo1", "buyammo2", "buyequip", "buymenu", "cancelselect", "cheer", "chooseteam", "commandmenu", "disconnect", "drop", "duck", "forward", "invnext", "invprev", "jump", "messagemode", "messagemode2", "moveleft", "moveright", "pause", "reload", "showbriefing", "showscores", "slot1", "slot10", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "speed", "toggleconsole", "use"})
         Games.Add(css)
 
         Dim tf2 As New SourceGame
@@ -57,6 +58,7 @@ Public Class Form1
         tf2.ToCfg = "tf\cfg\"
         tf2.libraryname = "tf2\"
         tf2.samplerate = 22050
+        tf2.blacklist.AddRange({"attack", "attack2", "attack3", "back", "build", "cancelselect", "centerview", "changeclass", "changeteam", "disguiseteam", "duck", "forward", "grab", "invnext", "invprev", "jump", "kill", "klook", "lastdisguise", "lookdown", "lookup", "moveleft", "moveright", "moveup", "pause", "quit", "reload", "say", "screenshot", "showmapinfo", "showroundinfo", "showscores", "slot1", "slot10", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "strafe", "toggleconsole", "voicerecord"})
         Games.Add(tf2)
 
         Dim gmod As New SourceGame
