@@ -447,7 +447,7 @@ Public Class Form1
     End Function
 
     Private Function recog(ByVal str As String, ByVal reg As String) As String
-        Dim keyd As Match = Regex.Match(str, reg)
+        Dim keyd As Match = Regex.Match(str, reg, RegexOptions.IgnoreCase) 'RegexOptions.IgnoreCase because bind could be saved as lowercase
         Return (keyd.Groups(1).ToString)
     End Function
 
