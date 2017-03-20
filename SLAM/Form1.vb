@@ -576,8 +576,14 @@ Public Class Form1
             Using results = searcher.Get()
 
                 Dim Process As ManagementObject = results.Cast(Of ManagementObject)().FirstOrDefault()
-                If Process IsNot Nothing AndAlso Not String.IsNullOrEmpty(Process("ExecutablePath").ToString) Then
-                    Return Process("ExecutablePath").ToString
+                If Process IsNot Nothing Then
+                    Dim exePath = Process("ExecutablePath")
+                    ' Check Process("ExecutablePath") for null before calling ToString.
+                    ' Fixes error that occurs if you start steam / csgo while SLAM is searching.
+                    Dim procPath = If(exePath IsNot Nothing, exePath.ToString(), vbNullString)
+                    If Not String.IsNullOrWhiteSpace(procPath) Then
+                        Return Process("ExecutablePath").ToString
+                    End If
                 End If
 
             End Using
