@@ -13,6 +13,7 @@
         steamappstext.Text = My.Settings.steamapps
         EnableOverrideBox.Checked = My.Settings.OverrideFolders
         MinimizeToSysTrayCheckBox.Checked = My.Settings.MinimizeToSysTray
+        StartMinimizedCheckBox.Checked = My.Settings.StartMinimized
     End Sub
 
     Private Sub UpdateCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles UpdateCheckBox.CheckedChanged
@@ -96,6 +97,11 @@
 
     Private Sub MinimizeToSysTrayCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles MinimizeToSysTrayCheckBox.CheckedChanged
         My.Settings.MinimizeToSysTray = MinimizeToSysTrayCheckBox.Checked
+        My.Settings.Save()
+    End Sub
+
+    Private Sub StartMinimizedCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles StartMinimizedCheckBox.CheckedChanged
+        My.Settings.StartMinimized = StartMinimizedCheckBox.Checked
         My.Settings.Save()
     End Sub
 End Class
