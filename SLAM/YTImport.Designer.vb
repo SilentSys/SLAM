@@ -96,7 +96,7 @@ Partial Class YTImport
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "YTImport"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "YoutTube Import"
+        Me.Text = "YouTube Import"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
