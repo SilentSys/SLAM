@@ -71,7 +71,7 @@ Partial Class SettingsForm
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(48, 17)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(49, 17)
         Me.ToolStripStatusLabel1.Text = "Version:"
         '
         'VersionLabel
@@ -330,7 +330,7 @@ Partial Class SettingsForm
         Me.Controls.Add(Me.TabControl1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "SettingsForm"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Settings"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()

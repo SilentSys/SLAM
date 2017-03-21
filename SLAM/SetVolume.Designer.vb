@@ -67,7 +67,7 @@ Partial Class SetVolume
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "SetVolume"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Volume"
         CType(Me.VolumeBar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

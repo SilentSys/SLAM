@@ -188,7 +188,6 @@ Partial Class TrimForm
         Me.AdvWaveViewer1.leftSample = 0
         Me.AdvWaveViewer1.Location = New System.Drawing.Point(0, 0)
         Me.AdvWaveViewer1.Name = "AdvWaveViewer1"
-        'Me.AdvWaveViewer1.Position = CType(0, Long)
         Me.AdvWaveViewer1.rightpos = 0
         Me.AdvWaveViewer1.rightSample = 0
         Me.AdvWaveViewer1.SamplesPerPixel = 128
@@ -213,7 +212,7 @@ Partial Class TrimForm
         Me.Name = "TrimForm"
         Me.ShowIcon = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Trim"
         CType(Me.NumericRight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericLeft, System.ComponentModel.ISupportInitialize).EndInit()

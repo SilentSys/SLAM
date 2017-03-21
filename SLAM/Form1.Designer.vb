@@ -58,6 +58,7 @@ Partial Class Form1
         Me.SystemTrayMenu_StartStop = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.SystemTrayMenu_Exit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.YTButton = New System.Windows.Forms.Button()
         Me.TrackContextMenu.SuspendLayout()
         Me.SystemTrayMenu.SuspendLayout()
         Me.SuspendLayout()
@@ -88,7 +89,7 @@ Partial Class Form1
         Me.ImportButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ImportButton.Location = New System.Drawing.Point(15, 297)
         Me.ImportButton.Name = "ImportButton"
-        Me.ImportButton.Size = New System.Drawing.Size(75, 23)
+        Me.ImportButton.Size = New System.Drawing.Size(54, 23)
         Me.ImportButton.TabIndex = 3
         Me.ImportButton.Text = "Import"
         Me.ImportButton.UseVisualStyleBackColor = True
@@ -149,7 +150,6 @@ Partial Class Form1
         '
         'ImportDialog
         '
-        Me.ImportDialog.FileName = "ImportDialog"
         Me.ImportDialog.Filter = "Media files|*.mp3;*.wav;*.aac;*.wma;*.m4a;*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Audio fi" &
     "les|*.mp3;*.wav;*.aac;*.wma;*.m4a;|Video files|*.mp4;*.wmv;*.avi;*.m4v;*.mov;|Al" &
     "l files|*.*"
@@ -275,36 +275,47 @@ Partial Class Form1
         '
         Me.SystemTrayMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SystemTrayMenu_Open, Me.SystemTrayMenu_StartStop, Me.ToolStripSeparator1, Me.SystemTrayMenu_Exit})
         Me.SystemTrayMenu.Name = "SystemTrayMenu"
-        Me.SystemTrayMenu.Size = New System.Drawing.Size(153, 98)
+        Me.SystemTrayMenu.Size = New System.Drawing.Size(104, 76)
         '
         'SystemTrayMenu_Open
         '
         Me.SystemTrayMenu_Open.Name = "SystemTrayMenu_Open"
-        Me.SystemTrayMenu_Open.Size = New System.Drawing.Size(152, 22)
+        Me.SystemTrayMenu_Open.Size = New System.Drawing.Size(103, 22)
         Me.SystemTrayMenu_Open.Text = "Open"
         '
         'SystemTrayMenu_StartStop
         '
         Me.SystemTrayMenu_StartStop.Name = "SystemTrayMenu_StartStop"
-        Me.SystemTrayMenu_StartStop.Size = New System.Drawing.Size(152, 22)
+        Me.SystemTrayMenu_StartStop.Size = New System.Drawing.Size(103, 22)
         Me.SystemTrayMenu_StartStop.Text = "Start"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(100, 6)
         '
         'SystemTrayMenu_Exit
         '
         Me.SystemTrayMenu_Exit.Name = "SystemTrayMenu_Exit"
-        Me.SystemTrayMenu_Exit.Size = New System.Drawing.Size(152, 22)
+        Me.SystemTrayMenu_Exit.Size = New System.Drawing.Size(103, 22)
         Me.SystemTrayMenu_Exit.Text = "Exit"
+        '
+        'YTButton
+        '
+        Me.YTButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.YTButton.Image = CType(resources.GetObject("YTButton.Image"), System.Drawing.Image)
+        Me.YTButton.Location = New System.Drawing.Point(68, 297)
+        Me.YTButton.Name = "YTButton"
+        Me.YTButton.Size = New System.Drawing.Size(22, 23)
+        Me.YTButton.TabIndex = 10
+        Me.YTButton.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(584, 361)
+        Me.Controls.Add(Me.YTButton)
         Me.Controls.Add(Me.StatusLabel)
         Me.Controls.Add(Me.PlayKeyButton)
         Me.Controls.Add(Me.ChangeDirButton)
@@ -359,4 +370,5 @@ Partial Class Form1
     Friend WithEvents SystemTrayMenu_StartStop As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents SystemTrayMenu_Exit As ToolStripMenuItem
+    Friend WithEvents YTButton As Button
 End Class

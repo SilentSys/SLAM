@@ -69,7 +69,7 @@ Partial Class SelectKey
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "SelectKey"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Key Selector"
         Me.ResumeLayout(False)
         Me.PerformLayout()

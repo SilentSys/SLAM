@@ -162,9 +162,9 @@ Public Class Form1
     Private Sub ImportButton_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
         If File.Exists("NAudio.dll") Then
             DisableInterface()
-            If ImportDialog.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+            If ImportDialog.ShowDialog() = DialogResult.OK Then
                 ProgressBar1.Maximum = ImportDialog.FileNames.Count
-                Dim WorkerPassthrough() As Object = {GetCurrentGame(), ImportDialog.FileNames}
+                Dim WorkerPassthrough() As Object = {GetCurrentGame(), ImportDialog.FileNames, False}
                 WavWorker.RunWorkerAsync(WorkerPassthrough)
             Else
                 EnableInterface()
@@ -175,9 +175,27 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub YTButton_Click(sender As Object, e As EventArgs) Handles YTButton.Click
+        If File.Exists("NAudio.dll") AndAlso File.Exists("Newtonsoft.Json.dll") AndAlso File.Exists("YoutubeExtractor.dll") Then
+            DisableInterface()
+            Dim YTImporter As New YTImport
+            If YTImporter.ShowDialog() = DialogResult.OK Then
+                ProgressBar1.Maximum = 1
+                Dim WorkerPassthrough() As Object = {GetCurrentGame(), New String() {YTImporter.file}, True}
+                WavWorker.RunWorkerAsync(WorkerPassthrough)
+            Else
+                EnableInterface()
+            End If
+
+        Else
+            MessageBox.Show("You are missing either NAudio.dll, Newtonsoft.Json.dll, or YoutubeExtractor.dll! Cannot import from YouTube without them!", "Missing File(s)", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+    End Sub
+
     Private Sub WavWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles WavWorker.DoWork
         Dim Game As SourceGame = e.Argument(0)
         Dim Files() As String = e.Argument(1)
+        Dim DeleteSource As Boolean = e.Argument(2)
         Dim FailedFiles As New List(Of String)
 
         For Each File In Files
@@ -186,6 +204,9 @@ Public Class Form1
                 Dim OutFile As String = Path.Combine(Game.libraryname, Path.GetFileNameWithoutExtension(File) & ".wav")
                 WaveCreator(File, OutFile, Game)
 
+                If DeleteSource Then
+                    IO.File.Delete(File)
+                End If
             Catch ex As Exception
                 LogError(ex)
                 FailedFiles.Add(File)
@@ -617,6 +638,7 @@ Public Class Form1
 
         status = IDLE
         StatusLabel.Text = "Status: Idle."
+        RefreshTrackList()
 
         If Not IsNothing(e.Result) Then 'Result is always an exception
             MessageBox.Show(e.Result.Message & " See errorlog.txt for more info.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -760,6 +782,13 @@ Public Class Form1
 
 
             TrackContextMenu.Show(Cursor.Position)
+        End If
+    End Sub
+
+    Private Sub TrackList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TrackList.MouseDoubleClick
+        If TrackList.FocusedItem.Bounds.Contains(e.Location) AndAlso status = WORKING Then
+            LoadTrack(GetCurrentGame, TrackList.SelectedItems(0).Index)
+            DisplayLoaded(TrackList.SelectedItems(0).Index)
         End If
     End Sub
 
@@ -958,7 +987,7 @@ Public Class Form1
         PlayKeyButton.Text = String.Format("Play key: ""{0}"" (change)", My.Settings.PlayKey)
     End Sub
 
-    Private Sub LogError(ByVal ex As Exception)
+    Public Sub LogError(ByVal ex As Exception)
         If My.Settings.LogError Then
             Using log As StreamWriter = New StreamWriter("errorlog.txt", True)
                 log.WriteLine("--------------------{0} UTC--------------------", DateTime.Now.ToUniversalTime)
