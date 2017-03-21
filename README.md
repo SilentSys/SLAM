@@ -12,12 +12,13 @@ Current features:
 - Simple in-game interface.
 - Select tracks either by their track number, or tags.
 - Import multiple media files at once with the click of a button (.mp3, .wav, .aac, .wma, .m4a, .mp4, .wmv, .avi, .m4v, and .mov file types).
+- Import tracks by YouTube URL.
 - Support for multiple games, such as: Counter-Strike: Global Offensive (CS:GO), Counter-Strike: Source (CS:S), and Team Fortress 2 (TF2)
 - Create binds to load specific songs.
 - Change track volume on the go.
 - Trim tracks on the go.
 
 
-![1](http://i.imgur.com/aQ0sWeJ.png)
+![1](http://i.imgur.com/szN7Y5z.png)
 ![2](http://i.imgur.com/vfWozNU.png)
 ![3](http://i.imgur.com/HB2qAEh.png)
