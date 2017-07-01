@@ -27,6 +27,8 @@ Partial Class SettingsForm
         Me.VersionLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.DonateLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.NAudioRadio = New System.Windows.Forms.RadioButton()
+        Me.FFMPEGRadio = New System.Windows.Forms.RadioButton()
         Me.OverrideGroup = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.FinduserdataButton = New System.Windows.Forms.Button()
@@ -89,6 +91,8 @@ Partial Class SettingsForm
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.NAudioRadio)
+        Me.TabPage2.Controls.Add(Me.FFMPEGRadio)
         Me.TabPage2.Controls.Add(Me.OverrideGroup)
         Me.TabPage2.Controls.Add(Me.GroupBox3)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
@@ -98,6 +102,28 @@ Partial Class SettingsForm
         Me.TabPage2.TabIndex = 0
         Me.TabPage2.Text = "Advanced"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'NAudioRadio
+        '
+        Me.NAudioRadio.AutoSize = True
+        Me.NAudioRadio.Location = New System.Drawing.Point(125, 166)
+        Me.NAudioRadio.Name = "NAudioRadio"
+        Me.NAudioRadio.Size = New System.Drawing.Size(126, 17)
+        Me.NAudioRadio.TabIndex = 5
+        Me.NAudioRadio.TabStop = True
+        Me.NAudioRadio.Text = "Use NAudio (Legacy)"
+        Me.NAudioRadio.UseVisualStyleBackColor = True
+        '
+        'FFMPEGRadio
+        '
+        Me.FFMPEGRadio.AutoSize = True
+        Me.FFMPEGRadio.Location = New System.Drawing.Point(29, 166)
+        Me.FFMPEGRadio.Name = "FFMPEGRadio"
+        Me.FFMPEGRadio.Size = New System.Drawing.Size(90, 17)
+        Me.FFMPEGRadio.TabIndex = 4
+        Me.FFMPEGRadio.TabStop = True
+        Me.FFMPEGRadio.Text = "Use FFMPEG"
+        Me.FFMPEGRadio.UseVisualStyleBackColor = True
         '
         'OverrideGroup
         '
@@ -335,6 +361,7 @@ Partial Class SettingsForm
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
+        Me.TabPage2.PerformLayout()
         Me.OverrideGroup.ResumeLayout(False)
         Me.OverrideGroup.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
@@ -372,4 +399,6 @@ Partial Class SettingsForm
     Friend WithEvents userdatatext As TextBox
     Friend WithEvents MinimizeToSysTrayCheckBox As CheckBox
     Friend WithEvents StartMinimizedCheckBox As CheckBox
+    Friend WithEvents NAudioRadio As RadioButton
+    Friend WithEvents FFMPEGRadio As RadioButton
 End Class

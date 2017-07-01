@@ -14,6 +14,8 @@
         EnableOverrideBox.Checked = My.Settings.OverrideFolders
         MinimizeToSysTrayCheckBox.Checked = My.Settings.MinimizeToSysTray
         StartMinimizedCheckBox.Checked = My.Settings.StartMinimized
+        FFMPEGRadio.Checked = My.Settings.UseFFMPEG
+        NAudioRadio.Checked = Not My.Settings.UseFFMPEG
     End Sub
 
     Private Sub UpdateCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles UpdateCheckBox.CheckedChanged
@@ -102,6 +104,11 @@
 
     Private Sub StartMinimizedCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles StartMinimizedCheckBox.CheckedChanged
         My.Settings.StartMinimized = StartMinimizedCheckBox.Checked
+        My.Settings.Save()
+    End Sub
+
+    Private Sub FFMPEGRadio_CheckedChanged(sender As Object, e As EventArgs) Handles FFMPEGRadio.CheckedChanged
+        My.Settings.UseFFMPEG = FFMPEGRadio.Checked
         My.Settings.Save()
     End Sub
 End Class

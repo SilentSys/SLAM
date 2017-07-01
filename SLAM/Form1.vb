@@ -7,6 +7,7 @@ Imports SLAM.XmlSerialization
 Imports SLAM.SourceGame
 Imports System.Management
 Imports System.Net.Http
+Imports NReco.VideoConverter
 
 Public Class Form1
 
@@ -152,6 +153,22 @@ Public Class Form1
         resampler.Dispose()
     End Sub
 
+    Private Sub FFMPEG_WaveCreator(File As String, outputFile As String, Game As SourceGame)
+        Dim convert As New FFMpegConverter()
+        convert.ExtractFFmpeg()
+
+        Dim command As String = String.Format("-i ""{0}"" -f wav -flags bitexact -vn -acodec pcm_s16le -ar {1} -ac {2} ""{3}""", Path.GetFullPath(File), Game.samplerate, Game.channels, Path.GetFullPath(outputFile))
+        convert.Invoke(command)
+    End Sub
+
+    Private Sub FFMPEG_ConvertAndTrim(inpath As String, outpath As String, samplerate As Integer, channels As Integer, starttrim As Double, length As Double, volume As Double)
+        Dim convert As New FFMpegConverter()
+        convert.ExtractFFmpeg()
+
+        Dim command As String = String.Format("-i ""{0}"" -f wav -flags bitexact -vn -acodec pcm_s16le -ar {1} -ac {2} -ss {3} -t {4} -af ""volume={5}"" ""{6}""", Path.GetFullPath(inpath), samplerate, channels, starttrim, length, volume, Path.GetFullPath(outpath))
+        convert.Invoke(command)
+    End Sub
+
     Private Sub GameSelector_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GameSelector.SelectedIndexChanged
         ReloadTracks(GetCurrentGame)
         RefreshTrackList()
@@ -160,7 +177,7 @@ Public Class Form1
     End Sub
 
     Private Sub ImportButton_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
-        If File.Exists("NAudio.dll") Then
+        If (My.Settings.UseFFMPEG = True And File.Exists("NReco.VideoConverter.dll")) Or (My.Settings.UseFFMPEG = False And File.Exists("NAudio.dll")) Then
             DisableInterface()
             If ImportDialog.ShowDialog() = DialogResult.OK Then
                 ProgressBar1.Maximum = ImportDialog.FileNames.Count
@@ -171,12 +188,12 @@ Public Class Form1
             End If
 
         Else
-            MessageBox.Show("You are missing NAudio.dll! Cannot import without it!", "Missing File", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("You are missing NAudio.dll or NReco.VideoConverter.dll! Cannot import without it!", "Missing File", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
     Private Sub YTButton_Click(sender As Object, e As EventArgs) Handles YTButton.Click
-        If File.Exists("NAudio.dll") AndAlso File.Exists("Newtonsoft.Json.dll") AndAlso File.Exists("YoutubeExtractor.dll") Then
+        If File.Exists("NAudio.dll") AndAlso File.Exists("Newtonsoft.Json.dll") AndAlso File.Exists("NReco.VideoConverter.dll") AndAlso File.Exists("YoutubeExtractor.dll") Then
             DisableInterface()
             Dim YTImporter As New YTImport
             If YTImporter.ShowDialog() = DialogResult.OK Then
@@ -188,7 +205,7 @@ Public Class Form1
             End If
 
         Else
-            MessageBox.Show("You are missing either NAudio.dll, Newtonsoft.Json.dll, or YoutubeExtractor.dll! Cannot import from YouTube without them!", "Missing File(s)", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("You are missing either NAudio.dll, Newtonsoft.Json.dll, NReco.VideoConverter.dll, or YoutubeExtractor.dll! Cannot import from YouTube without them!", "Missing File(s)", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
@@ -202,7 +219,13 @@ Public Class Form1
 
             Try
                 Dim OutFile As String = Path.Combine(Game.libraryname, Path.GetFileNameWithoutExtension(File) & ".wav")
-                WaveCreator(File, OutFile, Game)
+
+                If My.Settings.UseFFMPEG Then
+                    FFMPEG_WaveCreator(File, OutFile, Game)
+                Else
+                    WaveCreator(File, OutFile, Game)
+                End If
+
 
                 If DeleteSource Then
                     IO.File.Delete(File)
@@ -415,33 +438,41 @@ Public Class Form1
                 Dim trackfile As String = Game.libraryname & Track.name & Game.FileExtension
                 If File.Exists(trackfile) Then
 
-                    If Track.volume = 100 And Track.startpos = -1 And Track.endpos = -1 Then
+                    If Track.volume = 100 And Track.startpos <= 0 And Track.endpos <= 0 Then
                         File.Copy(trackfile, voicefile)
                     Else
 
-                        Dim WaveFloat As New WaveChannel32(New WaveFileReader(trackfile))
+                        If My.Settings.UseFFMPEG Then
 
-                        If Not Track.volume = 100 Then
-                            WaveFloat.Volume = (Track.volume / 100) ^ 6
+                            FFMPEG_ConvertAndTrim(trackfile, voicefile, Game.samplerate, Game.channels, Track.startpos / Game.samplerate / 2, (Track.endpos - Track.startpos) / Game.samplerate / 2, (Track.volume / 100) ^ 6) ' /2 because SLAM stores Track.startpos and Track.endpos as # of bytes not sample. With 16-bit audio, there are 2 bytes per sample.
+
+                        Else
+
+                            Dim WaveFloat As New WaveChannel32(New WaveFileReader(trackfile))
+
+                            If Not Track.volume = 100 Then
+                                WaveFloat.Volume = (Track.volume / 100) ^ 6
+                            End If
+
+                            If Not Track.startpos = Track.endpos And Track.endpos > 0 Then
+                                Dim bytes((Track.endpos - Track.startpos) * 4) As Byte
+
+                                WaveFloat.Position = Track.startpos * 4
+                                WaveFloat.Read(bytes, 0, (Track.endpos - Track.startpos) * 4)
+
+                                WaveFloat = New WaveChannel32(New RawSourceWaveStream(New MemoryStream(bytes), WaveFloat.WaveFormat))
+                            End If
+
+                            WaveFloat.PadWithZeroes = False
+                            Dim outFormat = New WaveFormat(Game.samplerate, Game.bits, Game.channels)
+                            Dim resampler = New MediaFoundationResampler(WaveFloat, outFormat)
+                            resampler.ResamplerQuality = 60
+                            WaveFileWriter.CreateWaveFile(voicefile, resampler) 'wav
+
+                            resampler.Dispose()
+                            WaveFloat.Dispose()
+
                         End If
-
-                        If Not Track.startpos = Track.endpos And Track.endpos > 0 Then
-                            Dim bytes((Track.endpos - Track.startpos) * 4) As Byte
-
-                            WaveFloat.Position = Track.startpos * 4
-                            WaveFloat.Read(bytes, 0, (Track.endpos - Track.startpos) * 4)
-
-                            WaveFloat = New WaveChannel32(New RawSourceWaveStream(New MemoryStream(bytes), WaveFloat.WaveFormat))
-                        End If
-
-                        WaveFloat.PadWithZeroes = False
-                        Dim outFormat = New WaveFormat(Game.samplerate, Game.bits, Game.channels)
-                        Dim resampler = New MediaFoundationResampler(WaveFloat, outFormat)
-                        resampler.ResamplerQuality = 60
-                        WaveFileWriter.CreateWaveFile(voicefile, resampler)
-
-                        resampler.Dispose()
-                        WaveFloat.Dispose()
 
                     End If
 
@@ -893,20 +924,26 @@ Public Class Form1
     End Sub
 
     Private Sub TrimToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TrimToolStripMenuItem.Click
-        Dim Game As SourceGame = GetCurrentGame()
-        Dim TrimDialog As New TrimForm
+        If File.Exists("NAudio.dll") Then
 
-        TrimDialog.WavFile = Path.Combine(Game.libraryname, Game.tracks(TrackList.SelectedIndices(0)).name & Game.FileExtension)
-        TrimDialog.startpos = Game.tracks(TrackList.SelectedIndices(0)).startpos
-        TrimDialog.endpos = Game.tracks(TrackList.SelectedIndices(0)).endpos
+            Dim Game As SourceGame = GetCurrentGame()
+            Dim TrimDialog As New TrimForm
+
+            TrimDialog.WavFile = Path.Combine(Game.libraryname, Game.tracks(TrackList.SelectedIndices(0)).name & Game.FileExtension)
+            TrimDialog.startpos = Game.tracks(TrackList.SelectedIndices(0)).startpos
+            TrimDialog.endpos = Game.tracks(TrackList.SelectedIndices(0)).endpos
 
 
-        If TrimDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
-            Game.tracks(TrackList.SelectedIndices(0)).startpos = TrimDialog.startpos
-            Game.tracks(TrackList.SelectedIndices(0)).endpos = TrimDialog.endpos
-            SaveTrackKeys(GetCurrentGame)
-            ReloadTracks(GetCurrentGame)
-            RefreshTrackList()
+            If TrimDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
+                Game.tracks(TrackList.SelectedIndices(0)).startpos = TrimDialog.startpos
+                Game.tracks(TrackList.SelectedIndices(0)).endpos = TrimDialog.endpos
+                SaveTrackKeys(GetCurrentGame)
+                ReloadTracks(GetCurrentGame)
+                RefreshTrackList()
+            End If
+
+        Else
+            MessageBox.Show("You are missing NAudio.dll! Cannot trim without it!", "Missing File", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
