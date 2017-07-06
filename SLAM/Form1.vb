@@ -157,7 +157,7 @@ Public Class Form1
         Dim convert As New FFMpegConverter()
         convert.ExtractFFmpeg()
 
-        Dim command As String = String.Format("-i ""{0}"" -f wav -flags bitexact -vn -acodec pcm_s16le -ar {1} -ac {2} ""{3}""", Path.GetFullPath(File), Game.samplerate, Game.channels, Path.GetFullPath(outputFile))
+        Dim command As String = String.Format("-i ""{0}"" -f wav -flags bitexact -map_metadata -1 -vn -acodec pcm_s16le -ar {1} -ac {2} ""{3}""", Path.GetFullPath(File), Game.samplerate, Game.channels, Path.GetFullPath(outputFile))
         convert.Invoke(command)
     End Sub
 
@@ -165,7 +165,7 @@ Public Class Form1
         Dim convert As New FFMpegConverter()
         convert.ExtractFFmpeg()
 
-        Dim command As String = String.Format("-i ""{0}"" -f wav -flags bitexact -vn -acodec pcm_s16le -ar {1} -ac {2} -ss {3} -t {4} -af ""volume={5}"" ""{6}""", Path.GetFullPath(inpath), samplerate, channels, starttrim, length, volume, Path.GetFullPath(outpath))
+        Dim command As String = String.Format("-i ""{0}"" -f wav -flags bitexact -map_metadata -1 -vn -acodec pcm_s16le -ar {1} -ac {2} -ss {3} -t {4} -af ""volume={5}"" ""{6}""", Path.GetFullPath(inpath), samplerate, channels, starttrim, length, volume, Path.GetFullPath(outpath))
         convert.Invoke(command)
     End Sub
 
