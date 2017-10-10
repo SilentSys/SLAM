@@ -349,7 +349,9 @@ Public Class Form1
         StartButton.Enabled = True
         TrackList.Enabled = True
         SetVolumeToolStripMenuItem.Enabled = True
-        PollRelayWorker.RunWorkerAsync(GetCurrentGame)
+        If PollRelayWorker.IsBusy <> True Then
+            PollRelayWorker.RunWorkerAsync(GetCurrentGame)
+        End If
     End Sub
 
     Private Sub StopPoll()
