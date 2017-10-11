@@ -8,8 +8,8 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("SLAM")> 
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyTitle("SLAM")>
+<Assembly: AssemblyDescription("Source Live Audio Mixer")>
 <Assembly: AssemblyCompany("")> 
 <Assembly: AssemblyProduct("SLAM")>
 <Assembly: AssemblyCopyright("Copyright ©  2017")>

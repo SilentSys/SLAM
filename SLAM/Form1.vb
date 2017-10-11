@@ -1127,4 +1127,75 @@ Public Class Form1
             Me.Close()
         End If
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Application.Exit()
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        If Me.WindowState = FormWindowState.Maximized Then
+            Me.WindowState = FormWindowState.Normal
+        Else
+            Me.WindowState = FormWindowState.Maximized
+        End If
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Me.WindowState = FormWindowState.Minimized
+    End Sub
+
+    Private Sub Panel1_DoubleClick(sender As Object, e As EventArgs) Handles Panel1.DoubleClick
+        If Me.WindowState = FormWindowState.Maximized Then
+            Me.WindowState = FormWindowState.Normal
+        Else
+            Me.WindowState = FormWindowState.Maximized
+        End If
+    End Sub
+
+    Dim drag As Boolean
+    Dim mousex As Integer
+    Dim mousey As Integer
+    Dim GripDrag As Boolean
+    Dim InitialSizeX As Integer
+    Dim InitialSizeY As Integer
+    Private Sub Panel1_MouseDown(sender As Object, e As MouseEventArgs) Handles Panel1.MouseDown
+        drag = True
+        mousex = Cursor.Position.X - Me.Left
+        mousey = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub Panel1_MouseMove(sender As Object, e As MouseEventArgs) Handles Panel1.MouseMove
+        If drag Then
+            Me.Top = Cursor.Position.Y - mousey
+            Me.Left = Cursor.Position.X - mousex
+        End If
+    End Sub
+
+    Private Sub Panel1_MouseUp(sender As Object, e As MouseEventArgs) Handles Panel1.MouseUp
+        drag = False
+    End Sub
+
+    Private Sub Grip_MouseDown(sender As Object, e As MouseEventArgs) Handles Grip.MouseDown
+        If e.Button = MouseButtons.Left Then 'If the control is being left-clicked
+            GripDrag = True 'Confirms the grip is ready to be dragged
+            InitialSizeX = Me.Width 'Sets the initial width
+            InitialSizeY = Me.Height 'Sets the initial height
+        End If
+    End Sub
+
+    Private Sub Grip_MouseMove(sender As Object, e As MouseEventArgs) Handles Grip.MouseMove
+        If GripDrag = True Then
+            Me.Width = InitialSizeX + (Cursor.Position.X - (Me.Width + Me.Location.X))
+            Me.Height = InitialSizeY + (Cursor.Position.Y - (Me.Height + Me.Location.Y))
+
+            InitialSizeX = Me.Width
+            InitialSizeY = Me.Height
+
+            Me.Refresh()
+        End If
+    End Sub
+
+    Private Sub Grip_MouseUp(sender As Object, e As MouseEventArgs) Handles Grip.MouseUp
+        GripDrag = False
+    End Sub
 End Class
