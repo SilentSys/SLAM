@@ -67,7 +67,10 @@ Partial Class Form1
         '
         Me.GameSelector.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GameSelector.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
         Me.GameSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.GameSelector.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.GameSelector.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.GameSelector.FormattingEnabled = True
         Me.GameSelector.Location = New System.Drawing.Point(56, 12)
         Me.GameSelector.MaxDropDownItems = 100
@@ -78,6 +81,7 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.Label1.Location = New System.Drawing.Point(12, 15)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(38, 13)
@@ -87,6 +91,9 @@ Partial Class Form1
         'ImportButton
         '
         Me.ImportButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ImportButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
+        Me.ImportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ImportButton.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.ImportButton.Location = New System.Drawing.Point(15, 297)
         Me.ImportButton.Name = "ImportButton"
         Me.ImportButton.Size = New System.Drawing.Size(54, 23)
@@ -100,7 +107,10 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TrackList.AutoArrange = False
+        Me.TrackList.BackColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer))
+        Me.TrackList.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TrackList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.LoadedCol, Me.TrackCol, Me.HotKeyCol, Me.VolumeCol, Me.Trimmed, Me.TagsCol})
+        Me.TrackList.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.TrackList.FullRowSelect = True
         Me.TrackList.HideSelection = False
         Me.TrackList.ImeMode = System.Windows.Forms.ImeMode.Off
@@ -141,6 +151,9 @@ Partial Class Form1
         'StartButton
         '
         Me.StartButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.StartButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
+        Me.StartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.StartButton.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.StartButton.Location = New System.Drawing.Point(96, 297)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(75, 23)
@@ -177,6 +190,9 @@ Partial Class Form1
         'ChangeDirButton
         '
         Me.ChangeDirButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ChangeDirButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
+        Me.ChangeDirButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ChangeDirButton.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.ChangeDirButton.Location = New System.Drawing.Point(497, 10)
         Me.ChangeDirButton.Name = "ChangeDirButton"
         Me.ChangeDirButton.Size = New System.Drawing.Size(75, 23)
@@ -248,6 +264,9 @@ Partial Class Form1
         'PlayKeyButton
         '
         Me.PlayKeyButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PlayKeyButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
+        Me.PlayKeyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.PlayKeyButton.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.PlayKeyButton.Location = New System.Drawing.Point(380, 297)
         Me.PlayKeyButton.Name = "PlayKeyButton"
         Me.PlayKeyButton.Size = New System.Drawing.Size(192, 23)
@@ -259,6 +278,7 @@ Partial Class Form1
         '
         Me.StatusLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.StatusLabel.AutoSize = True
+        Me.StatusLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.StatusLabel.Location = New System.Drawing.Point(177, 302)
         Me.StatusLabel.Name = "StatusLabel"
         Me.StatusLabel.Size = New System.Drawing.Size(60, 13)
@@ -303,6 +323,9 @@ Partial Class Form1
         'YTButton
         '
         Me.YTButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.YTButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
+        Me.YTButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.YTButton.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.YTButton.Image = CType(resources.GetObject("YTButton.Image"), System.Drawing.Image)
         Me.YTButton.Location = New System.Drawing.Point(68, 297)
         Me.YTButton.Name = "YTButton"
@@ -314,6 +337,7 @@ Partial Class Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(584, 361)
         Me.Controls.Add(Me.YTButton)
         Me.Controls.Add(Me.StatusLabel)
@@ -329,7 +353,7 @@ Partial Class Form1
         Me.MinimumSize = New System.Drawing.Size(500, 400)
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Source Live Audio Mixer"
+        Me.Text = "SLAMx "
         Me.TrackContextMenu.ResumeLayout(False)
         Me.SystemTrayMenu.ResumeLayout(False)
         Me.ResumeLayout(False)

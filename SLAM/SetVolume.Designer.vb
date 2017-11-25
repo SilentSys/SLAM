@@ -30,6 +30,7 @@ Partial Class SetVolume
         '
         'SelectButton
         '
+        Me.SelectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.SelectButton.Location = New System.Drawing.Point(272, 63)
         Me.SelectButton.Name = "SelectButton"
         Me.SelectButton.Size = New System.Drawing.Size(100, 23)
@@ -39,6 +40,7 @@ Partial Class SetVolume
         '
         'VolumeBar
         '
+        Me.VolumeBar.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
         Me.VolumeBar.Location = New System.Drawing.Point(12, 12)
         Me.VolumeBar.Maximum = 20
         Me.VolumeBar.Name = "VolumeBar"
@@ -48,6 +50,8 @@ Partial Class SetVolume
         '
         'VolumeNumber
         '
+        Me.VolumeNumber.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
+        Me.VolumeNumber.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.VolumeNumber.Location = New System.Drawing.Point(12, 59)
         Me.VolumeNumber.MaxLength = 3
         Me.VolumeNumber.Name = "VolumeNumber"
@@ -59,10 +63,12 @@ Partial Class SetVolume
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(384, 91)
         Me.Controls.Add(Me.VolumeNumber)
         Me.Controls.Add(Me.VolumeBar)
         Me.Controls.Add(Me.SelectButton)
+        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.MaximizeBox = False
         Me.MinimizeBox = False

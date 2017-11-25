@@ -29,6 +29,7 @@ Partial Class SelectKey
         '
         'SelectButton
         '
+        Me.SelectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.SelectButton.Location = New System.Drawing.Point(12, 33)
         Me.SelectButton.Name = "SelectButton"
         Me.SelectButton.Size = New System.Drawing.Size(185, 23)
@@ -49,7 +50,10 @@ Partial Class SelectKey
         '
         Me.BindKeyBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.BindKeyBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.BindKeyBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
         Me.BindKeyBox.Cursor = System.Windows.Forms.Cursors.Default
+        Me.BindKeyBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BindKeyBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.BindKeyBox.FormattingEnabled = True
         Me.BindKeyBox.Items.AddRange(New Object() {"'", "-", ",", ".", "/", "[", "\", "]", "`", "=", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "ALT", "B", "BACKSPACE", "C", "CAPSLOCK", "CTRL", "D", "DEL", "DOWNARROW", "E", "END", "ENTER", "ESCAPE", "F", "F1", "F10", "F11", "F12", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "G", "H", "HOME", "I", "INS", "J", "K", "KP_5", "KP_DEL", "KP_DOWNARROW", "KP_END", "KP_ENTER", "KP_HOME", "KP_INS", "KP_LEFTARROW", "KP_MINUS", "KP_MULTIPLY", "KP_PGDN", "KP_PGUP", "KP_PLUS", "KP_RIGHTARROW", "KP_SLASH", "KP_UPARROW", "L", "LEFTARROW", "LWIN", "M", "MOUSE1", "MOUSE2", "MOUSE3", "MOUSE4", "MOUSE5", "MWHEELDOWN", "MWHEELUP", "N", "NUMLOCK", "O", "P", "PGDN", "PGUP", "Q", "R", "RCTRL", "RIGHTARROW", "RSHIFT", "RWIN", "S", "SCROLLOCK", "SEMICOLON", "SHIFT", "SPACE", "T", "TAB", "U", "UPARROW", "V", "W", "X", "Y", "Z"})
         Me.BindKeyBox.Location = New System.Drawing.Point(84, 6)
@@ -61,10 +65,12 @@ Partial Class SelectKey
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(209, 64)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.SelectButton)
         Me.Controls.Add(Me.BindKeyBox)
+        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.MaximizeBox = False
         Me.MinimizeBox = False
