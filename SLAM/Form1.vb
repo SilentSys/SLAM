@@ -380,13 +380,7 @@ Public Class Form1
             slam_cfg.WriteLine("alias slam_play_on ""alias slam_play slam_play_off; voice_inputfromfile 1; voice_loopback 1; +voicerecord""")
             slam_cfg.WriteLine("alias slam_play_off ""-voicerecord; voice_inputfromfile 0; voice_loopback 0; alias slam_play slam_play_on""")
             slam_cfg.WriteLine("alias slam_updatecfg ""host_writeconfig slam_relay""")
-            If My.Settings.HoldToPlay Then
-                slam_cfg.WriteLine("alias +slam_hold_play slam_play_on")
-                slam_cfg.WriteLine("alias -slam_hold_play slam_play_off")
-                slam_cfg.WriteLine("bind {0} +slam_hold_play", My.Settings.PlayKey)
-            Else
-                slam_cfg.WriteLine("bind {0} slam_play", My.Settings.PlayKey)
-            End If
+            slam_cfg.WriteLine("bind {0} slam_play", My.Settings.PlayKey)
             slam_cfg.WriteLine("alias slam_curtrack ""exec slam_curtrack.cfg""")
             slam_cfg.WriteLine("alias slam_saycurtrack ""exec slam_saycurtrack.cfg""")
             slam_cfg.WriteLine("alias slam_sayteamcurtrack ""exec slam_sayteamcurtrack.cfg""")
@@ -400,7 +394,7 @@ Public Class Form1
                 Next
 
                 If Not String.IsNullOrEmpty(Track.hotkey) Then
-                    slam_cfg.WriteLine("bind {0} ""bind {1} {2}; slam_updatecfg; echo Loaded: {3}""", Track.hotkey, My.Settings.RelayKey, index + 1, Track.name)
+                    slam_cfg.WriteLine("bind {0} ""bind {1} {2}; slam_updatecfg; slam_play; echo Loaded: {3}""; ", Track.hotkey, My.Settings.RelayKey, index + 1, Track.name)
                 End If
             Next
 
