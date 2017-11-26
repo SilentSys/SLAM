@@ -17,7 +17,8 @@ Current features:
 - Create binds to load specific songs.
 - Change track volume on the go.
 - Trim tracks on the go.
-
+- New UI
+- Single key play
 
 ![1](http://i.imgur.com/szN7Y5z.png)
 ![2](http://i.imgur.com/vfWozNU.png)
