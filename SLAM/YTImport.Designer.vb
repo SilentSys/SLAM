@@ -34,6 +34,7 @@ Partial Class YTImport
         '
         'ImportButton
         '
+        Me.ImportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ImportButton.Location = New System.Drawing.Point(396, 10)
         Me.ImportButton.Name = "ImportButton"
         Me.ImportButton.Size = New System.Drawing.Size(75, 23)
@@ -43,6 +44,8 @@ Partial Class YTImport
         '
         'TextBox1
         '
+        Me.TextBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
+        Me.TextBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.TextBox1.Location = New System.Drawing.Point(12, 12)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(378, 20)
@@ -89,10 +92,12 @@ Partial Class YTImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(483, 64)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.ImportButton)
+        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "YTImport"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

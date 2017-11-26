@@ -8,7 +8,6 @@
         StartEnabledCheckBox.Checked = My.Settings.StartEnabled
         ConTagsCheckBox.Checked = My.Settings.WriteTags
         ChangeRelayButton.Text = String.Format("Relay key: ""{0}"" (change)", My.Settings.RelayKey)
-        HoldToPlay.Checked = My.Settings.HoldToPlay
         userdatatext.Text = My.Settings.userdata
         steamappstext.Text = My.Settings.steamapps
         EnableOverrideBox.Checked = My.Settings.OverrideFolders
@@ -56,8 +55,7 @@
         End If
     End Sub
 
-    Private Sub HoldToPlay_CheckedChanged(sender As Object, e As EventArgs) Handles HoldToPlay.CheckedChanged
-        My.Settings.HoldToPlay = HoldToPlay.Checked
+    Private Sub HoldToPlay_CheckedChanged(sender As Object, e As EventArgs)
         My.Settings.Save()
     End Sub
 

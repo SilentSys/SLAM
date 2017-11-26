@@ -37,6 +37,8 @@ Partial Class TrimForm
         Me.BackgroundPlayer = New System.ComponentModel.BackgroundWorker()
         Me.PlayButton = New System.Windows.Forms.Button()
         Me.AdvWaveViewer1 = New SLAM.AdvWaveViewer()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
         CType(Me.NumericRight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericLeft, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -47,6 +49,8 @@ Partial Class TrimForm
         '
         'NumericRight
         '
+        Me.NumericRight.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
+        Me.NumericRight.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.NumericRight.Location = New System.Drawing.Point(57, 19)
         Me.NumericRight.Name = "NumericRight"
         Me.NumericRight.Size = New System.Drawing.Size(150, 20)
@@ -56,6 +60,7 @@ Partial Class TrimForm
         'DoneButton
         '
         Me.DoneButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DoneButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.DoneButton.Location = New System.Drawing.Point(557, 203)
         Me.DoneButton.Name = "DoneButton"
         Me.DoneButton.Size = New System.Drawing.Size(215, 23)
@@ -65,6 +70,8 @@ Partial Class TrimForm
         '
         'NumericLeft
         '
+        Me.NumericLeft.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
+        Me.NumericLeft.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.NumericLeft.Location = New System.Drawing.Point(57, 19)
         Me.NumericLeft.Name = "NumericLeft"
         Me.NumericLeft.Size = New System.Drawing.Size(150, 20)
@@ -74,6 +81,7 @@ Partial Class TrimForm
         'ResetButton
         '
         Me.ResetButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ResetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ResetButton.Location = New System.Drawing.Point(557, 174)
         Me.ResetButton.Name = "ResetButton"
         Me.ResetButton.Size = New System.Drawing.Size(100, 23)
@@ -84,6 +92,7 @@ Partial Class TrimForm
         'GroupBox1
         '
         Me.GroupBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.NumericLeftS)
         Me.GroupBox1.Controls.Add(Me.Label1)
@@ -106,7 +115,9 @@ Partial Class TrimForm
         '
         'NumericLeftS
         '
+        Me.NumericLeftS.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
         Me.NumericLeftS.DecimalPlaces = 3
+        Me.NumericLeftS.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.NumericLeftS.Location = New System.Drawing.Point(57, 45)
         Me.NumericLeftS.Name = "NumericLeftS"
         Me.NumericLeftS.Size = New System.Drawing.Size(150, 20)
@@ -125,6 +136,7 @@ Partial Class TrimForm
         'GroupBox2
         '
         Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Controls.Add(Me.Label6)
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.NumericRightS)
         Me.GroupBox2.Controls.Add(Me.Label2)
@@ -147,7 +159,9 @@ Partial Class TrimForm
         '
         'NumericRightS
         '
+        Me.NumericRightS.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
         Me.NumericRightS.DecimalPlaces = 3
+        Me.NumericRightS.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.NumericRightS.Location = New System.Drawing.Point(57, 45)
         Me.NumericRightS.Name = "NumericRightS"
         Me.NumericRightS.Size = New System.Drawing.Size(150, 20)
@@ -171,6 +185,7 @@ Partial Class TrimForm
         'PlayButton
         '
         Me.PlayButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PlayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.PlayButton.Location = New System.Drawing.Point(672, 174)
         Me.PlayButton.Name = "PlayButton"
         Me.PlayButton.Size = New System.Drawing.Size(100, 23)
@@ -187,6 +202,7 @@ Partial Class TrimForm
         Me.AdvWaveViewer1.leftpos = 0
         Me.AdvWaveViewer1.leftSample = 0
         Me.AdvWaveViewer1.Location = New System.Drawing.Point(0, 0)
+        Me.AdvWaveViewer1.marker = CType(0, Long)
         Me.AdvWaveViewer1.Name = "AdvWaveViewer1"
         Me.AdvWaveViewer1.rightpos = 0
         Me.AdvWaveViewer1.rightSample = 0
@@ -196,10 +212,29 @@ Partial Class TrimForm
         Me.AdvWaveViewer1.TabIndex = 0
         Me.AdvWaveViewer1.WaveStream = Nothing
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(6, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(29, 13)
+        Me.Label5.TabIndex = 10
+        Me.Label5.Text = "Start"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(6, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(26, 13)
+        Me.Label6.TabIndex = 11
+        Me.Label6.Text = "End"
+        '
         'TrimForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(784, 231)
         Me.Controls.Add(Me.PlayButton)
         Me.Controls.Add(Me.ResetButton)
@@ -207,6 +242,7 @@ Partial Class TrimForm
         Me.Controls.Add(Me.AdvWaveViewer1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.GroupBox2)
+        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(16, 270)
         Me.Name = "TrimForm"
@@ -240,4 +276,6 @@ Partial Class TrimForm
     Friend WithEvents NumericRightS As System.Windows.Forms.NumericUpDown
     Friend WithEvents BackgroundPlayer As System.ComponentModel.BackgroundWorker
     Friend WithEvents PlayButton As System.Windows.Forms.Button
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label6 As Label
 End Class

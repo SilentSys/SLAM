@@ -29,6 +29,8 @@ Partial Class RenameForm
         '
         'NameBox
         '
+        Me.NameBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
+        Me.NameBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.NameBox.Location = New System.Drawing.Point(79, 12)
         Me.NameBox.Name = "NameBox"
         Me.NameBox.Size = New System.Drawing.Size(183, 20)
@@ -36,6 +38,7 @@ Partial Class RenameForm
         '
         'DoneButton
         '
+        Me.DoneButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.DoneButton.Location = New System.Drawing.Point(268, 10)
         Me.DoneButton.Name = "DoneButton"
         Me.DoneButton.Size = New System.Drawing.Size(75, 23)
@@ -56,10 +59,12 @@ Partial Class RenameForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(355, 42)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DoneButton)
         Me.Controls.Add(Me.NameBox)
+        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "RenameForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

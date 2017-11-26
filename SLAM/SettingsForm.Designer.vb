@@ -42,7 +42,6 @@ Partial Class SettingsForm
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.StartMinimizedCheckBox = New System.Windows.Forms.CheckBox()
         Me.MinimizeToSysTrayCheckBox = New System.Windows.Forms.CheckBox()
-        Me.HoldToPlay = New System.Windows.Forms.CheckBox()
         Me.ConTagsCheckBox = New System.Windows.Forms.CheckBox()
         Me.StartEnabledCheckBox = New System.Windows.Forms.CheckBox()
         Me.LogCheckBox = New System.Windows.Forms.CheckBox()
@@ -50,6 +49,10 @@ Partial Class SettingsForm
         Me.UpdateCheckBox = New System.Windows.Forms.CheckBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.StatusStrip1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.OverrideGroup.SuspendLayout()
@@ -65,7 +68,7 @@ Partial Class SettingsForm
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.VersionLabel, Me.DonateLabel})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 309)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(284, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(279, 22)
         Me.StatusStrip1.SizingGrip = False
         Me.StatusStrip1.TabIndex = 1
         Me.StatusStrip1.Text = "StatusStrip1"
@@ -73,7 +76,7 @@ Partial Class SettingsForm
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(49, 17)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(48, 17)
         Me.ToolStripStatusLabel1.Text = "Version:"
         '
         'VersionLabel
@@ -91,6 +94,7 @@ Partial Class SettingsForm
         '
         'TabPage2
         '
+        Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
         Me.TabPage2.Controls.Add(Me.NAudioRadio)
         Me.TabPage2.Controls.Add(Me.FFMPEGRadio)
         Me.TabPage2.Controls.Add(Me.OverrideGroup)
@@ -98,10 +102,9 @@ Partial Class SettingsForm
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(276, 305)
+        Me.TabPage2.Size = New System.Drawing.Size(271, 305)
         Me.TabPage2.TabIndex = 0
         Me.TabPage2.Text = "Advanced"
-        Me.TabPage2.UseVisualStyleBackColor = True
         '
         'NAudioRadio
         '
@@ -127,6 +130,7 @@ Partial Class SettingsForm
         '
         'OverrideGroup
         '
+        Me.OverrideGroup.Controls.Add(Me.Label6)
         Me.OverrideGroup.Controls.Add(Me.Label2)
         Me.OverrideGroup.Controls.Add(Me.FinduserdataButton)
         Me.OverrideGroup.Controls.Add(Me.userdatatext)
@@ -134,6 +138,7 @@ Partial Class SettingsForm
         Me.OverrideGroup.Controls.Add(Me.FindsteamappsButton)
         Me.OverrideGroup.Controls.Add(Me.steamappstext)
         Me.OverrideGroup.Controls.Add(Me.EnableOverrideBox)
+        Me.OverrideGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.OverrideGroup.Location = New System.Drawing.Point(8, 64)
         Me.OverrideGroup.Name = "OverrideGroup"
         Me.OverrideGroup.Size = New System.Drawing.Size(260, 96)
@@ -154,6 +159,7 @@ Partial Class SettingsForm
         'FinduserdataButton
         '
         Me.FinduserdataButton.Enabled = False
+        Me.FinduserdataButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.FinduserdataButton.Location = New System.Drawing.Point(230, 66)
         Me.FinduserdataButton.Name = "FinduserdataButton"
         Me.FinduserdataButton.Size = New System.Drawing.Size(24, 23)
@@ -163,7 +169,10 @@ Partial Class SettingsForm
         '
         'userdatatext
         '
+        Me.userdatatext.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
+        Me.userdatatext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.userdatatext.Enabled = False
+        Me.userdatatext.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.userdatatext.Location = New System.Drawing.Point(73, 68)
         Me.userdatatext.Name = "userdatatext"
         Me.userdatatext.ReadOnly = True
@@ -183,6 +192,7 @@ Partial Class SettingsForm
         'FindsteamappsButton
         '
         Me.FindsteamappsButton.Enabled = False
+        Me.FindsteamappsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.FindsteamappsButton.Location = New System.Drawing.Point(230, 40)
         Me.FindsteamappsButton.Name = "FindsteamappsButton"
         Me.FindsteamappsButton.Size = New System.Drawing.Size(24, 23)
@@ -192,7 +202,10 @@ Partial Class SettingsForm
         '
         'steamappstext
         '
+        Me.steamappstext.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
+        Me.steamappstext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.steamappstext.Enabled = False
+        Me.steamappstext.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.steamappstext.Location = New System.Drawing.Point(73, 42)
         Me.steamappstext.Name = "steamappstext"
         Me.steamappstext.ReadOnly = True
@@ -211,6 +224,7 @@ Partial Class SettingsForm
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.Label5)
         Me.GroupBox3.Controls.Add(Me.ChangeRelayButton)
         Me.GroupBox3.Location = New System.Drawing.Point(8, 6)
         Me.GroupBox3.Name = "GroupBox3"
@@ -221,6 +235,7 @@ Partial Class SettingsForm
         '
         'ChangeRelayButton
         '
+        Me.ChangeRelayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ChangeRelayButton.Location = New System.Drawing.Point(6, 19)
         Me.ChangeRelayButton.Name = "ChangeRelayButton"
         Me.ChangeRelayButton.Size = New System.Drawing.Size(248, 23)
@@ -230,9 +245,9 @@ Partial Class SettingsForm
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.StartMinimizedCheckBox)
         Me.GroupBox2.Controls.Add(Me.MinimizeToSysTrayCheckBox)
-        Me.GroupBox2.Controls.Add(Me.HoldToPlay)
         Me.GroupBox2.Controls.Add(Me.ConTagsCheckBox)
         Me.GroupBox2.Controls.Add(Me.StartEnabledCheckBox)
         Me.GroupBox2.Controls.Add(Me.LogCheckBox)
@@ -240,7 +255,7 @@ Partial Class SettingsForm
         Me.GroupBox2.Controls.Add(Me.UpdateCheckBox)
         Me.GroupBox2.Location = New System.Drawing.Point(8, 6)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(260, 217)
+        Me.GroupBox2.Size = New System.Drawing.Size(260, 183)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Other"
@@ -248,7 +263,7 @@ Partial Class SettingsForm
         'StartMinimizedCheckBox
         '
         Me.StartMinimizedCheckBox.AutoSize = True
-        Me.StartMinimizedCheckBox.Location = New System.Drawing.Point(6, 180)
+        Me.StartMinimizedCheckBox.Location = New System.Drawing.Point(6, 157)
         Me.StartMinimizedCheckBox.Name = "StartMinimizedCheckBox"
         Me.StartMinimizedCheckBox.Size = New System.Drawing.Size(96, 17)
         Me.StartMinimizedCheckBox.TabIndex = 13
@@ -258,22 +273,12 @@ Partial Class SettingsForm
         'MinimizeToSysTrayCheckBox
         '
         Me.MinimizeToSysTrayCheckBox.AutoSize = True
-        Me.MinimizeToSysTrayCheckBox.Location = New System.Drawing.Point(6, 157)
+        Me.MinimizeToSysTrayCheckBox.Location = New System.Drawing.Point(6, 134)
         Me.MinimizeToSysTrayCheckBox.Name = "MinimizeToSysTrayCheckBox"
         Me.MinimizeToSysTrayCheckBox.Size = New System.Drawing.Size(133, 17)
         Me.MinimizeToSysTrayCheckBox.TabIndex = 12
         Me.MinimizeToSysTrayCheckBox.Text = "Minimize to system tray"
         Me.MinimizeToSysTrayCheckBox.UseVisualStyleBackColor = True
-        '
-        'HoldToPlay
-        '
-        Me.HoldToPlay.AutoSize = True
-        Me.HoldToPlay.Location = New System.Drawing.Point(6, 134)
-        Me.HoldToPlay.Name = "HoldToPlay"
-        Me.HoldToPlay.Size = New System.Drawing.Size(82, 17)
-        Me.HoldToPlay.TabIndex = 11
-        Me.HoldToPlay.Text = "Hold to play"
-        Me.HoldToPlay.UseVisualStyleBackColor = True
         '
         'ConTagsCheckBox
         '
@@ -333,11 +338,13 @@ Partial Class SettingsForm
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(284, 331)
+        Me.TabControl1.Size = New System.Drawing.Size(279, 331)
         Me.TabControl1.TabIndex = 0
         '
         'TabPage1
         '
+        Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
+        Me.TabPage1.Controls.Add(Me.Label3)
         Me.TabPage1.Controls.Add(Me.GroupBox2)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
@@ -345,15 +352,53 @@ Partial Class SettingsForm
         Me.TabPage1.Size = New System.Drawing.Size(276, 305)
         Me.TabPage1.TabIndex = 1
         Me.TabPage1.Text = "Misc."
-        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.ForeColor = System.Drawing.Color.Red
+        Me.Label3.Location = New System.Drawing.Point(11, 263)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(126, 13)
+        Me.Label3.TabIndex = 3
+        Me.Label3.Text = "Modified by Matic Babnik"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(6, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(31, 13)
+        Me.Label4.TabIndex = 4
+        Me.Label4.Text = "other"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(6, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(54, 13)
+        Me.Label5.TabIndex = 6
+        Me.Label5.Text = "Relay key"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(6, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(123, 13)
+        Me.Label6.TabIndex = 6
+        Me.Label6.Text = "Override folder detection"
         '
         'SettingsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(284, 331)
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(15, Byte), Integer))
+        Me.ClientSize = New System.Drawing.Size(279, 331)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.TabControl1)
+        Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "SettingsForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
@@ -365,10 +410,12 @@ Partial Class SettingsForm
         Me.OverrideGroup.ResumeLayout(False)
         Me.OverrideGroup.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -387,7 +434,6 @@ Partial Class SettingsForm
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents ChangeRelayButton As System.Windows.Forms.Button
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
-    Friend WithEvents HoldToPlay As System.Windows.Forms.CheckBox
     Friend WithEvents OverrideGroup As GroupBox
     Friend WithEvents FindsteamappsButton As Button
     Friend WithEvents steamappstext As TextBox
@@ -401,4 +447,8 @@ Partial Class SettingsForm
     Friend WithEvents StartMinimizedCheckBox As CheckBox
     Friend WithEvents NAudioRadio As RadioButton
     Friend WithEvents FFMPEGRadio As RadioButton
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label4 As Label
 End Class
