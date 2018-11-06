@@ -824,9 +824,31 @@ Public Class Form1
     End Sub
 
     Private Sub TrackList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TrackList.MouseDoubleClick
-        If TrackList.FocusedItem.Bounds.Contains(e.Location) AndAlso status = WORKING Then
-            LoadTrack(GetCurrentGame, TrackList.SelectedItems(0).Index)
-            DisplayLoaded(TrackList.SelectedItems(0).Index)
+        Const TRACK = 1
+        Const BIND = 2
+        Const VOLUME = 3
+        Const TRIMMED = 4
+
+        If TrackList.FocusedItem.Bounds.Contains(e.Location) Then
+
+            Dim HitTestInfo As ListViewHitTestInfo = TrackList.HitTest(e.Location)
+            Dim SelectedSubItem As Integer = HitTestInfo.Item.SubItems.IndexOf(HitTestInfo.SubItem)
+
+            If status = WORKING Then
+                LoadTrack(GetCurrentGame, TrackList.SelectedItems(0).Index)
+                DisplayLoaded(TrackList.SelectedItems(0).Index)
+            Else
+                Select Case SelectedSubItem
+                    Case TRACK
+                        RenameToolStripMenuItem_Click(sender, Nothing)
+                    Case BIND
+                        ContextHotKey_Click(sender, Nothing)
+                    Case VOLUME
+                        SetVolumeToolStripMenuItem_Click(sender, Nothing)
+                    Case TRIMMED
+                        TrimToolStripMenuItem_Click(sender, Nothing)
+                End Select
+            End If
         End If
     End Sub
 
