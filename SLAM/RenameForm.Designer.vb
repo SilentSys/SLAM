@@ -61,6 +61,8 @@ Partial Class RenameForm
         Me.Controls.Add(Me.DoneButton)
         Me.Controls.Add(Me.NameBox)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "RenameForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Rename"
