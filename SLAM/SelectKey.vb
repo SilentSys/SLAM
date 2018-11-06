@@ -7,6 +7,16 @@
         For Each item In BindKeyBox.Items
             WholeList.Add(item.ToString)
         Next
+        KeyPreview = True
+    End Sub
+
+    Private Sub SelectKey_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Enter
+                DoneButton_Click(sender, Nothing)
+            Case Keys.Escape
+                DialogResult = Windows.Forms.DialogResult.Cancel
+        End Select
     End Sub
 
     Private Sub BindKeyBox_TextChanged(sender As Object, e As EventArgs) Handles BindKeyBox.TextChanged
