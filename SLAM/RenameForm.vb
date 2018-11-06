@@ -11,7 +11,17 @@
         End If
     End Sub
 
+    Private Sub RenameForm_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Enter
+                DoneButton_Click(sender, Nothing)
+            Case Keys.Escape
+                DialogResult = Windows.Forms.DialogResult.Cancel
+        End Select
+    End Sub
+
     Private Sub RenameForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         NameBox.Text = filename
+        KeyPreview = True
     End Sub
 End Class
