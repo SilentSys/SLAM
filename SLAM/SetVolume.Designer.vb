@@ -30,7 +30,7 @@ Partial Class SetVolume
         '
         'DoneButton
         '
-        Me.DoneButton.Location = New System.Drawing.Point(272, 63)
+        Me.DoneButton.Location = New System.Drawing.Point(426, 63)
         Me.DoneButton.Name = "DoneButton"
         Me.DoneButton.Size = New System.Drawing.Size(100, 23)
         Me.DoneButton.TabIndex = 1
@@ -40,11 +40,11 @@ Partial Class SetVolume
         'VolumeBar
         '
         Me.VolumeBar.Location = New System.Drawing.Point(12, 12)
-        Me.VolumeBar.Maximum = 20
+        Me.VolumeBar.Maximum = 40
         Me.VolumeBar.Name = "VolumeBar"
-        Me.VolumeBar.Size = New System.Drawing.Size(360, 45)
+        Me.VolumeBar.Size = New System.Drawing.Size(514, 45)
         Me.VolumeBar.TabIndex = 2
-        Me.VolumeBar.Value = 10
+        Me.VolumeBar.Value = 20
         '
         'VolumeNumber
         '
@@ -59,7 +59,7 @@ Partial Class SetVolume
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 91)
+        Me.ClientSize = New System.Drawing.Size(538, 91)
         Me.Controls.Add(Me.VolumeNumber)
         Me.Controls.Add(Me.VolumeBar)
         Me.Controls.Add(Me.DoneButton)

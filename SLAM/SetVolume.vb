@@ -24,7 +24,7 @@
     End Sub
 
     Private Sub VolumeBar_Scroll(sender As Object, e As EventArgs) Handles VolumeBar.Scroll
-        VolumeNumber.Text = VolumeBar.Value * 10
+        VolumeNumber.Text = VolumeBar.Value * 5
     End Sub
 
     Private Sub VolumeNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles VolumeNumber.KeyPress
