@@ -16,6 +16,16 @@
         StartMinimizedCheckBox.Checked = My.Settings.StartMinimized
         FFMPEGRadio.Checked = My.Settings.UseFFMPEG
         NAudioRadio.Checked = Not My.Settings.UseFFMPEG
+        KeyPreview = True
+    End Sub
+
+    Private Sub SettingsForm_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Enter
+                DialogResult = Windows.Forms.DialogResult.OK
+            Case Keys.Escape
+                DialogResult = Windows.Forms.DialogResult.OK
+        End Select
     End Sub
 
     Private Sub UpdateCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles UpdateCheckBox.CheckedChanged
