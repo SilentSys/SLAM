@@ -5,12 +5,22 @@
 
     Private Sub SetVolume_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         VolumeNumber.Text = Volume.ToString
-        VolumeBar.Value = Volume / 10
+        VolumeBar.Value = Volume / 5
+        KeyPreview = True
     End Sub
 
     Private Sub DoneButton_Click(sender As Object, e As EventArgs) Handles DoneButton.Click
         Volume = Convert.ToInt32(VolumeNumber.Text)
         DialogResult = Windows.Forms.DialogResult.OK
+    End Sub
+
+    Private Sub SetVolume_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Enter
+                DoneButton_Click(sender, Nothing)
+            Case Keys.Escape
+                DialogResult = Windows.Forms.DialogResult.Cancel
+        End Select
     End Sub
 
     Private Sub VolumeBar_Scroll(sender As Object, e As EventArgs) Handles VolumeBar.Scroll
@@ -32,7 +42,7 @@
                 VolumeNumber.SelectionStart = VolumeNumber.TextLength
             End If
 
-            VolumeBar.Value = Convert.ToInt32(VolumeNumber.Text) / 10
+            VolumeBar.Value = Convert.ToInt32(VolumeNumber.Text) / 5
 
         End If
     End Sub
