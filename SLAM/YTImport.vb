@@ -24,6 +24,17 @@ Public Class YTImport
         End If
     End Sub
 
+    Private Sub YTImport_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Enter
+                If ImportButton.Enabled Then
+                    ImportButton_Click(sender, Nothing)
+                End If
+            Case Keys.Escape
+                DialogResult = Windows.Forms.DialogResult.Cancel
+        End Select
+    End Sub
+
     Private Sub DownloadWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles DownloadWorker.DoWork
         Try
             Dim videoInfos As IEnumerable(Of VideoInfo) = DownloadUrlResolver.GetDownloadUrls(e.Argument).OrderBy(Function(vid) vid.Resolution)
@@ -90,5 +101,6 @@ Public Class YTImport
 
     Private Sub YTImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         TextBox1.Select()
+        KeyPreview = True
     End Sub
 End Class
