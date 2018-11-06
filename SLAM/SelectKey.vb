@@ -28,7 +28,7 @@
         End If
     End Sub
 
-    Private Sub SelectButton_Click(sender As Object, e As EventArgs) Handles SelectButton.Click
+    Private Sub DoneButton_Click(sender As Object, e As EventArgs) Handles DoneButton.Click
         If WholeList.Contains(BindKeyBox.Text) Then
             ChosenKey = BindKeyBox.Text
             DialogResult = Windows.Forms.DialogResult.OK

@@ -22,19 +22,19 @@ Partial Class SelectKey
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.SelectButton = New System.Windows.Forms.Button()
+        Me.DoneButton = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BindKeyBox = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
-        'SelectButton
+        'DoneButton
         '
-        Me.SelectButton.Location = New System.Drawing.Point(12, 33)
-        Me.SelectButton.Name = "SelectButton"
-        Me.SelectButton.Size = New System.Drawing.Size(185, 23)
-        Me.SelectButton.TabIndex = 1
-        Me.SelectButton.Text = "Done"
-        Me.SelectButton.UseVisualStyleBackColor = True
+        Me.DoneButton.Location = New System.Drawing.Point(12, 33)
+        Me.DoneButton.Name = "DoneButton"
+        Me.DoneButton.Size = New System.Drawing.Size(185, 23)
+        Me.DoneButton.TabIndex = 1
+        Me.DoneButton.Text = "Done"
+        Me.DoneButton.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -63,7 +63,7 @@ Partial Class SelectKey
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(209, 64)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.SelectButton)
+        Me.Controls.Add(Me.DoneButton)
         Me.Controls.Add(Me.BindKeyBox)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.MaximizeBox = False
@@ -75,7 +75,7 @@ Partial Class SelectKey
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents SelectButton As System.Windows.Forms.Button
+    Friend WithEvents DoneButton As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents BindKeyBox As System.Windows.Forms.ComboBox
 End Class
