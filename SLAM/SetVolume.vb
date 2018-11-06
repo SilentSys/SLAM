@@ -1,6 +1,12 @@
 ﻿Public Class SetVolume
 
     Public Volume As Integer
+    Const MAX_VOLUME = 200
+
+    Private Sub SetVolume_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        VolumeNumber.Text = Volume.ToString
+        VolumeBar.Value = Volume / 10
+    End Sub
 
     Private Sub DoneButton_Click(sender As Object, e As EventArgs) Handles DoneButton.Click
         Volume = Convert.ToInt32(VolumeNumber.Text)
@@ -21,8 +27,8 @@
 
     Private Sub VolumeNumber_TextChanged(sender As Object, e As EventArgs) Handles VolumeNumber.TextChanged
         If Not String.IsNullOrEmpty(VolumeNumber.Text) Then
-            If Convert.ToInt32(VolumeNumber.Text) > 200 Then
-                VolumeNumber.Text = "200"
+            If Convert.ToInt32(VolumeNumber.Text) > MAX_VOLUME Then
+                VolumeNumber.Text = MAX_VOLUME.ToString
                 VolumeNumber.SelectionStart = VolumeNumber.TextLength
             End If
 

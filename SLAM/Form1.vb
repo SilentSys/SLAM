@@ -916,6 +916,13 @@ Public Class Form1
 
     Private Sub SetVolumeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetVolumeToolStripMenuItem.Click
         Dim SetVolumeDialog As New SetVolume
+        Const STANDARD_VOLUME = 100
+
+        If TrackList.SelectedItems.Count > 1 Then
+            SetVolumeDialog.Volume = STANDARD_VOLUME
+        Else
+            SetVolumeDialog.Volume = GetCurrentGame.tracks(TrackList.SelectedIndices(0)).volume
+        End If
 
         If SetVolumeDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
 
