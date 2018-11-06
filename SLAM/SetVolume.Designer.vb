@@ -43,7 +43,7 @@ Partial Class SetVolume
         Me.VolumeBar.Maximum = 20
         Me.VolumeBar.Name = "VolumeBar"
         Me.VolumeBar.Size = New System.Drawing.Size(360, 45)
-        Me.VolumeBar.TabIndex = 3
+        Me.VolumeBar.TabIndex = 2
         Me.VolumeBar.Value = 10
         '
         'VolumeNumber
@@ -52,7 +52,7 @@ Partial Class SetVolume
         Me.VolumeNumber.MaxLength = 3
         Me.VolumeNumber.Name = "VolumeNumber"
         Me.VolumeNumber.Size = New System.Drawing.Size(100, 20)
-        Me.VolumeNumber.TabIndex = 4
+        Me.VolumeNumber.TabIndex = 0
         Me.VolumeNumber.Text = "100"
         '
         'SetVolume
