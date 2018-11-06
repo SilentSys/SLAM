@@ -67,12 +67,21 @@ Public Class YTImport
     End Sub
 
     Private Sub DownloadWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles DownloadWorker.RunWorkerCompleted
-        If e.Result.GetType = GetType(Exception) Then
-            MessageBox.Show(e.Result.Message & " See errorlog.txt for more info.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Else
-            file = e.Result
-            DialogResult = Windows.Forms.DialogResult.OK
-        End If
+        Dim ExceptionType = e.Result.GetType()
+
+        While ExceptionType IsNot Nothing
+            If ExceptionType = GetType(Exception) Then
+                MessageBox.Show(e.Result.Message & " See errorlog.txt for more info.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                TextBox1.Enabled = True
+                ImportButton.Enabled = True
+                Return
+            End If
+
+            ExceptionType = ExceptionType.BaseType
+        End While
+
+        file = e.Result
+        DialogResult = Windows.Forms.DialogResult.OK
     End Sub
 
     Private Sub DonateLabel_Click(sender As Object, e As EventArgs) Handles DonateLabel.Click
