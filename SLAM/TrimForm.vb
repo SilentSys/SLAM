@@ -32,6 +32,8 @@ Public Class TrimForm
                 NumericLeft.Value = AdvWaveViewer1.leftSample
             End If
 
+            KeyPreview = True
+
         End If
     End Sub
 
@@ -73,6 +75,15 @@ Public Class TrimForm
 
 
         DialogResult = Windows.Forms.DialogResult.OK
+    End Sub
+
+    Private Sub TrimForm_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Enter
+                DoneButton_Click(sender, Nothing)
+            Case Keys.Escape
+                DialogResult = Windows.Forms.DialogResult.Cancel
+        End Select
     End Sub
 
     Private Sub TrimForm_Resize(sender As Object, e As EventArgs) Handles Me.Resize
