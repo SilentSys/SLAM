@@ -2,7 +2,7 @@
 
     Public Volume As Integer
 
-    Private Sub SelectButton_Click(sender As Object, e As EventArgs) Handles SelectButton.Click
+    Private Sub DoneButton_Click(sender As Object, e As EventArgs) Handles DoneButton.Click
         Volume = Convert.ToInt32(VolumeNumber.Text)
         DialogResult = Windows.Forms.DialogResult.OK
     End Sub
