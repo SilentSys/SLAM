@@ -835,8 +835,13 @@ Public Class Form1
             Dim SelectedSubItem As Integer = HitTestInfo.Item.SubItems.IndexOf(HitTestInfo.SubItem)
 
             If status = WORKING Then
-                LoadTrack(GetCurrentGame, TrackList.SelectedItems(0).Index)
-                DisplayLoaded(TrackList.SelectedItems(0).Index)
+                Select Case SelectedSubItem
+                    Case VOLUME
+                        SetVolumeToolStripMenuItem_Click(sender, Nothing)
+                    Case Else
+                        LoadTrack(GetCurrentGame, TrackList.SelectedItems(0).Index)
+                        DisplayLoaded(TrackList.SelectedItems(0).Index)
+                End Select
             Else
                 Select Case SelectedSubItem
                     Case TRACK
