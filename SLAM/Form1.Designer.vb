@@ -39,7 +39,7 @@ Partial Class Form1
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.WavWorker = New System.ComponentModel.BackgroundWorker()
         Me.PollRelayWorker = New System.ComponentModel.BackgroundWorker()
-        Me.ChangeDirButton = New System.Windows.Forms.Button()
+        Me.SettingsButton = New System.Windows.Forms.Button()
         Me.TrackContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ContextDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.GoToToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -174,15 +174,15 @@ Partial Class Form1
         Me.PollRelayWorker.WorkerReportsProgress = True
         Me.PollRelayWorker.WorkerSupportsCancellation = True
         '
-        'ChangeDirButton
+        'SettingsButton
         '
-        Me.ChangeDirButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ChangeDirButton.Location = New System.Drawing.Point(497, 10)
-        Me.ChangeDirButton.Name = "ChangeDirButton"
-        Me.ChangeDirButton.Size = New System.Drawing.Size(75, 23)
-        Me.ChangeDirButton.TabIndex = 7
-        Me.ChangeDirButton.Text = "Settings"
-        Me.ChangeDirButton.UseVisualStyleBackColor = True
+        Me.SettingsButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SettingsButton.Location = New System.Drawing.Point(497, 10)
+        Me.SettingsButton.Name = "SettingsButton"
+        Me.SettingsButton.Size = New System.Drawing.Size(75, 23)
+        Me.SettingsButton.TabIndex = 7
+        Me.SettingsButton.Text = "Settings"
+        Me.SettingsButton.UseVisualStyleBackColor = True
         '
         'TrackContextMenu
         '
@@ -318,7 +318,7 @@ Partial Class Form1
         Me.Controls.Add(Me.YTButton)
         Me.Controls.Add(Me.StatusLabel)
         Me.Controls.Add(Me.PlayKeyButton)
-        Me.Controls.Add(Me.ChangeDirButton)
+        Me.Controls.Add(Me.SettingsButton)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.StartButton)
         Me.Controls.Add(Me.TrackList)
@@ -348,7 +348,7 @@ Partial Class Form1
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
     Friend WithEvents WavWorker As System.ComponentModel.BackgroundWorker
     Friend WithEvents PollRelayWorker As System.ComponentModel.BackgroundWorker
-    Friend WithEvents ChangeDirButton As System.Windows.Forms.Button
+    Friend WithEvents SettingsButton As System.Windows.Forms.Button
     Friend WithEvents TrackContextMenu As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ContextDelete As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ContextRefresh As System.Windows.Forms.ToolStripMenuItem

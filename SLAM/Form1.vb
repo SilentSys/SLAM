@@ -1047,7 +1047,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub ChangeDirButton_Click(sender As Object, e As EventArgs) Handles ChangeDirButton.Click
+    Private Sub SettingsButton_Click(sender As Object, e As EventArgs) Handles SettingsButton.Click
         SettingsForm.ShowDialog()
     End Sub
 
