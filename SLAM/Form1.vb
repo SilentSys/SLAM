@@ -198,7 +198,8 @@ Public Class Form1
     End Sub
 
     Private Sub YTButton_Click(sender As Object, e As EventArgs) Handles YTButton.Click
-        If File.Exists("NAudio.dll") AndAlso File.Exists("Newtonsoft.Json.dll") AndAlso File.Exists("NReco.VideoConverter.dll") AndAlso File.Exists("YoutubeExtractor.dll") Then
+        'If File.Exists("NAudio.dll") AndAlso File.Exists("Newtonsoft.Json.dll") AndAlso File.Exists("NReco.VideoConverter.dll") AndAlso File.Exists("YoutubeExtractor.dll") Then
+        If File.Exists("NAudio.dll") AndAlso File.Exists("Newtonsoft.Json.dll") AndAlso File.Exists("NReco.VideoConverter.dll") AndAlso File.Exists("libvideo.dll") Then
             DisableInterface()
             Dim YTImporter As New YTImport
             If YTImporter.ShowDialog() = DialogResult.OK Then
@@ -210,7 +211,7 @@ Public Class Form1
             End If
 
         Else
-            MessageBox.Show("You are missing either NAudio.dll, Newtonsoft.Json.dll, NReco.VideoConverter.dll, or YoutubeExtractor.dll! Cannot import from YouTube without them!", "Missing File(s)", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("You are missing either NAudio.dll, Newtonsoft.Json.dll, NReco.VideoConverter.dll, or libvideo.dll! Cannot import from YouTube without them!", "Missing File(s)", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
