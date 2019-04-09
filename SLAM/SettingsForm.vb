@@ -121,8 +121,4 @@
         My.Settings.UseFFMPEG = FFMPEGRadio.Checked
         My.Settings.Save()
     End Sub
-
-    Private Sub VersionLabel_Click(sender As Object, e As EventArgs) Handles VersionLabel.Click
-
-    End Sub
 End Class
