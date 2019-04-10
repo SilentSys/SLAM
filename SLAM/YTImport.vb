@@ -67,7 +67,7 @@ Public Class YTImport
     End Sub
 
     Private Sub DownloadWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles DownloadWorker.RunWorkerCompleted
-        If e.Result.GetType = GetType(Exception) Then
+        If TypeOf e.Result Is Exception Then
             MessageBox.Show(e.Result.Message & " See errorlog.txt for more info.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
             file = e.Result
