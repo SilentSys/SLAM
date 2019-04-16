@@ -73,7 +73,7 @@ Partial Class SettingsForm
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(49, 17)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(48, 17)
         Me.ToolStripStatusLabel1.Text = "Version:"
         '
         'VersionLabel
