@@ -198,7 +198,8 @@ Public Class Form1
     End Sub
 
     Private Sub YTButton_Click(sender As Object, e As EventArgs) Handles YTButton.Click
-        If File.Exists("NAudio.dll") AndAlso File.Exists("Newtonsoft.Json.dll") AndAlso File.Exists("NReco.VideoConverter.dll") AndAlso File.Exists("YoutubeExtractor.dll") Then
+        'If File.Exists("NAudio.dll") AndAlso File.Exists("Newtonsoft.Json.dll") AndAlso File.Exists("NReco.VideoConverter.dll") AndAlso File.Exists("YoutubeExtractor.dll") Then
+        If File.Exists("NAudio.dll") AndAlso File.Exists("Newtonsoft.Json.dll") AndAlso File.Exists("NReco.VideoConverter.dll") AndAlso File.Exists("libvideo.dll") Then
             DisableInterface()
             Dim YTImporter As New YTImport
             If YTImporter.ShowDialog() = DialogResult.OK Then
@@ -210,7 +211,7 @@ Public Class Form1
             End If
 
         Else
-            MessageBox.Show("You are missing either NAudio.dll, Newtonsoft.Json.dll, NReco.VideoConverter.dll, or YoutubeExtractor.dll! Cannot import from YouTube without them!", "Missing File(s)", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("You are missing either NAudio.dll, Newtonsoft.Json.dll, NReco.VideoConverter.dll, or libvideo.dll! Cannot import from YouTube without them!", "Missing File(s)", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
@@ -824,9 +825,36 @@ Public Class Form1
     End Sub
 
     Private Sub TrackList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TrackList.MouseDoubleClick
-        If TrackList.FocusedItem.Bounds.Contains(e.Location) AndAlso status = WORKING Then
-            LoadTrack(GetCurrentGame, TrackList.SelectedItems(0).Index)
-            DisplayLoaded(TrackList.SelectedItems(0).Index)
+        Const TRACK = 1
+        Const BIND = 2
+        Const VOLUME = 3
+        Const TRIMMED = 4
+
+        If TrackList.FocusedItem.Bounds.Contains(e.Location) Then
+
+            Dim HitTestInfo As ListViewHitTestInfo = TrackList.HitTest(e.Location)
+            Dim SelectedSubItem As Integer = HitTestInfo.Item.SubItems.IndexOf(HitTestInfo.SubItem)
+
+            If status = WORKING Then
+                Select Case SelectedSubItem
+                    Case VOLUME
+                        SetVolumeToolStripMenuItem_Click(sender, Nothing)
+                    Case Else
+                        LoadTrack(GetCurrentGame, TrackList.SelectedItems(0).Index)
+                        DisplayLoaded(TrackList.SelectedItems(0).Index)
+                End Select
+            Else
+                Select Case SelectedSubItem
+                    Case TRACK
+                        RenameToolStripMenuItem_Click(sender, Nothing)
+                    Case BIND
+                        ContextHotKey_Click(sender, Nothing)
+                    Case VOLUME
+                        SetVolumeToolStripMenuItem_Click(sender, Nothing)
+                    Case TRIMMED
+                        TrimToolStripMenuItem_Click(sender, Nothing)
+                End Select
+            End If
         End If
     End Sub
 
@@ -916,6 +944,13 @@ Public Class Form1
 
     Private Sub SetVolumeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetVolumeToolStripMenuItem.Click
         Dim SetVolumeDialog As New SetVolume
+        Const STANDARD_VOLUME = 100
+
+        If TrackList.SelectedItems.Count > 1 Then
+            SetVolumeDialog.Volume = STANDARD_VOLUME
+        Else
+            SetVolumeDialog.Volume = GetCurrentGame.tracks(TrackList.SelectedIndices(0)).volume
+        End If
 
         If SetVolumeDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
 
@@ -1040,7 +1075,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub ChangeDirButton_Click(sender As Object, e As EventArgs) Handles ChangeDirButton.Click
+    Private Sub SettingsButton_Click(sender As Object, e As EventArgs) Handles SettingsButton.Click
         SettingsForm.ShowDialog()
     End Sub
 

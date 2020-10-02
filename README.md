@@ -1,4 +1,4 @@
-# SLAM
+# SLAM (UPDATED)
 
 [Source Live Audio Mixer home page](http://slam.flankers.net/)
 
