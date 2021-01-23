@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -12,7 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SLAM")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: ComVisible(false)]
 
