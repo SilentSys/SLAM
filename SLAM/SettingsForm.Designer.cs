@@ -36,370 +36,364 @@ namespace SLAM
         [DebuggerStepThrough()]
         private void InitializeComponent()
         {
-            StatusStrip1 = new StatusStrip();
-            ToolStripStatusLabel1 = new ToolStripStatusLabel();
-            VersionLabel = new ToolStripStatusLabel();
-            _DonateLabel = new ToolStripStatusLabel();
-            _DonateLabel.Click += new EventHandler(DonateLabel_Click);
-            TabPage2 = new TabPage();
-            NAudioRadio = new RadioButton();
-            _FFMPEGRadio = new RadioButton();
-            _FFMPEGRadio.CheckedChanged += new EventHandler(FFMPEGRadio_CheckedChanged);
-            OverrideGroup = new GroupBox();
-            Label2 = new Label();
-            _FinduserdataButton = new Button();
-            _FinduserdataButton.Click += new EventHandler(FinduserdataButton_Click);
-            userdatatext = new TextBox();
-            Label1 = new Label();
-            _FindsteamappsButton = new Button();
-            _FindsteamappsButton.Click += new EventHandler(FindsteamappsButton_Click);
-            steamappstext = new TextBox();
-            _EnableOverrideBox = new CheckBox();
-            _EnableOverrideBox.CheckedChanged += new EventHandler(EnableOverrideBox_CheckedChanged);
-            GroupBox3 = new GroupBox();
-            _ChangeRelayButton = new Button();
-            _ChangeRelayButton.Click += new EventHandler(ChangeRelayButton_Click);
-            GroupBox2 = new GroupBox();
-            _StartMinimizedCheckBox = new CheckBox();
-            _StartMinimizedCheckBox.CheckedChanged += new EventHandler(StartMinimizedCheckBox_CheckedChanged);
-            _MinimizeToSysTrayCheckBox = new CheckBox();
-            _MinimizeToSysTrayCheckBox.CheckedChanged += new EventHandler(MinimizeToSysTrayCheckBox_CheckedChanged);
-            _HoldToPlay = new CheckBox();
-            _HoldToPlay.CheckedChanged += new EventHandler(HoldToPlay_CheckedChanged);
-            _ConTagsCheckBox = new CheckBox();
-            _ConTagsCheckBox.CheckedChanged += new EventHandler(ConTagsCheckBox_CheckedChanged);
-            _StartEnabledCheckBox = new CheckBox();
-            _StartEnabledCheckBox.CheckedChanged += new EventHandler(StartEnabledCheckBox_CheckedChanged);
-            _LogCheckBox = new CheckBox();
-            _LogCheckBox.CheckedChanged += new EventHandler(LogCheckBox_CheckedChanged);
-            _HintCheckBox = new CheckBox();
-            _HintCheckBox.CheckedChanged += new EventHandler(HintCheckBox_CheckedChanged);
-            _UpdateCheckBox = new CheckBox();
-            _UpdateCheckBox.CheckedChanged += new EventHandler(UpdateCheckBox_CheckedChanged);
-            TabControl1 = new TabControl();
-            TabPage1 = new TabPage();
-            StatusStrip1.SuspendLayout();
-            TabPage2.SuspendLayout();
-            OverrideGroup.SuspendLayout();
-            GroupBox3.SuspendLayout();
-            GroupBox2.SuspendLayout();
-            TabControl1.SuspendLayout();
-            TabPage1.SuspendLayout();
-            SuspendLayout();
+            this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.ToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.VersionLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TabPage2 = new System.Windows.Forms.TabPage();
+            this.NAudioRadio = new System.Windows.Forms.RadioButton();
+            this._FFMPEGRadio = new System.Windows.Forms.RadioButton();
+            this.OverrideGroup = new System.Windows.Forms.GroupBox();
+            this.Label2 = new System.Windows.Forms.Label();
+            this._FinduserdataButton = new System.Windows.Forms.Button();
+            this.userdatatext = new System.Windows.Forms.TextBox();
+            this.Label1 = new System.Windows.Forms.Label();
+            this._FindsteamappsButton = new System.Windows.Forms.Button();
+            this.steamappstext = new System.Windows.Forms.TextBox();
+            this._EnableOverrideBox = new System.Windows.Forms.CheckBox();
+            this.GroupBox3 = new System.Windows.Forms.GroupBox();
+            this._ChangeRelayButton = new System.Windows.Forms.Button();
+            this.GroupBox2 = new System.Windows.Forms.GroupBox();
+            this._StartMinimizedCheckBox = new System.Windows.Forms.CheckBox();
+            this._MinimizeToSysTrayCheckBox = new System.Windows.Forms.CheckBox();
+            this._HoldToPlay = new System.Windows.Forms.CheckBox();
+            this._ConTagsCheckBox = new System.Windows.Forms.CheckBox();
+            this._StartEnabledCheckBox = new System.Windows.Forms.CheckBox();
+            this._LogCheckBox = new System.Windows.Forms.CheckBox();
+            this._HintCheckBox = new System.Windows.Forms.CheckBox();
+            this._UpdateCheckBox = new System.Windows.Forms.CheckBox();
+            this.TabControl1 = new System.Windows.Forms.TabControl();
+            this.TabPage1 = new System.Windows.Forms.TabPage();
+            this.StatusStrip1.SuspendLayout();
+            this.TabPage2.SuspendLayout();
+            this.OverrideGroup.SuspendLayout();
+            this.GroupBox3.SuspendLayout();
+            this.GroupBox2.SuspendLayout();
+            this.TabControl1.SuspendLayout();
+            this.TabPage1.SuspendLayout();
+            this.SuspendLayout();
             // 
             // StatusStrip1
             // 
-            StatusStrip1.ImageScalingSize = new Size(24, 24);
-            StatusStrip1.Items.AddRange(new ToolStripItem[] { ToolStripStatusLabel1, VersionLabel, _DonateLabel });
-            StatusStrip1.Location = new Point(0, 309);
-            StatusStrip1.Name = "StatusStrip1";
-            StatusStrip1.Size = new Size(284, 22);
-            StatusStrip1.SizingGrip = false;
-            StatusStrip1.TabIndex = 1;
-            StatusStrip1.Text = "StatusStrip1";
+            this.StatusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.StatusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripStatusLabel1,
+            this.VersionLabel});
+            this.StatusStrip1.Location = new System.Drawing.Point(0, 309);
+            this.StatusStrip1.Name = "StatusStrip1";
+            this.StatusStrip1.Size = new System.Drawing.Size(284, 22);
+            this.StatusStrip1.SizingGrip = false;
+            this.StatusStrip1.TabIndex = 1;
+            this.StatusStrip1.Text = "StatusStrip1";
             // 
             // ToolStripStatusLabel1
             // 
-            ToolStripStatusLabel1.Name = "ToolStripStatusLabel1";
-            ToolStripStatusLabel1.Size = new Size(49, 17);
-            ToolStripStatusLabel1.Text = "Version:";
+            this.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1";
+            this.ToolStripStatusLabel1.Size = new System.Drawing.Size(48, 17);
+            this.ToolStripStatusLabel1.Text = "Version:";
             // 
             // VersionLabel
             // 
-            VersionLabel.Name = "VersionLabel";
-            VersionLabel.Size = new Size(31, 17);
-            VersionLabel.Text = "0.0.0";
-            // 
-            // DonateLabel
-            // 
-            _DonateLabel.IsLink = true;
-            _DonateLabel.Name = "_DonateLabel";
-            _DonateLabel.Size = new Size(199, 17);
-            _DonateLabel.Text = "Want to support SLAM by donating?";
+            this.VersionLabel.Name = "VersionLabel";
+            this.VersionLabel.Size = new System.Drawing.Size(31, 17);
+            this.VersionLabel.Text = "0.0.0";
             // 
             // TabPage2
             // 
-            TabPage2.Controls.Add(NAudioRadio);
-            TabPage2.Controls.Add(_FFMPEGRadio);
-            TabPage2.Controls.Add(OverrideGroup);
-            TabPage2.Controls.Add(GroupBox3);
-            TabPage2.Location = new Point(4, 22);
-            TabPage2.Name = "TabPage2";
-            TabPage2.Padding = new Padding(3);
-            TabPage2.Size = new Size(276, 305);
-            TabPage2.TabIndex = 0;
-            TabPage2.Text = "Advanced";
-            TabPage2.UseVisualStyleBackColor = true;
+            this.TabPage2.Controls.Add(this.NAudioRadio);
+            this.TabPage2.Controls.Add(this._FFMPEGRadio);
+            this.TabPage2.Controls.Add(this.OverrideGroup);
+            this.TabPage2.Controls.Add(this.GroupBox3);
+            this.TabPage2.Location = new System.Drawing.Point(4, 22);
+            this.TabPage2.Name = "TabPage2";
+            this.TabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPage2.Size = new System.Drawing.Size(276, 305);
+            this.TabPage2.TabIndex = 0;
+            this.TabPage2.Text = "Advanced";
+            this.TabPage2.UseVisualStyleBackColor = true;
             // 
             // NAudioRadio
             // 
-            NAudioRadio.AutoSize = true;
-            NAudioRadio.Location = new Point(125, 166);
-            NAudioRadio.Name = "NAudioRadio";
-            NAudioRadio.Size = new Size(126, 17);
-            NAudioRadio.TabIndex = 5;
-            NAudioRadio.TabStop = true;
-            NAudioRadio.Text = "Use NAudio (Legacy)";
-            NAudioRadio.UseVisualStyleBackColor = true;
+            this.NAudioRadio.AutoSize = true;
+            this.NAudioRadio.Location = new System.Drawing.Point(125, 166);
+            this.NAudioRadio.Name = "NAudioRadio";
+            this.NAudioRadio.Size = new System.Drawing.Size(126, 17);
+            this.NAudioRadio.TabIndex = 5;
+            this.NAudioRadio.TabStop = true;
+            this.NAudioRadio.Text = "Use NAudio (Legacy)";
+            this.NAudioRadio.UseVisualStyleBackColor = true;
             // 
-            // FFMPEGRadio
+            // _FFMPEGRadio
             // 
-            _FFMPEGRadio.AutoSize = true;
-            _FFMPEGRadio.Location = new Point(29, 166);
-            _FFMPEGRadio.Name = "_FFMPEGRadio";
-            _FFMPEGRadio.Size = new Size(90, 17);
-            _FFMPEGRadio.TabIndex = 4;
-            _FFMPEGRadio.TabStop = true;
-            _FFMPEGRadio.Text = "Use FFMPEG";
-            _FFMPEGRadio.UseVisualStyleBackColor = true;
+            this._FFMPEGRadio.AutoSize = true;
+            this._FFMPEGRadio.Location = new System.Drawing.Point(29, 166);
+            this._FFMPEGRadio.Name = "_FFMPEGRadio";
+            this._FFMPEGRadio.Size = new System.Drawing.Size(90, 17);
+            this._FFMPEGRadio.TabIndex = 4;
+            this._FFMPEGRadio.TabStop = true;
+            this._FFMPEGRadio.Text = "Use FFMPEG";
+            this._FFMPEGRadio.UseVisualStyleBackColor = true;
+            this._FFMPEGRadio.CheckedChanged += new System.EventHandler(this.FFMPEGRadio_CheckedChanged);
             // 
             // OverrideGroup
             // 
-            OverrideGroup.Controls.Add(Label2);
-            OverrideGroup.Controls.Add(_FinduserdataButton);
-            OverrideGroup.Controls.Add(userdatatext);
-            OverrideGroup.Controls.Add(Label1);
-            OverrideGroup.Controls.Add(_FindsteamappsButton);
-            OverrideGroup.Controls.Add(steamappstext);
-            OverrideGroup.Controls.Add(_EnableOverrideBox);
-            OverrideGroup.Location = new Point(8, 64);
-            OverrideGroup.Name = "OverrideGroup";
-            OverrideGroup.Size = new Size(260, 96);
-            OverrideGroup.TabIndex = 3;
-            OverrideGroup.TabStop = false;
-            OverrideGroup.Text = "Override folder detection";
+            this.OverrideGroup.Controls.Add(this.Label2);
+            this.OverrideGroup.Controls.Add(this._FinduserdataButton);
+            this.OverrideGroup.Controls.Add(this.userdatatext);
+            this.OverrideGroup.Controls.Add(this.Label1);
+            this.OverrideGroup.Controls.Add(this._FindsteamappsButton);
+            this.OverrideGroup.Controls.Add(this.steamappstext);
+            this.OverrideGroup.Controls.Add(this._EnableOverrideBox);
+            this.OverrideGroup.Location = new System.Drawing.Point(8, 64);
+            this.OverrideGroup.Name = "OverrideGroup";
+            this.OverrideGroup.Size = new System.Drawing.Size(260, 96);
+            this.OverrideGroup.TabIndex = 3;
+            this.OverrideGroup.TabStop = false;
+            this.OverrideGroup.Text = "Override folder detection";
             // 
             // Label2
             // 
-            Label2.AutoSize = true;
-            Label2.Enabled = false;
-            Label2.Location = new Point(6, 71);
-            Label2.Name = "Label2";
-            Label2.Size = new Size(51, 13);
-            Label2.TabIndex = 6;
-            Label2.Text = "userdata:";
+            this.Label2.AutoSize = true;
+            this.Label2.Enabled = false;
+            this.Label2.Location = new System.Drawing.Point(6, 71);
+            this.Label2.Name = "Label2";
+            this.Label2.Size = new System.Drawing.Size(51, 13);
+            this.Label2.TabIndex = 6;
+            this.Label2.Text = "userdata:";
             // 
-            // FinduserdataButton
+            // _FinduserdataButton
             // 
-            _FinduserdataButton.Enabled = false;
-            _FinduserdataButton.Location = new Point(230, 66);
-            _FinduserdataButton.Name = "_FinduserdataButton";
-            _FinduserdataButton.Size = new Size(24, 23);
-            _FinduserdataButton.TabIndex = 5;
-            _FinduserdataButton.Text = "...";
-            _FinduserdataButton.UseVisualStyleBackColor = true;
+            this._FinduserdataButton.Enabled = false;
+            this._FinduserdataButton.Location = new System.Drawing.Point(230, 66);
+            this._FinduserdataButton.Name = "_FinduserdataButton";
+            this._FinduserdataButton.Size = new System.Drawing.Size(24, 23);
+            this._FinduserdataButton.TabIndex = 5;
+            this._FinduserdataButton.Text = "...";
+            this._FinduserdataButton.UseVisualStyleBackColor = true;
+            this._FinduserdataButton.Click += new System.EventHandler(this.FinduserdataButton_Click);
             // 
             // userdatatext
             // 
-            userdatatext.Enabled = false;
-            userdatatext.Location = new Point(73, 68);
-            userdatatext.Name = "userdatatext";
-            userdatatext.ReadOnly = true;
-            userdatatext.Size = new Size(151, 20);
-            userdatatext.TabIndex = 4;
+            this.userdatatext.Enabled = false;
+            this.userdatatext.Location = new System.Drawing.Point(73, 68);
+            this.userdatatext.Name = "userdatatext";
+            this.userdatatext.ReadOnly = true;
+            this.userdatatext.Size = new System.Drawing.Size(151, 20);
+            this.userdatatext.TabIndex = 4;
             // 
             // Label1
             // 
-            Label1.AutoSize = true;
-            Label1.Enabled = false;
-            Label1.Location = new Point(6, 45);
-            Label1.Name = "Label1";
-            Label1.Size = new Size(61, 13);
-            Label1.TabIndex = 3;
-            Label1.Text = "steamapps:";
+            this.Label1.AutoSize = true;
+            this.Label1.Enabled = false;
+            this.Label1.Location = new System.Drawing.Point(6, 45);
+            this.Label1.Name = "Label1";
+            this.Label1.Size = new System.Drawing.Size(61, 13);
+            this.Label1.TabIndex = 3;
+            this.Label1.Text = "steamapps:";
             // 
-            // FindsteamappsButton
+            // _FindsteamappsButton
             // 
-            _FindsteamappsButton.Enabled = false;
-            _FindsteamappsButton.Location = new Point(230, 40);
-            _FindsteamappsButton.Name = "_FindsteamappsButton";
-            _FindsteamappsButton.Size = new Size(24, 23);
-            _FindsteamappsButton.TabIndex = 2;
-            _FindsteamappsButton.Text = "...";
-            _FindsteamappsButton.UseVisualStyleBackColor = true;
+            this._FindsteamappsButton.Enabled = false;
+            this._FindsteamappsButton.Location = new System.Drawing.Point(230, 40);
+            this._FindsteamappsButton.Name = "_FindsteamappsButton";
+            this._FindsteamappsButton.Size = new System.Drawing.Size(24, 23);
+            this._FindsteamappsButton.TabIndex = 2;
+            this._FindsteamappsButton.Text = "...";
+            this._FindsteamappsButton.UseVisualStyleBackColor = true;
+            this._FindsteamappsButton.Click += new System.EventHandler(this.FindsteamappsButton_Click);
             // 
             // steamappstext
             // 
-            steamappstext.Enabled = false;
-            steamappstext.Location = new Point(73, 42);
-            steamappstext.Name = "steamappstext";
-            steamappstext.ReadOnly = true;
-            steamappstext.Size = new Size(151, 20);
-            steamappstext.TabIndex = 1;
+            this.steamappstext.Enabled = false;
+            this.steamappstext.Location = new System.Drawing.Point(73, 42);
+            this.steamappstext.Name = "steamappstext";
+            this.steamappstext.ReadOnly = true;
+            this.steamappstext.Size = new System.Drawing.Size(151, 20);
+            this.steamappstext.TabIndex = 1;
             // 
-            // EnableOverrideBox
+            // _EnableOverrideBox
             // 
-            _EnableOverrideBox.AutoSize = true;
-            _EnableOverrideBox.Location = new Point(6, 19);
-            _EnableOverrideBox.Name = "_EnableOverrideBox";
-            _EnableOverrideBox.Size = new Size(59, 17);
-            _EnableOverrideBox.TabIndex = 0;
-            _EnableOverrideBox.Text = "Enable";
-            _EnableOverrideBox.UseVisualStyleBackColor = true;
+            this._EnableOverrideBox.AutoSize = true;
+            this._EnableOverrideBox.Location = new System.Drawing.Point(6, 19);
+            this._EnableOverrideBox.Name = "_EnableOverrideBox";
+            this._EnableOverrideBox.Size = new System.Drawing.Size(59, 17);
+            this._EnableOverrideBox.TabIndex = 0;
+            this._EnableOverrideBox.Text = "Enable";
+            this._EnableOverrideBox.UseVisualStyleBackColor = true;
+            this._EnableOverrideBox.CheckedChanged += new System.EventHandler(this.EnableOverrideBox_CheckedChanged);
             // 
             // GroupBox3
             // 
-            GroupBox3.Controls.Add(_ChangeRelayButton);
-            GroupBox3.Location = new Point(8, 6);
-            GroupBox3.Name = "GroupBox3";
-            GroupBox3.Size = new Size(260, 52);
-            GroupBox3.TabIndex = 2;
-            GroupBox3.TabStop = false;
-            GroupBox3.Text = "Relay Key";
+            this.GroupBox3.Controls.Add(this._ChangeRelayButton);
+            this.GroupBox3.Location = new System.Drawing.Point(8, 6);
+            this.GroupBox3.Name = "GroupBox3";
+            this.GroupBox3.Size = new System.Drawing.Size(260, 52);
+            this.GroupBox3.TabIndex = 2;
+            this.GroupBox3.TabStop = false;
+            this.GroupBox3.Text = "Relay Key";
             // 
-            // ChangeRelayButton
+            // _ChangeRelayButton
             // 
-            _ChangeRelayButton.Location = new Point(6, 19);
-            _ChangeRelayButton.Name = "_ChangeRelayButton";
-            _ChangeRelayButton.Size = new Size(248, 23);
-            _ChangeRelayButton.TabIndex = 0;
-            _ChangeRelayButton.Text = "Relay key: \"\"{0}\"\" (change)";
-            _ChangeRelayButton.UseVisualStyleBackColor = true;
+            this._ChangeRelayButton.Location = new System.Drawing.Point(6, 19);
+            this._ChangeRelayButton.Name = "_ChangeRelayButton";
+            this._ChangeRelayButton.Size = new System.Drawing.Size(248, 23);
+            this._ChangeRelayButton.TabIndex = 0;
+            this._ChangeRelayButton.Text = "Relay key: \"\"{0}\"\" (change)";
+            this._ChangeRelayButton.UseVisualStyleBackColor = true;
+            this._ChangeRelayButton.Click += new System.EventHandler(this.ChangeRelayButton_Click);
             // 
             // GroupBox2
             // 
-            GroupBox2.Controls.Add(_StartMinimizedCheckBox);
-            GroupBox2.Controls.Add(_MinimizeToSysTrayCheckBox);
-            GroupBox2.Controls.Add(_HoldToPlay);
-            GroupBox2.Controls.Add(_ConTagsCheckBox);
-            GroupBox2.Controls.Add(_StartEnabledCheckBox);
-            GroupBox2.Controls.Add(_LogCheckBox);
-            GroupBox2.Controls.Add(_HintCheckBox);
-            GroupBox2.Controls.Add(_UpdateCheckBox);
-            GroupBox2.Location = new Point(8, 6);
-            GroupBox2.Name = "GroupBox2";
-            GroupBox2.Size = new Size(260, 217);
-            GroupBox2.TabIndex = 2;
-            GroupBox2.TabStop = false;
-            GroupBox2.Text = "Other";
+            this.GroupBox2.Controls.Add(this._StartMinimizedCheckBox);
+            this.GroupBox2.Controls.Add(this._MinimizeToSysTrayCheckBox);
+            this.GroupBox2.Controls.Add(this._HoldToPlay);
+            this.GroupBox2.Controls.Add(this._ConTagsCheckBox);
+            this.GroupBox2.Controls.Add(this._StartEnabledCheckBox);
+            this.GroupBox2.Controls.Add(this._LogCheckBox);
+            this.GroupBox2.Controls.Add(this._HintCheckBox);
+            this.GroupBox2.Controls.Add(this._UpdateCheckBox);
+            this.GroupBox2.Location = new System.Drawing.Point(8, 6);
+            this.GroupBox2.Name = "GroupBox2";
+            this.GroupBox2.Size = new System.Drawing.Size(260, 217);
+            this.GroupBox2.TabIndex = 2;
+            this.GroupBox2.TabStop = false;
+            this.GroupBox2.Text = "Other";
             // 
-            // StartMinimizedCheckBox
+            // _StartMinimizedCheckBox
             // 
-            _StartMinimizedCheckBox.AutoSize = true;
-            _StartMinimizedCheckBox.Location = new Point(6, 180);
-            _StartMinimizedCheckBox.Name = "_StartMinimizedCheckBox";
-            _StartMinimizedCheckBox.Size = new Size(96, 17);
-            _StartMinimizedCheckBox.TabIndex = 13;
-            _StartMinimizedCheckBox.Text = "Start minimized";
-            _StartMinimizedCheckBox.UseVisualStyleBackColor = true;
+            this._StartMinimizedCheckBox.AutoSize = true;
+            this._StartMinimizedCheckBox.Location = new System.Drawing.Point(6, 180);
+            this._StartMinimizedCheckBox.Name = "_StartMinimizedCheckBox";
+            this._StartMinimizedCheckBox.Size = new System.Drawing.Size(96, 17);
+            this._StartMinimizedCheckBox.TabIndex = 13;
+            this._StartMinimizedCheckBox.Text = "Start minimized";
+            this._StartMinimizedCheckBox.UseVisualStyleBackColor = true;
+            this._StartMinimizedCheckBox.CheckedChanged += new System.EventHandler(this.StartMinimizedCheckBox_CheckedChanged);
             // 
-            // MinimizeToSysTrayCheckBox
+            // _MinimizeToSysTrayCheckBox
             // 
-            _MinimizeToSysTrayCheckBox.AutoSize = true;
-            _MinimizeToSysTrayCheckBox.Location = new Point(6, 157);
-            _MinimizeToSysTrayCheckBox.Name = "_MinimizeToSysTrayCheckBox";
-            _MinimizeToSysTrayCheckBox.Size = new Size(133, 17);
-            _MinimizeToSysTrayCheckBox.TabIndex = 12;
-            _MinimizeToSysTrayCheckBox.Text = "Minimize to system tray";
-            _MinimizeToSysTrayCheckBox.UseVisualStyleBackColor = true;
+            this._MinimizeToSysTrayCheckBox.AutoSize = true;
+            this._MinimizeToSysTrayCheckBox.Location = new System.Drawing.Point(6, 157);
+            this._MinimizeToSysTrayCheckBox.Name = "_MinimizeToSysTrayCheckBox";
+            this._MinimizeToSysTrayCheckBox.Size = new System.Drawing.Size(133, 17);
+            this._MinimizeToSysTrayCheckBox.TabIndex = 12;
+            this._MinimizeToSysTrayCheckBox.Text = "Minimize to system tray";
+            this._MinimizeToSysTrayCheckBox.UseVisualStyleBackColor = true;
+            this._MinimizeToSysTrayCheckBox.CheckedChanged += new System.EventHandler(this.MinimizeToSysTrayCheckBox_CheckedChanged);
             // 
-            // HoldToPlay
+            // _HoldToPlay
             // 
-            _HoldToPlay.AutoSize = true;
-            _HoldToPlay.Location = new Point(6, 134);
-            _HoldToPlay.Name = "_HoldToPlay";
-            _HoldToPlay.Size = new Size(82, 17);
-            _HoldToPlay.TabIndex = 11;
-            _HoldToPlay.Text = "Hold to play";
-            _HoldToPlay.UseVisualStyleBackColor = true;
+            this._HoldToPlay.AutoSize = true;
+            this._HoldToPlay.Location = new System.Drawing.Point(6, 134);
+            this._HoldToPlay.Name = "_HoldToPlay";
+            this._HoldToPlay.Size = new System.Drawing.Size(82, 17);
+            this._HoldToPlay.TabIndex = 11;
+            this._HoldToPlay.Text = "Hold to play";
+            this._HoldToPlay.UseVisualStyleBackColor = true;
+            this._HoldToPlay.CheckedChanged += new System.EventHandler(this.HoldToPlay_CheckedChanged);
             // 
-            // ConTagsCheckBox
+            // _ConTagsCheckBox
             // 
-            _ConTagsCheckBox.AutoSize = true;
-            _ConTagsCheckBox.Location = new Point(6, 111);
-            _ConTagsCheckBox.Name = "_ConTagsCheckBox";
-            _ConTagsCheckBox.Size = new Size(101, 17);
-            _ConTagsCheckBox.TabIndex = 5;
-            _ConTagsCheckBox.Text = "Tags in console";
-            _ConTagsCheckBox.UseVisualStyleBackColor = true;
+            this._ConTagsCheckBox.AutoSize = true;
+            this._ConTagsCheckBox.Location = new System.Drawing.Point(6, 111);
+            this._ConTagsCheckBox.Name = "_ConTagsCheckBox";
+            this._ConTagsCheckBox.Size = new System.Drawing.Size(101, 17);
+            this._ConTagsCheckBox.TabIndex = 5;
+            this._ConTagsCheckBox.Text = "Tags in console";
+            this._ConTagsCheckBox.UseVisualStyleBackColor = true;
+            this._ConTagsCheckBox.CheckedChanged += new System.EventHandler(this.ConTagsCheckBox_CheckedChanged);
             // 
-            // StartEnabledCheckBox
+            // _StartEnabledCheckBox
             // 
-            _StartEnabledCheckBox.AutoSize = true;
-            _StartEnabledCheckBox.Location = new Point(6, 88);
-            _StartEnabledCheckBox.Name = "_StartEnabledCheckBox";
-            _StartEnabledCheckBox.Size = new Size(89, 17);
-            _StartEnabledCheckBox.TabIndex = 4;
-            _StartEnabledCheckBox.Text = "Start enabled";
-            _StartEnabledCheckBox.UseVisualStyleBackColor = true;
+            this._StartEnabledCheckBox.AutoSize = true;
+            this._StartEnabledCheckBox.Location = new System.Drawing.Point(6, 88);
+            this._StartEnabledCheckBox.Name = "_StartEnabledCheckBox";
+            this._StartEnabledCheckBox.Size = new System.Drawing.Size(89, 17);
+            this._StartEnabledCheckBox.TabIndex = 4;
+            this._StartEnabledCheckBox.Text = "Start enabled";
+            this._StartEnabledCheckBox.UseVisualStyleBackColor = true;
+            this._StartEnabledCheckBox.CheckedChanged += new System.EventHandler(this.StartEnabledCheckBox_CheckedChanged);
             // 
-            // LogCheckBox
+            // _LogCheckBox
             // 
-            _LogCheckBox.AutoSize = true;
-            _LogCheckBox.Location = new Point(6, 65);
-            _LogCheckBox.Name = "_LogCheckBox";
-            _LogCheckBox.Size = new Size(73, 17);
-            _LogCheckBox.TabIndex = 2;
-            _LogCheckBox.Text = "Log errors";
-            _LogCheckBox.UseVisualStyleBackColor = true;
+            this._LogCheckBox.AutoSize = true;
+            this._LogCheckBox.Location = new System.Drawing.Point(6, 65);
+            this._LogCheckBox.Name = "_LogCheckBox";
+            this._LogCheckBox.Size = new System.Drawing.Size(73, 17);
+            this._LogCheckBox.TabIndex = 2;
+            this._LogCheckBox.Text = "Log errors";
+            this._LogCheckBox.UseVisualStyleBackColor = true;
+            this._LogCheckBox.CheckedChanged += new System.EventHandler(this.LogCheckBox_CheckedChanged);
             // 
-            // HintCheckBox
+            // _HintCheckBox
             // 
-            _HintCheckBox.AutoSize = true;
-            _HintCheckBox.Location = new Point(6, 42);
-            _HintCheckBox.Name = "_HintCheckBox";
-            _HintCheckBox.Size = new Size(65, 17);
-            _HintCheckBox.TabIndex = 3;
-            _HintCheckBox.Text = "No hints";
-            _HintCheckBox.UseVisualStyleBackColor = true;
+            this._HintCheckBox.AutoSize = true;
+            this._HintCheckBox.Location = new System.Drawing.Point(6, 42);
+            this._HintCheckBox.Name = "_HintCheckBox";
+            this._HintCheckBox.Size = new System.Drawing.Size(65, 17);
+            this._HintCheckBox.TabIndex = 3;
+            this._HintCheckBox.Text = "No hints";
+            this._HintCheckBox.UseVisualStyleBackColor = true;
+            this._HintCheckBox.CheckedChanged += new System.EventHandler(this.HintCheckBox_CheckedChanged);
             // 
-            // UpdateCheckBox
+            // _UpdateCheckBox
             // 
-            _UpdateCheckBox.AutoSize = true;
-            _UpdateCheckBox.Location = new Point(6, 19);
-            _UpdateCheckBox.Name = "_UpdateCheckBox";
-            _UpdateCheckBox.Size = new Size(113, 17);
-            _UpdateCheckBox.TabIndex = 2;
-            _UpdateCheckBox.Text = "Check for updates";
-            _UpdateCheckBox.UseVisualStyleBackColor = true;
+            this._UpdateCheckBox.AutoSize = true;
+            this._UpdateCheckBox.Location = new System.Drawing.Point(6, 19);
+            this._UpdateCheckBox.Name = "_UpdateCheckBox";
+            this._UpdateCheckBox.Size = new System.Drawing.Size(113, 17);
+            this._UpdateCheckBox.TabIndex = 2;
+            this._UpdateCheckBox.Text = "Check for updates";
+            this._UpdateCheckBox.UseVisualStyleBackColor = true;
+            this._UpdateCheckBox.CheckedChanged += new System.EventHandler(this.UpdateCheckBox_CheckedChanged);
             // 
             // TabControl1
             // 
-            TabControl1.Controls.Add(TabPage1);
-            TabControl1.Controls.Add(TabPage2);
-            TabControl1.Dock = DockStyle.Fill;
-            TabControl1.Location = new Point(0, 0);
-            TabControl1.Name = "TabControl1";
-            TabControl1.SelectedIndex = 0;
-            TabControl1.Size = new Size(284, 331);
-            TabControl1.TabIndex = 0;
+            this.TabControl1.Controls.Add(this.TabPage1);
+            this.TabControl1.Controls.Add(this.TabPage2);
+            this.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabControl1.Location = new System.Drawing.Point(0, 0);
+            this.TabControl1.Name = "TabControl1";
+            this.TabControl1.SelectedIndex = 0;
+            this.TabControl1.Size = new System.Drawing.Size(284, 331);
+            this.TabControl1.TabIndex = 0;
             // 
             // TabPage1
             // 
-            TabPage1.Controls.Add(GroupBox2);
-            TabPage1.Location = new Point(4, 22);
-            TabPage1.Name = "TabPage1";
-            TabPage1.Padding = new Padding(3);
-            TabPage1.Size = new Size(276, 305);
-            TabPage1.TabIndex = 1;
-            TabPage1.Text = "Misc.";
-            TabPage1.UseVisualStyleBackColor = true;
+            this.TabPage1.Controls.Add(this.GroupBox2);
+            this.TabPage1.Location = new System.Drawing.Point(4, 22);
+            this.TabPage1.Name = "TabPage1";
+            this.TabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPage1.Size = new System.Drawing.Size(276, 305);
+            this.TabPage1.TabIndex = 1;
+            this.TabPage1.Text = "Misc.";
+            this.TabPage1.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
-            AutoScaleDimensions = new SizeF(6.0f, 13.0f);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(284, 331);
-            Controls.Add(StatusStrip1);
-            Controls.Add(TabControl1);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            Name = "SettingsForm";
-            StartPosition = FormStartPosition.CenterParent;
-            Text = "Settings";
-            StatusStrip1.ResumeLayout(false);
-            StatusStrip1.PerformLayout();
-            TabPage2.ResumeLayout(false);
-            TabPage2.PerformLayout();
-            OverrideGroup.ResumeLayout(false);
-            OverrideGroup.PerformLayout();
-            GroupBox3.ResumeLayout(false);
-            GroupBox2.ResumeLayout(false);
-            GroupBox2.PerformLayout();
-            TabControl1.ResumeLayout(false);
-            TabPage1.ResumeLayout(false);
-            Load += new EventHandler(SettingsForm_Load);
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(284, 331);
+            this.Controls.Add(this.StatusStrip1);
+            this.Controls.Add(this.TabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Name = "SettingsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Settings";
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
+            this.StatusStrip1.ResumeLayout(false);
+            this.StatusStrip1.PerformLayout();
+            this.TabPage2.ResumeLayout(false);
+            this.TabPage2.PerformLayout();
+            this.OverrideGroup.ResumeLayout(false);
+            this.OverrideGroup.PerformLayout();
+            this.GroupBox3.ResumeLayout(false);
+            this.GroupBox2.ResumeLayout(false);
+            this.GroupBox2.PerformLayout();
+            this.TabControl1.ResumeLayout(false);
+            this.TabPage1.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         internal StatusStrip StatusStrip1;
@@ -647,31 +641,6 @@ namespace SLAM
         }
 
         internal Label Label1;
-        private ToolStripStatusLabel _DonateLabel;
-
-        internal ToolStripStatusLabel DonateLabel
-        {
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            get
-            {
-                return _DonateLabel;
-            }
-
-            [MethodImpl(MethodImplOptions.Synchronized)]
-            set
-            {
-                if (_DonateLabel != null)
-                {
-                    _DonateLabel.Click -= DonateLabel_Click;
-                }
-
-                _DonateLabel = value;
-                if (_DonateLabel != null)
-                {
-                    _DonateLabel.Click += DonateLabel_Click;
-                }
-            }
-        }
 
         internal Label Label2;
         private Button _FinduserdataButton;

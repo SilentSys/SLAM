@@ -21,7 +21,6 @@ namespace SLAM
         {
             InitializeComponent();
             _ImportButton.Name = "ImportButton";
-            _DonateLabel.Name = "DonateLabel";
         }
 
         public string file;

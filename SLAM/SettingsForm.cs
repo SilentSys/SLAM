@@ -10,7 +10,6 @@ namespace SLAM
         public SettingsForm()
         {
             InitializeComponent();
-            _DonateLabel.Name = "DonateLabel";
             _FFMPEGRadio.Name = "FFMPEGRadio";
             _FinduserdataButton.Name = "FinduserdataButton";
             _FindsteamappsButton.Name = "FindsteamappsButton";
@@ -99,10 +98,6 @@ namespace SLAM
             My.MySettingsProperty.Settings.Save();
         }
 
-        private void DonateLabel_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RVLLPGWJUG6CY");
-        }
 
         private void EnableOverrideBox_CheckedChanged(object sender, EventArgs e)
         {
