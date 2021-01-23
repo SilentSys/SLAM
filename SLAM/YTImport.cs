@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using YoutubeExtractor;
+using VideoLibrary;
 
 namespace SLAM
 {
@@ -51,24 +51,8 @@ namespace SLAM
         {
             try
             {
-                IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(Conversions.ToString(e.Argument)).OrderBy(vid => vid.Resolution);
-                var video = videoInfos.First(info => info.AdaptiveType == AdaptiveType.Audio && info.AudioType == AudioType.Aac || info.AdaptiveType == AdaptiveType.None && info.VideoType == VideoType.Mp4 && info.AudioBitrate >= 128);
-                if (Information.IsNothing(video))
-                {
-                    if (videoInfos.Any(info => info.AdaptiveType == AdaptiveType.None && info.VideoType == VideoType.Mp4))
-                    {
-                        video = videoInfos.First(info => info.AdaptiveType == AdaptiveType.None && info.VideoType == VideoType.Mp4);
-                    }
-                    else
-                    {
-                        throw new Exception("Could not find download.");
-                    }
-                }
-
-                if (video.RequiresDecryption)
-                {
-                    DownloadUrlResolver.DecryptDownloadUrl(video);
-                }
+                YouTube youTube = YouTube.Default;
+                var video = youTube.GetVideo((string)e.Argument);
 
                 if (!Directory.Exists(Path.GetFullPath(@"temp\")))
                 {
@@ -76,10 +60,9 @@ namespace SLAM
                 }
 
                 string filename = string.Join("", video.Title.Split(Path.GetInvalidFileNameChars()));
-                var VideoDownloader = new VideoDownloader(video, Path.GetFullPath(@"temp\" + filename + video.VideoExtension));
-                VideoDownloader.DownloadProgressChanged += (send, args) => DownloadWorker.ReportProgress(Convert.ToInt32(args.ProgressPercentage));
-                VideoDownloader.Execute();
-                e.Result = Path.GetFullPath(@"temp\" + filename + video.VideoExtension);
+                File.WriteAllBytes(Path.GetFullPath(@"temp\" + filename + video.FileExtension), video.GetBytes());
+                e.Result = Path.GetFullPath(@"temp\" + filename + video.FileExtension);
+
             }
             catch (Exception ex)
             {

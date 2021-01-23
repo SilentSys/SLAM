@@ -229,7 +229,7 @@ namespace SLAM
 
         private void YTButton_Click(object sender, EventArgs e)
         {
-            if (File.Exists("NAudio.dll") && File.Exists("Newtonsoft.Json.dll") && File.Exists("NReco.VideoConverter.dll") && File.Exists("YoutubeExtractor.dll"))
+            if (File.Exists("NAudio.dll") && File.Exists("Newtonsoft.Json.dll") && File.Exists("NReco.VideoConverter.dll"))
             {
                 DisableInterface();
                 var YTImporter = new YTImport();
@@ -246,7 +246,7 @@ namespace SLAM
             }
             else
             {
-                MessageBox.Show("You are missing either NAudio.dll, Newtonsoft.Json.dll, NReco.VideoConverter.dll, or YoutubeExtractor.dll! Cannot import from YouTube without them!", "Missing File(s)", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You are missing either NAudio.dll, Newtonsoft.Json.dll or NReco.VideoConverter.dll! Cannot import from YouTube without them!", "Missing File(s)", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
