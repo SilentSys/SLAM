@@ -28,7 +28,7 @@ namespace SLAM
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            VersionLabel.Text = Strings.Join(new[] { My.MyProject.Application.Info.Version.Major, My.MyProject.Application.Info.Version.Minor, My.MyProject.Application.Info.Version.Build }, ".");
+            VersionLabel.Text = Strings.Join(new object[] { My.MyProject.Application.Info.Version.Major, My.MyProject.Application.Info.Version.Minor, My.MyProject.Application.Info.Version.Build }, ".");
             UpdateCheckBox.Checked = My.MySettingsProperty.Settings.UpdateCheck;
             HintCheckBox.Checked = My.MySettingsProperty.Settings.NoHint;
             LogCheckBox.Checked = My.MySettingsProperty.Settings.LogError;
@@ -108,8 +108,8 @@ namespace SLAM
         {
             My.MySettingsProperty.Settings.OverrideFolders = EnableOverrideBox.Checked;
             My.MySettingsProperty.Settings.Save();
-            foreach (var control in OverrideGroup.Controls)
-                control.enabled = EnableOverrideBox.Checked;
+            foreach (Control control in OverrideGroup.Controls)
+                control.Enabled = EnableOverrideBox.Checked;
             EnableOverrideBox.Enabled = true;
         }
 

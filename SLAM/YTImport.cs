@@ -26,7 +26,7 @@ namespace SLAM
 
         public void ProgressChangedHandler(object sender, object args)
         {
-            Console.WriteLine(args.ProgressPercentage);
+            Console.WriteLine(args);
         }
 
         private void ImportButton_Click(object sender, EventArgs e)
@@ -97,7 +97,7 @@ namespace SLAM
         {
             if (e.Result.GetType() == typeof(Exception))
             {
-                MessageBox.Show(Conversions.ToString(Operators.ConcatenateObject(e.Result.Message, " See errorlog.txt for more info.")), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Conversions.ToString(Operators.ConcatenateObject(e.Result, " See errorlog.txt for more info.")), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {

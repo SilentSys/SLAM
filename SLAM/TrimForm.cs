@@ -155,9 +155,11 @@ namespace SLAM
 
         private void BackgroundPlayer_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            WaveStream WaveFloat = (WaveStream)e.Argument(0);
-            int LeftPos = Conversions.ToInteger(e.Argument((object)1));
-            int RightPos = Conversions.ToInteger(e.Argument((object)2));
+            object[] arguments = e.Argument as object[];
+
+            WaveStream WaveFloat = (WaveStream)arguments[0];
+            int LeftPos = Conversions.ToInteger(arguments[1]);
+            int RightPos = Conversions.ToInteger(arguments[2]);
             var bytes = new byte[RightPos - LeftPos + 1];
             WaveFloat.Position = LeftPos;
             WaveFloat.Read(bytes, 0, RightPos - LeftPos);
@@ -190,13 +192,13 @@ namespace SLAM
 
         private void EnableInterface()
         {
-            foreach (var Control in Controls)
+            foreach (Control Control in Controls)
                 Control.Enabled = true;
         }
 
         private void DisableInterface()
         {
-            foreach (var Control in Controls)
+            foreach (Control Control in Controls)
                 Control.Enabled = false;
         }
     }

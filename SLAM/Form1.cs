@@ -252,9 +252,11 @@ namespace SLAM
 
         private void WavWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            SourceGame Game = (SourceGame)e.Argument(0);
-            string[] Files = (string[])e.Argument(1);
-            bool DeleteSource = Conversions.ToBoolean(e.Argument((object)2));
+            object[] arguments = e.Argument as object[];
+
+            SourceGame Game = (SourceGame)arguments[0];
+            string[] Files = (string[])arguments[1];
+            bool DeleteSource = Conversions.ToBoolean(arguments[2]);
             var FailedFiles = new List<string>();
             foreach (var File in Files)
             {
@@ -785,7 +787,7 @@ namespace SLAM
             RefreshTrackList();
             if (!Information.IsNothing(e.Result)) // Result is always an exception
             {
-                MessageBox.Show(Conversions.ToString(Operators.ConcatenateObject(e.Result.Message, " See errorlog.txt for more info.")), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Conversions.ToString(Operators.ConcatenateObject(e.Result, " See errorlog.txt for more info.")), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             if (ClosePending)
@@ -825,13 +827,13 @@ namespace SLAM
 
         private void EnableInterface()
         {
-            foreach (var Control in Controls)
+            foreach (Control Control in Controls)
                 Control.Enabled = true;
         }
 
         private void DisableInterface()
         {
-            foreach (var Control in Controls)
+            foreach (Control Control in Controls)
                 Control.Enabled = false;
         }
 
@@ -854,7 +856,7 @@ namespace SLAM
                     XmlFile = reader.ReadToEnd();
                 }
 
-                SettingsList = Deserialize<List<SourceGame.track>>(XmlFile);
+                SettingsList = XmlSerialization.Deserialize<List<SourceGame.track>>(XmlFile);
             }
 
             foreach (var Track in Game.tracks)
@@ -904,8 +906,8 @@ namespace SLAM
             {
                 if (TrackList.FocusedItem.Bounds.Contains(e.Location))
                 {
-                    foreach (var Control in TrackContextMenu.Items) // everything invisible
-                        Control.visible = false;
+                    foreach (Control Control in TrackContextMenu.Items) // everything invisible
+                        Control.Visible = false;
                     SetVolumeToolStripMenuItem.Visible = true; // always visible
                     ContextRefresh.Visible = true;
                     if (TrackList.SelectedItems.Count > 1)
@@ -925,8 +927,8 @@ namespace SLAM
                     }
                     else
                     {
-                        foreach (var Control in TrackContextMenu.Items) // visible when only one selected AND is not running (all)
-                            Control.visible = true;
+                        foreach (Control Control in TrackContextMenu.Items) // visible when only one selected AND is not running (all)
+                            Control.Visible = true;
                         LoadToolStripMenuItem.Visible = false;
                     }
                     // Maybe I should have used a case... Maybe...
@@ -956,8 +958,10 @@ namespace SLAM
         {
             var game = GetCurrentGame();
             var SelectedNames = new List<string>();
-            foreach (var item in TrackList.SelectedItems)
-                SelectedNames.Add(Conversions.ToString(item.SubItems((object)1).Text));
+            TrackList.SelectedItems.Clear();
+            foreach (ListViewItem item in TrackList.SelectedItems)
+                // TODO
+                SelectedNames.Add(Conversions.ToString(item.SubItems.Add(new ListViewItem.ListViewSubItem()).Text));
             if (MessageBox.Show(string.Format("Are you sure you want to delete {0}?", string.Join(", ", SelectedNames)), "Delete Track?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 foreach (var item in SelectedNames)
@@ -1017,7 +1021,7 @@ namespace SLAM
             foreach (var SelectedIndex in TrackList.SelectedItems)
             {
                 var Game = GetCurrentGame();
-                Game.tracks[Conversions.ToInteger(SelectedIndex.index)].hotkey = Constants.vbNullString;
+                Game.tracks[Conversions.ToInteger(SelectedIndex)].hotkey = Constants.vbNullString;
                 SaveTrackKeys(GetCurrentGame());
                 ReloadTracks(GetCurrentGame());
             }
