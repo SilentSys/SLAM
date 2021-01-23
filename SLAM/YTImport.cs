@@ -15,6 +15,8 @@ namespace SLAM
 {
     public partial class YTImport
     {
+        const string tempPath = @"temp\";
+
         public YTImport()
         {
             InitializeComponent();
@@ -47,21 +49,23 @@ namespace SLAM
             }
         }
 
+        // returns path where the video has been downloaded to
+        private string DownloadVideo(string url)
+        {
+            YouTube youTube = YouTube.Default;
+            var video = youTube.GetVideo(url);
+
+            string filename = string.Join("", video.Title.Split(Path.GetInvalidFileNameChars()));
+            File.WriteAllBytes(Path.GetFullPath(tempPath + filename + video.FileExtension), video.GetBytes());
+            return Path.GetFullPath(@"temp\" + filename + video.FileExtension);
+        }
+
         private void DownloadWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                YouTube youTube = YouTube.Default;
-                var video = youTube.GetVideo((string)e.Argument);
-
-                if (!Directory.Exists(Path.GetFullPath(@"temp\")))
-                {
-                    Directory.CreateDirectory(Path.GetFullPath(@"temp\"));
-                }
-
-                string filename = string.Join("", video.Title.Split(Path.GetInvalidFileNameChars()));
-                File.WriteAllBytes(Path.GetFullPath(@"temp\" + filename + video.FileExtension), video.GetBytes());
-                e.Result = Path.GetFullPath(@"temp\" + filename + video.FileExtension);
+                CheckForTempDir();
+                e.Result = DownloadVideo((string)e.Argument);
 
             }
             catch (Exception ex)
@@ -97,6 +101,18 @@ namespace SLAM
         private void YTImport_Load(object sender, EventArgs e)
         {
             TextBox1.Select();
+        }
+        private bool TempDirectoryExists()
+        {
+            return Directory.Exists(Path.GetFullPath(tempPath));
+        }
+        
+        private void CheckForTempDir()
+        {
+            if (!TempDirectoryExists())
+            {
+                Directory.CreateDirectory(Path.GetFullPath(@"temp\"));
+            }
         }
     }
 }
