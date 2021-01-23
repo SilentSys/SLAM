@@ -9,12 +9,14 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using YoutubeExtractor;
+using VideoLibrary;
 
 namespace SLAM
 {
     public partial class YTImport
     {
+        const string tempPath = @"temp\";
+
         public YTImport()
         {
             InitializeComponent();
@@ -47,39 +49,24 @@ namespace SLAM
             }
         }
 
+        // returns path where the video has been downloaded to
+        private string DownloadVideo(string url)
+        {
+            YouTube youTube = YouTube.Default;
+            var video = youTube.GetVideo(url);
+
+            string filename = string.Join("", video.Title.Split(Path.GetInvalidFileNameChars()));
+            File.WriteAllBytes(Path.GetFullPath(tempPath + filename + video.FileExtension), video.GetBytes());
+            return Path.GetFullPath(@"temp\" + filename + video.FileExtension);
+        }
+
         private void DownloadWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(Conversions.ToString(e.Argument)).OrderBy(vid => vid.Resolution);
-                var video = videoInfos.First(info => info.AdaptiveType == AdaptiveType.Audio && info.AudioType == AudioType.Aac || info.AdaptiveType == AdaptiveType.None && info.VideoType == VideoType.Mp4 && info.AudioBitrate >= 128);
-                if (Information.IsNothing(video))
-                {
-                    if (videoInfos.Any(info => info.AdaptiveType == AdaptiveType.None && info.VideoType == VideoType.Mp4))
-                    {
-                        video = videoInfos.First(info => info.AdaptiveType == AdaptiveType.None && info.VideoType == VideoType.Mp4);
-                    }
-                    else
-                    {
-                        throw new Exception("Could not find download.");
-                    }
-                }
+                CheckForTempDir();
+                e.Result = DownloadVideo((string)e.Argument);
 
-                if (video.RequiresDecryption)
-                {
-                    DownloadUrlResolver.DecryptDownloadUrl(video);
-                }
-
-                if (!Directory.Exists(Path.GetFullPath(@"temp\")))
-                {
-                    Directory.CreateDirectory(Path.GetFullPath(@"temp\"));
-                }
-
-                string filename = string.Join("", video.Title.Split(Path.GetInvalidFileNameChars()));
-                var VideoDownloader = new VideoDownloader(video, Path.GetFullPath(@"temp\" + filename + video.VideoExtension));
-                VideoDownloader.DownloadProgressChanged += (send, args) => DownloadWorker.ReportProgress(Convert.ToInt32(args.ProgressPercentage));
-                VideoDownloader.Execute();
-                e.Result = Path.GetFullPath(@"temp\" + filename + video.VideoExtension);
             }
             catch (Exception ex)
             {
@@ -114,6 +101,18 @@ namespace SLAM
         private void YTImport_Load(object sender, EventArgs e)
         {
             TextBox1.Select();
+        }
+        private bool TempDirectoryExists()
+        {
+            return Directory.Exists(Path.GetFullPath(tempPath));
+        }
+        
+        private void CheckForTempDir()
+        {
+            if (!TempDirectoryExists())
+            {
+                Directory.CreateDirectory(Path.GetFullPath(@"temp\"));
+            }
         }
     }
 }
